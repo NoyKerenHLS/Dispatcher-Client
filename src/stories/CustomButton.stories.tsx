@@ -16,6 +16,5 @@ export const Primary: Story = {
     backgroundColor: "#0058B9",
     textColor: "#ffffff",
     icon: rightArrow,
-    size: '14px'
   },
 };
