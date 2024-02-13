@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import CustomButton from "./CustomButton";
-import { ButtonTypes } from "../../enums/ButtonTyps";
+import CustomButton from "./Button";
 
 const meta: Meta<typeof CustomButton> = {
   component: CustomButton,
@@ -12,8 +11,7 @@ type Story = StoryObj<typeof CustomButton>;
 
 export const Primary: Story = {
   args: {
-    children: "navigate",
-    withIcon: true,
-    type: ButtonTypes.primary,
+    label: "navigate",
+    buttonType: "primary",
   },
 };

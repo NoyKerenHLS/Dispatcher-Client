@@ -1,7 +1,7 @@
-import { ButtonType, ButtonStyle } from "./types";
-import { Colors } from "../../enums/Colors";
+import { ButtonType, ButtonStyleProp } from "./types";
+import { Colors } from "../../globalStyle/Colors";
 
-const primaryButton: ButtonStyle = {
+const primaryButton: ButtonStyleProp = {
   bgcolor: Colors.royalBlue,
   borderRadius: "20px",
   color: Colors.white,
@@ -10,7 +10,7 @@ const primaryButton: ButtonStyle = {
   fontSize: "14px",
 };
 
-const secondaryButton: ButtonStyle = {
+const secondaryButton: ButtonStyleProp = {
   bgcolor: Colors.lavenderGray,
   borderRadius: "20px",
   color: Colors.slateBlue,
@@ -19,7 +19,7 @@ const secondaryButton: ButtonStyle = {
   fontSize: "14px",
 };
 
-const textButton: ButtonStyle = {
+const textButton: ButtonStyleProp = {
   bgcolor: Colors.white,
   borderRadius: "20px",
   color: Colors.slateBlue,
@@ -28,7 +28,7 @@ const textButton: ButtonStyle = {
   fontSize: "14px",
 };
 
-export const buttonType: ButtonType = {
+export const buttonStyles: ButtonType = {
   primary: primaryButton,
   secondary: secondaryButton,
   text: textButton,

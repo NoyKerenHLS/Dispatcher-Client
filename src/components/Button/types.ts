@@ -1,4 +1,4 @@
-export type ButtonStyle = {
+export type ButtonStyleProp = {
   bgcolor: string;
   borderRadius: string;
   color: string;
@@ -8,7 +8,9 @@ export type ButtonStyle = {
 };
 
 export type ButtonType = {
-  primary: ButtonStyle;
-  secondary: ButtonStyle;
-  text: ButtonStyle;
+  primary: ButtonStyleProp;
+  secondary: ButtonStyleProp;
+  text: ButtonStyleProp;
 };
+
+export type AppButtons = "primary" | "secondary" | "text";
