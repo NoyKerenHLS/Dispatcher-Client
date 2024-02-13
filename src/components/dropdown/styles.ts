@@ -1,6 +1,7 @@
-import { DropDownStyleProps, DropDownType } from "./types";
+import { type SxProps } from "@mui/material";
+import { type AppDropDowns } from "./types";
 
-const filterDropDown: DropDownStyleProps = {
+const filterDropDown: SxProps = {
   height: "47px",
   borderRadius: "10px",
   borderColor: "white", //color enum
@@ -20,7 +21,7 @@ const filterDropDown: DropDownStyleProps = {
     },
 };
 
-const autocompleteDropDown: DropDownStyleProps = {
+const autocompleteDropDown: SxProps = {
   height: "40px",
   borderColor: "white", //color enum
   bgcolor: "white",
@@ -35,7 +36,7 @@ const autocompleteDropDown: DropDownStyleProps = {
   },
 };
 
-export const dropDownStyles: DropDownType = {
+export const dropDownStyles: Record<AppDropDowns, SxProps> = {
   filter: filterDropDown,
   autocomplete: autocompleteDropDown,
 };

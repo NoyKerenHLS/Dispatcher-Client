@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import CustomDropDown from "./CustomDropDown";
+import CustomDropDown from "./Dropdown";
 
 const meta: Meta<typeof CustomDropDown> = {
   component: CustomDropDown,
