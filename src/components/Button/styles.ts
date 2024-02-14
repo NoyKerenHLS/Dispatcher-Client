@@ -1,7 +1,8 @@
-import { ButtonType, ButtonStyleProp } from "./types";
+import { AppButtons } from "./types";
 import { Colors } from "../../globalStyle/Colors";
+import { type SxProps } from "@mui/material";
 
-const primaryButton: ButtonStyleProp = {
+const primaryButton: SxProps = {
   bgcolor: Colors.royalBlue,
   borderRadius: "20px",
   color: Colors.white,
@@ -10,7 +11,7 @@ const primaryButton: ButtonStyleProp = {
   fontSize: "14px",
 };
 
-const secondaryButton: ButtonStyleProp = {
+const secondaryButton: SxProps = {
   bgcolor: Colors.lavenderGray,
   borderRadius: "20px",
   color: Colors.slateBlue,
@@ -19,7 +20,7 @@ const secondaryButton: ButtonStyleProp = {
   fontSize: "14px",
 };
 
-const textButton: ButtonStyleProp = {
+const textButton: SxProps = {
   bgcolor: Colors.white,
   borderRadius: "20px",
   color: Colors.slateBlue,
@@ -28,7 +29,7 @@ const textButton: ButtonStyleProp = {
   fontSize: "14px",
 };
 
-export const buttonStyles: ButtonType = {
+export const buttonStyles: Record<AppButtons, SxProps> = {
   primary: primaryButton,
   secondary: secondaryButton,
   text: textButton,
