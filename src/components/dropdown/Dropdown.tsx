@@ -1,20 +1,39 @@
 import { useState } from "react";
-import { IconButton, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import {
+  IconButton,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  SelectProps,
+} from "@mui/material";
 import { AppDropDowns } from "./types";
-import { dropDownStyles, menuItemStyle } from "./styles";
+import {
+  dropDownStyles,
+  menuItemStyle,
+  menuStyle,
+  menuPaperStyle,
+} from "./styles";
+import dropdownArrow from "../../assets/Dropdown/dropdownArrow.svg";
+import Icon from "../Icon/Icon";
 
-interface Props {
+interface Props extends SelectProps {
   label: string;
   items: string[];
-  type?: AppDropDowns;
+  dropdownType?: AppDropDowns;
+  icon?: string;
 }
 
-const Dropdown = ({ label, items, type = "filter" }: Props) => {
+const Dropdown = ({
+  label,
+  items,
+  dropdownType = "filter",
+  icon = dropdownArrow,
+}: Props) => {
   const [chosenItem, setChosenItem] = useState("");
   const [open, setOpen] = useState(false);
 
-  const style = dropDownStyles[type];
-  const fontWeight = type === "autocomplete" ? "bold" : "unset";
+  const style = dropDownStyles[dropdownType];
+  const fontWeight = dropdownType === "autocomplete" ? "bold" : "unset";
 
   const handleChange = (event: SelectChangeEvent) => {
     setChosenItem(event.target.value);
@@ -28,11 +47,10 @@ const Dropdown = ({ label, items, type = "filter" }: Props) => {
     setOpen(false);
   };
 
-  //TODO icon instand of img
   const ArrowIconButton = () => {
     return (
       <IconButton sx={{ "&:hover": { bgcolor: "white" } }} onClick={handleOpen}>
-        {/* <img src={dropdownArrow} alt="dropdownArrow" /> */}
+        <Icon iconImage={icon} />
       </IconButton>
     );
   };
@@ -54,10 +72,10 @@ const Dropdown = ({ label, items, type = "filter" }: Props) => {
       onClose={handleClose}
       sx={style}
       MenuProps={{
-        sx: {
-          maxHeight: "300px",
-          marginTop: "6px",
+        PaperProps: {
+          sx: menuPaperStyle,
         },
+        sx: menuStyle,
       }}
     >
       {items.map((item) => (
