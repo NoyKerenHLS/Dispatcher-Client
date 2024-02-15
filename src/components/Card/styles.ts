@@ -4,7 +4,6 @@ import { type SxProps } from "@mui/material";
 
 const articleCard: SxProps = {
   maxWidth: "980px",
-  height: "240px",
   border: "1px solid",
   borderColor: Colors.lavenderGray,
   borderRadius: "20px",

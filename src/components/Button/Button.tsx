@@ -14,14 +14,19 @@ const Button = ({
   label,
   icon = rightArrow,
   buttonType = "primary",
+  ...props
 }: Props) => {
   const buttonStyle = buttonStyles[buttonType];
   const variant = buttonType === "primary" ? "contained" : "text";
 
   return (
-    <MuiButton variant={variant} sx={buttonStyle}>
+    <MuiButton
+      {...props}
+      variant={variant}
+      sx={buttonStyle}
+      endIcon={<Icon iconImage={icon} />}
+    >
       {label}
-      <Icon iconImage={icon} style={{ paddingLeft: "10px" }} />
     </MuiButton>
   );
 };
