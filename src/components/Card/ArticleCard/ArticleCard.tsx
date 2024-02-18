@@ -2,30 +2,44 @@ import { Card } from "../Card";
 import Button from "../../Button/Button";
 import { Box, Typography, Stack } from "@mui/material";
 import { ArticleData } from "./types";
-import { commentStyle, descriptionStyle, titleStyle } from "./styles";
+import {
+  articleCardStyle,
+  commentStyle,
+  descriptiontStyle,
+  titleStyle,
+} from "./styles";
 
 interface Props {
   data: ArticleData;
 }
 
 const ArticleCard = ({ data }: Props) => {
-  const image = data.urlToImage ? data.urlToImage : "";
+  const image = data.urlToImage
+    ? data.urlToImage
+    : "https://techcrunch.com/wp-content/uploads/2023/05/GettyImages-1467844599.jpg?w=1024";
 
   return (
-    <Card cardType="article">
-      <Stack direction={{ xs: "column", md: "row" }}>
+    <Card sx={articleCardStyle}>
+      <Stack direction={{ xs: "column", sm: "row" }} height="100%">
         <Box flex={2}>
           <img
-            style={{ maxWidth: "100%", height: "100%" }}
+            style={{ width: "100%", height: "100%" }}
             src={image}
             alt={image}
           />
         </Box>
-        <Box sx={{ padding: "16px", width: 1 }} flex={5}>
+
+        <Stack
+          direction={"column"}
+          sx={{ padding: "16px", width: "100%" }}
+          flex={5}
+        >
           {data.publishedAt && (
             <Typography sx={commentStyle}>{data.publishedAt}</Typography>
           )}
+
           {data.title && <Typography sx={titleStyle}>{data.title}</Typography>}
+
           <Stack direction={"row"} sx={commentStyle}>
             {
               <Typography>
@@ -33,23 +47,19 @@ const ArticleCard = ({ data }: Props) => {
               </Typography>
             }
           </Stack>
+
           {data.description && (
-            <Typography sx={descriptionStyle}>{data.description}</Typography>
+            <Typography sx={descriptiontStyle}>{data.description}</Typography>
           )}
-          <Stack
-            direction={"row"}
-            sx={{
-              justifyContent: { md: "flex-end" },
-            }}
-          >
-            <Button
-              label="navigate to dispatch"
-              component="a"
-              href={data.url!}
-              disabled={!data.url}
-            />
-          </Stack>
-        </Box>
+
+          <Button
+            sx={{ mt: "auto", alignSelf: "flex-end" }}
+            label="navigate to dispatch"
+            component="a"
+            href={data.url!}
+            disabled={!data.url}
+          />
+        </Stack>
       </Stack>
     </Card>
   );

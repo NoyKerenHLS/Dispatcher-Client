@@ -14,16 +14,18 @@ const Button = ({
   label,
   icon = rightArrow,
   buttonType = "primary",
+  sx,
   ...props
 }: Props) => {
   const buttonStyle = buttonStyles[buttonType];
+  const styledComb = { ...(sx ?? {}), ...buttonStyle };
   const variant = buttonType === "primary" ? "contained" : "text";
 
   return (
     <MuiButton
       {...props}
       variant={variant}
-      sx={buttonStyle}
+      sx={styledComb}
       endIcon={<Icon iconImage={icon} />}
     >
       {label}
