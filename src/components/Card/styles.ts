@@ -13,7 +13,6 @@ const articleCard: SxProps = {
 
 const widgetCard: SxProps = {
   maxWidth: "412px",
-  height: "380px",
   border: "1px solid",
   borderColor: Colors.lavenderGray,
   borderRadius: "20px",
