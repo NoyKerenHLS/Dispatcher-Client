@@ -5,6 +5,8 @@ import {
   IconButton,
   Paper,
   Box,
+  AutocompleteProps,
+  SxProps,
 } from "@mui/material";
 import Icon from "../Icon/Icon";
 import search from "../../assets/autocomplete/search.svg";
@@ -19,11 +21,20 @@ import { useState } from "react";
 interface Props {
   options: string[];
   icon?: string;
+  sx?: SxProps;
+  itemListSx?: SxProps;
   handleSearch: (value: string) => void;
 }
 
-const Autocomplete = ({ options, icon = search, handleSearch }: Props) => {
+const Autocomplete = ({
+  options,
+  icon = search,
+  sx,
+  itemListSx,
+  handleSearch,
+}: Props) => {
   const headLine = "Recent Searches";
+  const styledComb = { ...(sx ?? {}), ...searchBarAutocompleteStyle };
 
   const [inputValue, setInputValue] = useState<string>("");
 
@@ -33,7 +44,7 @@ const Autocomplete = ({ options, icon = search, handleSearch }: Props) => {
 
   return (
     <MuiAutocomplete
-      sx={searchBarAutocompleteStyle}
+      sx={styledComb}
       freeSolo
       disableClearable
       options={[headLine, ...options]}
@@ -41,7 +52,9 @@ const Autocomplete = ({ options, icon = search, handleSearch }: Props) => {
       onInputChange={(event, value) => {
         setInputValue(value);
       }}
-      PaperComponent={(props) => <Paper {...props} sx={{ marginTop: "6px" }} />}
+      PaperComponent={(props) => (
+        <Paper {...props} sx={{ ...itemListSx, marginTop: "6px" }} />
+      )}
       renderOption={(props, option, index) => (
         <Box key={index + option}>
           {option === headLine ? (
