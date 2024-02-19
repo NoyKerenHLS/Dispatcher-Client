@@ -2,7 +2,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { Card } from "../Card";
 import Divider from "../../Divider/Divider";
 import { Colors } from "../../../globalStyle/Colors";
-import { titleStyle } from "./styles";
+import { titleStyle, widgetCardStyle } from "./styles";
 
 interface Props {
   title: string;
@@ -11,7 +11,7 @@ interface Props {
 
 const WidgetCard = ({ title, children }: Props) => {
   return (
-    <Card cardType="widget">
+    <Card sx={widgetCardStyle}>
       <Stack sx={{ padding: "25px" }}>
         <Typography sx={titleStyle}>{title}</Typography>
         <Divider color={Colors.slateBlue} width="20px" height="4px" />
