@@ -1,17 +1,15 @@
 import { Card as MuiCard, CardProps } from "@mui/material";
-import { AppCards } from "./types";
-import { cardStyles } from "./styles";
+import { cardStyle } from "./styles";
 
 interface Props extends CardProps {
   children: React.ReactNode;
-  cardType: AppCards;
 }
 
-export const Card = ({ children, cardType, ...props }: Props) => {
-  const style = cardStyles[cardType];
+export const Card = ({ children, sx, ...props }: Props) => {
+  const styledComb = { ...(sx ?? {}), ...cardStyle };
 
   return (
-    <MuiCard sx={style} {...props}>
+    <MuiCard sx={styledComb} {...props}>
       {children}
     </MuiCard>
   );
