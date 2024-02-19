@@ -66,3 +66,7 @@ export const menuItemStyle: SxProps = {
   fontSize: "12px",
   pl: "25px",
 };
+
+export const iconButtonStyle: SxProps = {
+  "&:hover": { bgcolor: "white" },
+};

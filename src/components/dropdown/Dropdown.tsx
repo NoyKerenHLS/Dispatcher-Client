@@ -6,19 +6,20 @@ import {
   SelectChangeEvent,
   SelectProps,
 } from "@mui/material";
-import { AppDropDowns } from "./types";
+import { AppDropDowns, Item } from "./types";
 import {
   dropDownStyles,
   menuItemStyle,
   menuStyle,
   menuPaperStyle,
+  iconButtonStyle,
 } from "./styles";
 import dropdownArrow from "../../assets/Dropdown/dropdownArrow.svg";
 import Icon from "../Icon/Icon";
 
 interface Props extends SelectProps {
   label: string;
-  items: string[];
+  items: Item[];
   dropdownType?: AppDropDowns;
   icon?: string;
 }
@@ -29,14 +30,14 @@ const Dropdown = ({
   dropdownType = "filter",
   icon = dropdownArrow,
 }: Props) => {
-  const [chosenItem, setChosenItem] = useState("");
-  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState<string>("");
+  const [open, setOpen] = useState<boolean>(false);
 
   const style = dropDownStyles[dropdownType];
   const fontWeight = dropdownType === "autocomplete" ? "bold" : "unset";
 
   const handleChange = (event: SelectChangeEvent) => {
-    setChosenItem(event.target.value);
+    setSelected(event.target.value);
   };
 
   const handleOpen = () => {
@@ -49,7 +50,7 @@ const Dropdown = ({
 
   const ArrowIconButton = () => {
     return (
-      <IconButton sx={{ "&:hover": { bgcolor: "white" } }} onClick={handleOpen}>
+      <IconButton sx={iconButtonStyle} onClick={handleOpen}>
         <Icon iconImage={icon} />
       </IconButton>
     );
@@ -58,7 +59,7 @@ const Dropdown = ({
   return (
     <Select
       displayEmpty
-      value={chosenItem}
+      value={selected}
       onChange={handleChange}
       renderValue={(selected) => {
         if (!selected) {
@@ -79,8 +80,8 @@ const Dropdown = ({
       }}
     >
       {items.map((item) => (
-        <MenuItem key={item} value={item} sx={menuItemStyle}>
-          {item}
+        <MenuItem key={item.id} value={item.item} sx={menuItemStyle}>
+          {item.item}
         </MenuItem>
       ))}
     </Select>
