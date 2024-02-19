@@ -1,7 +1,6 @@
 import { SxProps } from "@mui/material";
 
 export const widgetCardStyle: SxProps = {
-  height: "498px",
   width: "412px",
 };
 
