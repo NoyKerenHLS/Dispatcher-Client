@@ -13,6 +13,5 @@ type Story = StoryObj<typeof Card>;
 export const Primary: Story = {
   args: {
     children: <Box></Box>,
-    cardType: "article",
   },
 };
