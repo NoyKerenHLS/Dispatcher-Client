@@ -12,7 +12,7 @@ const PieChart = () => {
   const percentage = (total: number, value: number) => {
     return Math.round((value / total) * 100);
   };
-  const COLORS = ["#343A6E", "#030035", "#DDF3FE", "#D54958"];
+  const COLORS = ["#343A6E", "#030035", "#DDF3FE", "#FF9800"];
 
   const legandData: Payload[] = data.map((entry, index) => ({
     value: (
@@ -37,6 +37,8 @@ const PieChart = () => {
         innerRadius={60}
         outerRadius={70}
         dataKey="value"
+        fill="#D54958"
+        isAnimationActive={false}
       >
         {data.map((entry, index) => (
           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
