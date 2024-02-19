@@ -1,7 +1,7 @@
 import { Colors } from "../../globalStyle/Colors";
 import { type SxProps } from "@mui/material";
 
-export const searchBarAutocomplete: SxProps = {
+export const searchBarAutocompleteStyle: SxProps = {
   width: "300px",
   bgcolor: Colors.white,
   "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {

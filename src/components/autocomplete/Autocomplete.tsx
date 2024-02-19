@@ -9,7 +9,11 @@ import {
 import Icon from "../Icon/Icon";
 import search from "../../assets/autocomplete/search.svg";
 import XIcon from "../../assets/autocomplete/XIcon.svg";
-import { headLineStyle, listItemStyle, searchBarAutocomplete } from "./styles";
+import {
+  headLineStyle,
+  listItemStyle,
+  searchBarAutocompleteStyle,
+} from "./styles";
 import { useState } from "react";
 
 interface Props {
@@ -20,9 +24,8 @@ interface Props {
 
 const Autocomplete = ({ options, icon = search, handleSearch }: Props) => {
   const headLine = "Recent Searches";
-  const style = searchBarAutocomplete;
 
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState<string>("");
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter") handleSearch(inputValue);
@@ -30,7 +33,7 @@ const Autocomplete = ({ options, icon = search, handleSearch }: Props) => {
 
   return (
     <MuiAutocomplete
-      sx={style}
+      sx={searchBarAutocompleteStyle}
       freeSolo
       disableClearable
       options={[headLine, ...options]}
