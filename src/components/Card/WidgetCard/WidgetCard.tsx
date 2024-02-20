@@ -1,9 +1,8 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { Card } from "../Card";
-import Divider from "../../Divider/Divider";
+import Divider from "../../divider/Divider";
 import { Colors } from "../../../globalStyle/Colors";
 import { titleStyle, widgetCardStyle } from "./styles";
-
 interface Props {
   title: string;
   children: React.ReactNode;

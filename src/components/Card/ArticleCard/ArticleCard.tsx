@@ -1,5 +1,5 @@
 import { Card } from "../Card";
-import Button from "../../Button/Button";
+import Button from "../../button/Button";
 import { Box, Typography, Stack } from "@mui/material";
 import { ArticleData } from "./types";
 import {
