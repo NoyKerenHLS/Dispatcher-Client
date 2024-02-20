@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Box, Divider, Stack } from "@mui/material";
 import Autocomplete from "../autocomplete/Autocomplete";
 import Dropdown from "../dropdown/Dropdown";
 import { Item } from "../dropdown/types";
@@ -18,7 +18,17 @@ const SearchBar = ({
   handleSearch,
 }: Props) => {
   return (
-    <Stack direction={"row"} sx={searchBarStlyle}>
+    <Stack
+      direction={"row"}
+      sx={searchBarStlyle}
+      divider={
+        <Box
+          height="40px"
+          component="hr"
+          sx={{ border: "0.75px solid #D9DBE9" }}
+        />
+      }
+    >
       <Autocomplete
         options={recentSearches}
         handleSearch={handleSearch}
