@@ -14,14 +14,13 @@ import {
   menuPaperStyle,
   iconButtonStyle,
 } from "./styles";
-import dropdownArrow from "../../assets/Dropdown/dropdownArrow.svg";
-import Icon from "../Icon/Icon";
+import ArrowIcon from "../Icons/dropDown/downArrowIcon";
 
 interface Props extends SelectProps {
   label: string;
   items: Item[];
   dropdownType?: AppDropDowns;
-  icon?: string;
+  icon?: React.ReactNode;
 }
 
 const Dropdown = ({
@@ -29,13 +28,12 @@ const Dropdown = ({
   items,
   sx,
   dropdownType = "filter",
-  icon = dropdownArrow,
+  icon,
 }: Props) => {
   const [selected, setSelected] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
 
   const styledComb = { ...(sx ?? {}), ...dropDownStyles[dropdownType] };
-  const style = dropDownStyles[dropdownType];
   const menuStyle = menuDropDownStyle[dropdownType];
   const fontWeight = dropdownType === "autocomplete" ? "bold" : "unset";
 
@@ -54,7 +52,7 @@ const Dropdown = ({
   const ArrowIconButton = () => {
     return (
       <IconButton sx={iconButtonStyle} onClick={handleOpen}>
-        <Icon iconImage={icon} />
+        {icon ? icon : <ArrowIcon />}
       </IconButton>
     );
   };
