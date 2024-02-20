@@ -35,7 +35,7 @@ const Dropdown = ({
 
   const styledComb = { ...(sx ?? {}), ...dropDownStyles[dropdownType] };
   const menuStyle = menuDropDownStyle[dropdownType];
-  const fontWeight = dropdownType === "autocomplete" ? "bold" : "unset";
+  const fontWeight = dropdownType === "autocomplete" ? 500 : 400;
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelected(event.target.value);
@@ -66,7 +66,7 @@ const Dropdown = ({
         if (!selected) {
           return <p style={{ fontWeight: fontWeight }}>{label}</p>;
         }
-        return selected;
+        return <p style={{ fontWeight: fontWeight }}>{selected}</p>;
       }}
       IconComponent={ArrowIconButton}
       open={open}
