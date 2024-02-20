@@ -1,16 +1,22 @@
 import { Stack } from "@mui/material";
-import { PieChart as RechartsPieChart, Pie, Cell, Legend } from "recharts";
+import { Pie, Cell, Legend, Label } from "recharts";
 import { Payload } from "recharts/types/component/DefaultLegendContent";
 import CircleIcon from "@mui/icons-material/Circle";
 import { percentage } from "./utils";
 import { PieChartData } from "./types";
-import { COLORS, legendNameStyle, legendValStyle } from "./styles";
+import {
+  COLORS,
+  StyledPieChart,
+  legendNameStyle,
+  legendValStyle,
+} from "./styles";
 
 interface Props {
   data: PieChartData[];
+  label: string;
 }
 
-const PieChart = ({ data }: Props) => {
+const PieChart = ({ data, label }: Props) => {
   const sumValues = data.reduce((acc, entry) => acc + entry.value, 0);
 
   const payload: Payload[] = data.map((entry, index) => ({
@@ -28,7 +34,7 @@ const PieChart = ({ data }: Props) => {
   }));
 
   return (
-    <RechartsPieChart width={372} height={395}>
+    <StyledPieChart width={372} height={395} style={{}}>
       <Pie
         data={data}
         cx="50%"
@@ -38,10 +44,20 @@ const PieChart = ({ data }: Props) => {
         dataKey="value"
         fill="#D54958"
         isAnimationActive={false}
+        stroke=""
       >
         {data.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          <Cell
+            style={{ outline: "none" }}
+            key={`cell-${index}`}
+            fill={COLORS[index % COLORS.length]}
+          />
         ))}
+        <Label
+          value={label}
+          position="center"
+          style={{ color: "#030035" }}
+        ></Label>
       </Pie>
 
       <Legend
@@ -61,7 +77,7 @@ const PieChart = ({ data }: Props) => {
           </Stack>
         )}
       />
-    </RechartsPieChart>
+    </StyledPieChart>
   );
 };
 
