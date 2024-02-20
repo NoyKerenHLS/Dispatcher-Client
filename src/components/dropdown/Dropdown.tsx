@@ -10,7 +10,7 @@ import { AppDropDowns, Item } from "./types";
 import {
   dropDownStyles,
   menuItemStyle,
-  menuStyle,
+  menuDropDownStyle,
   menuPaperStyle,
   iconButtonStyle,
 } from "./styles";
@@ -27,13 +27,16 @@ interface Props extends SelectProps {
 const Dropdown = ({
   label,
   items,
+  sx,
   dropdownType = "filter",
   icon = dropdownArrow,
 }: Props) => {
   const [selected, setSelected] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
 
+  const styledComb = { ...(sx ?? {}), ...dropDownStyles[dropdownType] };
   const style = dropDownStyles[dropdownType];
+  const menuStyle = menuDropDownStyle[dropdownType];
   const fontWeight = dropdownType === "autocomplete" ? "bold" : "unset";
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -71,7 +74,7 @@ const Dropdown = ({
       open={open}
       onOpen={handleOpen}
       onClose={handleClose}
-      sx={style}
+      sx={styledComb}
       MenuProps={{
         PaperProps: {
           sx: menuPaperStyle,

@@ -42,9 +42,19 @@ export const dropDownStyles: Record<AppDropDowns, SxProps> = {
   autocomplete: autocompleteDropDown,
 };
 
-export const menuStyle: SxProps = {
+const filterMenuStyle: SxProps = {
   maxHeight: "220px",
   marginTop: "6px",
+};
+
+const autoCompleteMenuStyle: SxProps = {
+  maxHeight: "220px",
+  marginTop: "12px",
+};
+
+export const menuDropDownStyle: Record<AppDropDowns, SxProps> = {
+  filter: filterMenuStyle,
+  autocomplete: autoCompleteMenuStyle,
 };
 
 export const menuPaperStyle: SxProps = {
