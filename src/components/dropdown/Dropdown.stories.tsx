@@ -9,16 +9,10 @@ export default meta;
 type Story = StoryObj<typeof CustomDropDown>;
 
 const items = [
-  "Item number 1",
-  "Item number 2",
-  "Item number 3",
-  "Item number 4",
-  "Item number 5",
-  "Item number 6",
-  "Item number 7",
-  "Item number 8",
-  "Item number 9",
-  "Item number 10",
+  { id: "1", item: "item num 1" },
+  { id: "2", item: "item num 2" },
+  { id: "3", item: "item num 3" },
+  { id: "4", item: "item num 4" },
 ];
 
 export const Primary: Story = {

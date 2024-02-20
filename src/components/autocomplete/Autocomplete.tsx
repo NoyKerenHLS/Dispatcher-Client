@@ -5,22 +5,21 @@ import {
   IconButton,
   Paper,
   Box,
-  AutocompleteProps,
   SxProps,
 } from "@mui/material";
-import Icon from "../Icon/Icon";
-import search from "../../assets/autocomplete/search.svg";
-import XIcon from "../../assets/autocomplete/XIcon.svg";
+import SearchIcon from "../Icons/autocomplete/SearchIcon";
+import XIcon from "../Icons/autocomplete/XIcon";
+
 import {
   headLineStyle,
   listItemStyle,
   searchBarAutocompleteStyle,
 } from "./styles";
-import { useState } from "react";
+import React, { useState } from "react";
 
 interface Props {
   options: string[];
-  icon?: string;
+  icon?: React.ReactNode;
   sx?: SxProps;
   itemListSx?: SxProps;
   handleSearch: (value: string) => void;
@@ -28,7 +27,7 @@ interface Props {
 
 const Autocomplete = ({
   options,
-  icon = search,
+  icon,
   sx,
   itemListSx,
   handleSearch,
@@ -70,7 +69,7 @@ const Autocomplete = ({
                   event.stopPropagation(), console.log("X clicked");
                 }}
               >
-                <Icon iconImage={XIcon}></Icon>
+                <XIcon />
               </IconButton>
             </li>
           )}
@@ -85,8 +84,8 @@ const Autocomplete = ({
             type: "search",
             placeholder: "Search",
             startAdornment: (
-              <InputAdornment position="start">
-                <Icon iconImage={icon} style={{ paddingLeft: "10px" }} />
+              <InputAdornment position="start" sx={{ paddingLeft: "10px" }}>
+                {icon ? icon : <SearchIcon />}
               </InputAdornment>
             ),
           }}
