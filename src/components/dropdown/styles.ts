@@ -26,7 +26,7 @@ const autocompleteDropDown: SxProps = {
   height: "40px",
   borderColor: Colors.white,
   bgcolor: Colors.white,
-  px: "15px",
+  px: "5px",
   color: Colors.slateBlue,
   fontSize: "14px",
   "& .MuiOutlinedInput-notchedOutline": {
@@ -35,6 +35,10 @@ const autocompleteDropDown: SxProps = {
   "& .MuiOutlinedInput-notchedOutline:not(:hover)": {
     border: "none",
   },
+  "& .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
+    {
+      pr: "5px",
+    },
 };
 
 export const dropDownStyles: Record<AppDropDowns, SxProps> = {

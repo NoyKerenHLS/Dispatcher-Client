@@ -1,10 +1,10 @@
-import { Box, Divider, Stack } from "@mui/material";
+import { Box, Stack, StackProps } from "@mui/material";
 import Autocomplete from "../autocomplete/Autocomplete";
 import Dropdown from "../dropdown/Dropdown";
 import { Item } from "../dropdown/types";
 import { searchBarStlyle } from "./styles";
 
-interface Props {
+interface Props extends StackProps {
   dropDownLabel: string;
   dropDownItems: Item[];
   recentSearches: string[];
@@ -16,11 +16,14 @@ const SearchBar = ({
   dropDownItems,
   recentSearches,
   handleSearch,
+  sx,
 }: Props) => {
+  const styledComb = { ...(sx ?? {}), ...searchBarStlyle };
+
   return (
     <Stack
       direction={"row"}
-      sx={searchBarStlyle}
+      sx={styledComb}
       divider={
         <Box
           height="40px"
