@@ -31,14 +31,18 @@ const ArticleCard = ({ data }: Props) => {
 
         <Stack
           direction={"column"}
-          sx={{ padding: "16px", width: "100%" }}
+          sx={{ padding: "16px", width: "100%", gap: "14px" }}
           flex={5}
         >
           {data.publishedAt && (
             <Typography sx={commentStyle}>{data.publishedAt}</Typography>
           )}
 
-          {data.title && <Typography sx={titleStyle}>{data.title}</Typography>}
+          {data.title && (
+            <Typography lineHeight={"22px"} sx={titleStyle}>
+              {data.title}
+            </Typography>
+          )}
 
           <Stack direction={"row"} sx={commentStyle}>
             {

@@ -1,5 +1,4 @@
 import { AppBar } from "@mui/material";
-import { Colors } from "../../globalStyle/Colors";
 import LogoIcon from "../Icons/navBar/LogoIcon";
 import Icon from "../Icons/Icon";
 import SearchBar from "../searchBar/SearchBar";

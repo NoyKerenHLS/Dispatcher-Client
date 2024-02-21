@@ -1,19 +1,19 @@
 import { Button as MuiButton, ButtonProps } from "@mui/material/";
-import rightArrow from "../../assets/Button/rightArrow.svg";
 import { buttonStyles } from "./styles";
 import { AppButtons } from "./types";
 import Icon from "../Icons/button/RightArrowIcon";
+import React from "react";
 
 interface Props extends ButtonProps {
   label: string;
-  icon?: string;
+  icon?: React.ReactNode;
   buttonType?: AppButtons;
 }
 
 const Button = ({
   label,
-  icon = rightArrow,
   buttonType = "primary",
+  icon,
   sx,
   ...props
 }: Props) => {
@@ -22,7 +22,12 @@ const Button = ({
   const variant = buttonType === "primary" ? "contained" : "text";
 
   return (
-    <MuiButton {...props} variant={variant} sx={styledComb} endIcon={<Icon />}>
+    <MuiButton
+      {...props}
+      variant={variant}
+      sx={styledComb}
+      endIcon={icon ? icon : <Icon />}
+    >
       {label}
     </MuiButton>
   );

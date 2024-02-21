@@ -8,17 +8,24 @@ export const articleCardStyle: SxProps = {
 
 export const titleStyle: SxProps = {
   fontSize: "18px",
-  py: "16px",
   fontWeight: "700",
   maxWidth: "470px",
   pr: "inherit",
+  overflow: "hidden",
+  display: "-webkit-box",
+  WebkitLineClamp: 2,
+  WebkitBoxOrient: "vertical",
 };
 
 export const descriptiontStyle: SxProps = {
   fontSize: "14px",
   color: Colors.slateBlue,
-  py: "14px",
   pr: "inherit",
+  lineHeight: "17px",
+  overflow: "hidden",
+  display: "-webkit-box",
+  WebkitLineClamp: 2,
+  WebkitBoxOrient: "vertical",
 };
 
 export const commentStyle: SxProps = {
