@@ -1,26 +1,24 @@
 import { AppBar } from "@mui/material";
-import { Colors } from "../../globalStyle/Colors";
 import LogoIcon from "../Icons/navBar/LogoIcon";
 import Icon from "../Icons/Icon";
 import SearchBar from "../searchBar/SearchBar";
-import { Item } from "../dropdown/types";
 import { logoStyle, navBarStyle, searchBarStyle } from "./styles";
+import { Item } from "../dropdown/types";
+
+const dropDownItems: Item[] = [
+  { id: "top", item: "Top Headlines" },
+  { id: "everything", item: "Eeverything" },
+];
+
+const recentSearches = [""]; // get from local storage
 
 interface Props {
   dropDownLabel: string;
-  dropDownItems: Item[];
-  recentSearches: string[];
   handleSearch: (value: string) => void;
   logo?: React.ReactNode;
 }
 
-const NavBar = ({
-  dropDownLabel,
-  dropDownItems,
-  recentSearches,
-  handleSearch,
-  logo,
-}: Props) => {
+const NavBar = ({ dropDownLabel, handleSearch, logo }: Props) => {
   return (
     <AppBar sx={navBarStyle}>
       <Icon sx={logoStyle}>{logo ? logo : <LogoIcon />}</Icon>
