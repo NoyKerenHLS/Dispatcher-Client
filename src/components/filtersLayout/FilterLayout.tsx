@@ -14,18 +14,15 @@ const FilterLayout = ({ dropDownsData }: Props) => {
       height={67}
       borderBottom={1}
       borderColor={Colors.lavenderGray}
+      gap={"20px"}
     >
-      {dropDownsData.map((data, index) =>
-        index === 0 ? (
-          <Dropdown label={data.label} items={data.items}></Dropdown>
-        ) : (
-          <Dropdown
-            label={data.label}
-            items={data.items}
-            sx={{ ml: "20px" }}
-          ></Dropdown>
-        )
-      )}
+      {dropDownsData.map((data) => (
+        <Dropdown
+          key={data.label}
+          label={data.label}
+          items={data.items}
+        ></Dropdown>
+      ))}
     </Stack>
   );
 };
