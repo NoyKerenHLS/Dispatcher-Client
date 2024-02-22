@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { Stack } from "@mui/material";
 import { Pie, Cell, Legend, Label } from "recharts";
 import { Payload } from "recharts/types/component/DefaultLegendContent";
@@ -13,10 +14,9 @@ import {
 
 interface Props {
   data: PieChartData[];
-  label: string;
 }
 
-const PieChart = ({ data, label }: Props) => {
+const PieChart: FC<Props> = ({ data }) => {
   const sumValues = data.reduce((acc, entry) => acc + entry.value, 0);
 
   const payload: Payload[] = data.map((entry, index) => ({
@@ -54,7 +54,7 @@ const PieChart = ({ data, label }: Props) => {
           />
         ))}
         <Label
-          value={label}
+          value={sumValues}
           position="center"
           style={{ color: "#030035" }}
         ></Label>
