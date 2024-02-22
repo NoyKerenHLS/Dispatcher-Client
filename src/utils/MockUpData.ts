@@ -1,3 +1,6 @@
+import { LineChartData } from "../components/chart/lineChart/types";
+import { PieChartData } from "../components/chart/pieChart/types";
+
 export const recentSearches = ["soccer", "football", "crypto", "israel"];
 export const autocompleteDropDown = [
   { id: "top", item: "Top Headlines" },
@@ -88,4 +91,19 @@ export const articlesData = [
     content:
       "Moon Alert\r\nAfter 8 a.m. Chicago time, there are no restrictions to shopping or important decisions. The moon is in Leo.\r\nAries (March 21-April 19)\r\nYou might experience challenges with romantic part… [+3787 chars]",
   },
+];
+
+export const pieChartData: PieChartData[] = [
+  { name: "NBC", value: 300 },
+  { name: "Vulture", value: 200 },
+  { name: "CNN", value: 100 },
+  { name: "ESPN", value: 300 },
+];
+
+export const lineChartData: LineChartData[] = [
+  { name: "MAR", value: 30 },
+  { name: "APR", value: 20 },
+  { name: "MAY", value: 50 },
+  { name: "JUN", value: 70 },
+  { name: "JUL", value: 60 },
 ];
