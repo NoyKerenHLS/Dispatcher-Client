@@ -20,6 +20,10 @@ const filterDropDown: SxProps = {
     {
       pr: "80px",
     },
+  "& .MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation8 MuiPopover-paper MuiMenu-paper MuiMenu-paper css-jkq4up-MuiPaper-root-MuiPopover-paper-MuiMenu-paper":
+    {
+      borderRadius: "20px",
+    },
 };
 
 const autocompleteDropDown: SxProps = {
@@ -73,6 +77,7 @@ export const menuPaperStyle: SxProps = {
     backgroundColor: Colors.slateBlue,
     borderRadius: "10px",
   },
+  borderRadius: "10px",
 };
 
 export const menuItemStyle: SxProps = {
