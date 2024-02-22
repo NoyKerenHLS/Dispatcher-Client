@@ -57,7 +57,11 @@ const ArticleCard = ({ data }: Props) => {
           )}
 
           <Button
-            sx={{ mt: "auto", alignSelf: "flex-end" }}
+            sx={{
+              mt: "auto",
+              width: { xs: "90%", sm: "unset" },
+              alignSelf: { sm: "flex-end" },
+            }}
             label="navigate to dispatch"
             component="a"
             href={data.url!}

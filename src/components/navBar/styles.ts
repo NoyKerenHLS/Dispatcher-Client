@@ -7,8 +7,9 @@ export const navBarStyle = {
 };
 
 export const searchBarStyle = {
+  display: { xs: "none", sm: "block" },
   height: "50px",
   alignSelf: "center",
-  ml: "154px",
+  ml: { sm: "51px", md: "154px" },
 };
 export const logoStyle = { py: "12px", pl: "25px" };

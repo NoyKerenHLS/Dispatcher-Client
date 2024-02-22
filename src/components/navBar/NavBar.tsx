@@ -20,7 +20,7 @@ interface Props {
 
 const NavBar = ({ dropDownLabel, handleSearch, logo }: Props) => {
   return (
-    <AppBar sx={navBarStyle}>
+    <AppBar sx={navBarStyle} component={"nav"}>
       <Icon sx={logoStyle}>{logo ? logo : <LogoIcon />}</Icon>
       <SearchBar
         dropDownLabel={dropDownLabel}

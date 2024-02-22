@@ -3,7 +3,7 @@ import { Colors } from "../../../globalStyle/Colors";
 
 export const articleCardStyle: SxProps = {
   height: { sx: "450px", sm: "242px" },
-  width: { sx: "343px", sm: "728px", md: "988px" },
+  maxWidth: "988px",
 };
 
 export const titleStyle: SxProps = {

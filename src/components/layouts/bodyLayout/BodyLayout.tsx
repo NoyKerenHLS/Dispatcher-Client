@@ -1,23 +1,31 @@
 import { FC } from "react";
 import { ArticleData } from "../../card/articleCard/types";
-import { Box, Grid, Paper, Stack } from "@mui/material";
+import { Box, Grid, Paper, Stack, Typography } from "@mui/material";
 import ArticlesLayout from "./articlesLayout/ArticlesLayout";
 import WidgetLayout from "./widgetsLayout/WidgetLayout";
 import { lineChartData, pieChartData } from "../../../utils/MockUpData";
 
 interface Props {
   articlesData: ArticleData[];
+  label: string;
 }
 
 // will calculate charts data here based on articles data
 
-const BodyLayout: FC<Props> = ({ articlesData }) => {
+const BodyLayout: FC<Props> = ({ articlesData, label }) => {
   return (
     <Stack direction={"row"} gap={"15px"}>
-      <Box sx={{ overflow: "auto", height: "100vh" }}>
-        <ArticlesLayout articlesData={articlesData} mr={"30px"} />
-      </Box>
-      <Box>
+      <Stack gap={"20px"}>
+        <Typography
+          sx={{ color: "#262146", fontSize: "24px", fontWeight: 500 }}
+        >
+          {label}
+        </Typography>
+        <Box sx={{ overflow: "auto", height: "100vh" }}>
+          <ArticlesLayout articlesData={articlesData} mr={"30px"} />
+        </Box>
+      </Stack>
+      <Box sx={{ display: { xs: "none", md: "block" } }}>
         <WidgetLayout
           pieChartData={pieChartData}
           lineChartData={lineChartData}

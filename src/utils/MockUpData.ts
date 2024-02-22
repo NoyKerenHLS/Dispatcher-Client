@@ -28,7 +28,7 @@ export const countryDropDown = [
 ];
 
 export const dropDownsData = [
-  { label: "Sorces", items: sourceDropDown },
+  { label: "Sources", items: sourceDropDown },
   { label: "Category", items: categoryDropDown },
   { label: "Country", items: countryDropDown },
 ];
