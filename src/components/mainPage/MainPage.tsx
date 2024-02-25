@@ -5,18 +5,24 @@ import {
   articlesData,
   dropDownsData,
   handleSearch,
+  sourceDropDown,
 } from "../../utils/MockUpData";
 import FilterLayout from "../filtersLayout/FilterLayout";
 import BodyLayout from "../layouts/bodyLayout/BodyLayout";
 import useMediaQuery from "@mui/material";
 import { useTheme } from "@emotion/react";
+import FilterLayoutMobileTablet from "../filtersLayout/FilterLayoutMobileTablet";
+import { APP_BAR_HEIGHT } from "../navBar/styles";
 
 interface IProps {}
 
 const MainPage: FC<IProps> = (props) => {
   return (
-    <Stack gap={"20px"} alignItems={"center"}>
-      <NavBar dropDownLabel={"Top Headlines"} handleSearch={handleSearch} />
+    <Stack
+      gap={"20px"}
+      alignItems={"center"}
+      sx={{ mt: APP_BAR_HEIGHT, pt: { xs: "0px", md: "20px" } }}
+    >
       <Stack
         gap={"20px"}
         divider={
@@ -27,12 +33,14 @@ const MainPage: FC<IProps> = (props) => {
             }}
           />
         }
-        mt={"90px"}
       >
-        <FilterLayout
-          dropDownsData={dropDownsData}
-          sx={{ display: { xs: "none", md: "flex" } }}
-        />
+        <Box>
+          <FilterLayout
+            dropDownsData={dropDownsData}
+            sx={{ display: { xs: "none", md: "flex" } }}
+          />
+          <FilterLayoutMobileTablet dropDownData={sourceDropDown} />
+        </Box>
         <BodyLayout
           articlesData={articlesData}
           label="Top Headlines in Israel"

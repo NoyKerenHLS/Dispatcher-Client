@@ -1,9 +1,12 @@
 import { Colors } from "../../globalStyle/Colors";
 
+export const APP_BAR_HEIGHT = "80px";
+
 export const navBarStyle = {
   backgroundColor: Colors.midnightBlue,
   display: "flex",
   flexDirection: "row",
+  height: APP_BAR_HEIGHT,
 };
 
 export const searchBarStyle = {
@@ -12,4 +15,5 @@ export const searchBarStyle = {
   alignSelf: "center",
   ml: { sm: "51px", md: "154px" },
 };
+
 export const logoStyle = { py: "12px", pl: "25px" };

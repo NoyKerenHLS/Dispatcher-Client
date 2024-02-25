@@ -14,23 +14,34 @@ interface Props {
 
 const BodyLayout: FC<Props> = ({ articlesData, label }) => {
   return (
-    <Stack direction={"row"} gap={"15px"}>
-      <Stack gap={"20px"}>
-        <Typography
-          sx={{ color: "#262146", fontSize: "24px", fontWeight: 500 }}
+    <Stack gap={"20px"}>
+      <Typography
+        sx={{
+          color: "#262146",
+          fontSize: "24px",
+          fontWeight: 500,
+          width: "100%",
+        }}
+      >
+        {label}
+      </Typography>
+      <Stack direction={"row"} gap={"15px"}>
+        <Box
+          sx={{
+            overflow: "auto",
+            height: "100vh",
+          }}
         >
-          {label}
-        </Typography>
-        <Box sx={{ overflow: "auto", height: "100vh" }}>
           <ArticlesLayout articlesData={articlesData} mr={"30px"} />
         </Box>
+
+        <Box sx={{ display: { xs: "none", md: "block" } }}>
+          <WidgetLayout
+            pieChartData={pieChartData}
+            lineChartData={lineChartData}
+          />
+        </Box>
       </Stack>
-      <Box sx={{ display: { xs: "none", md: "block" } }}>
-        <WidgetLayout
-          pieChartData={pieChartData}
-          lineChartData={lineChartData}
-        />
-      </Box>
     </Stack>
   );
 };
