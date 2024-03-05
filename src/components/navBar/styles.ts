@@ -10,7 +10,7 @@ export const navBarStyle = {
 };
 
 export const searchBarStyle = {
-  display: { xs: "none", sm: "block" },
+  display: { xs: "none", sm: "flex" },
   height: "50px",
   alignSelf: "center",
   ml: { sm: "51px", md: "154px" },

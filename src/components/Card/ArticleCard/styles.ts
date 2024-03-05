@@ -9,7 +9,6 @@ export const articleCardStyle: SxProps = {
 export const titleStyle: SxProps = {
   fontSize: "18px",
   fontWeight: "700",
-  maxWidth: "470px",
   pr: "inherit",
   overflow: "hidden",
   display: "-webkit-box",

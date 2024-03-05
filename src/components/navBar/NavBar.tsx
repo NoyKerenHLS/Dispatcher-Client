@@ -10,7 +10,7 @@ const dropDownItems: Item[] = [
   { id: "everything", item: "Eeverything" },
 ];
 
-const recentSearches = [""]; // get from local storage
+const recentSearches = ["soccer"]; // get from local storage
 
 interface Props {
   dropDownLabel: string;

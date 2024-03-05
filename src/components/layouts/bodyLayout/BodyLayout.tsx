@@ -21,18 +21,29 @@ const BodyLayout: FC<Props> = ({ articlesData, label }) => {
           fontSize: "24px",
           fontWeight: 500,
           width: "100%",
+          pl: "25px",
         }}
       >
         {label}
       </Typography>
-      <Stack direction={"row"} gap={"15px"}>
+      <Stack
+        direction={"row"}
+        sx={{
+          gap: "15px",
+          pr: { xs: "10px", md: "unset" },
+          pl: { xs: "20px", md: "unset" },
+        }}
+      >
         <Box
           sx={{
             overflow: "auto",
             height: "100vh",
           }}
         >
-          <ArticlesLayout articlesData={articlesData} mr={"30px"} />
+          <ArticlesLayout
+            articlesData={articlesData}
+            mr={{ xs: "10px", md: "30px" }}
+          />
         </Box>
 
         <Box sx={{ display: { xs: "none", md: "block" } }}>

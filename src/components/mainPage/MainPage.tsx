@@ -9,19 +9,21 @@ import {
 } from "../../utils/MockUpData";
 import FilterLayout from "../filtersLayout/FilterLayout";
 import BodyLayout from "../layouts/bodyLayout/BodyLayout";
-import useMediaQuery from "@mui/material";
-import { useTheme } from "@emotion/react";
 import FilterLayoutMobileTablet from "../filtersLayout/FilterLayoutMobileTablet";
 import { APP_BAR_HEIGHT } from "../navBar/styles";
 
 interface IProps {}
 
-const MainPage: FC<IProps> = (props) => {
+const MainPage: FC<IProps> = () => {
   return (
     <Stack
-      gap={"20px"}
-      alignItems={"center"}
-      sx={{ mt: APP_BAR_HEIGHT, pt: { xs: "0px", md: "20px" } }}
+      gap="20px"
+      alignItems="center"
+      sx={{
+        mt: APP_BAR_HEIGHT,
+        pt: { xs: "0px", md: "20px" },
+        px: { md: "240px" },
+      }}
     >
       <Stack
         gap={"20px"}

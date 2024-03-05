@@ -35,7 +35,7 @@ const SearchBar = ({
       <Autocomplete
         options={recentSearches}
         handleSearch={handleSearch}
-        itemListSx={{ width: 423 }}
+        itemListSx={{ width: "423px" }}
       ></Autocomplete>
       <Dropdown
         dropdownType="autocomplete"

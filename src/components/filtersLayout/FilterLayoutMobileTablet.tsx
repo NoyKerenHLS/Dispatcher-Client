@@ -1,9 +1,8 @@
-import { Box, Stack, StackProps } from "@mui/material";
-import React, { FC } from "react";
+import { IconButton, Stack, StackProps } from "@mui/material";
+import { FC } from "react";
 import { Colors } from "../../globalStyle/Colors";
 import Dropdown from "../dropdown/Dropdown";
 import { Item } from "../dropdown/types";
-import { Filter } from "@mui/icons-material";
 import FilterIcon from "../Icons/mobileTabletIcons/FilterIcon";
 
 interface Props extends StackProps {
@@ -20,12 +19,21 @@ const FilterLayoutMobileTablet: FC<Props> = ({ dropDownData, ...props }) => {
         alignItems: "center",
         justifyContent: "space-between",
         px: "8px",
-        height: "50px",
+        height: "44px",
         display: { xs: "flex", md: "none" },
       }}
     >
-      <Dropdown label="Sort by" items={dropDownData}></Dropdown>
-      <FilterIcon />
+      <Dropdown
+        sx={{
+          "& .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
+            { pr: "20px" },
+        }}
+        label="Sort by"
+        items={dropDownData}
+      />
+      <IconButton>
+        <FilterIcon />
+      </IconButton>
     </Stack>
   );
 };
