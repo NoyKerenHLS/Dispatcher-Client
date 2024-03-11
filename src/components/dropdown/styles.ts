@@ -7,7 +7,7 @@ const filterDropDown: SxProps = {
   borderRadius: "10px",
   borderColor: Colors.white,
   bgcolor: Colors.white,
-  px: "22.5px",
+  px: { md: "22.5px" },
   color: Colors.slateBlue, //color enum
   fontSize: "14px",
   "& .MuiOutlinedInput-notchedOutline": {
@@ -18,7 +18,7 @@ const filterDropDown: SxProps = {
   },
   "& .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
     {
-      pr: "80px",
+      pr: { xs: "0px", md: "80px" },
     },
   "& .MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation8 MuiPopover-paper MuiMenu-paper MuiMenu-paper css-jkq4up-MuiPaper-root-MuiPopover-paper-MuiMenu-paper":
     {

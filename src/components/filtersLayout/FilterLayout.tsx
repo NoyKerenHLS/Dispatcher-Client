@@ -1,18 +1,17 @@
-import { Stack } from "@mui/material";
+import { Hidden, Stack, StackProps } from "@mui/material";
 import Dropdown from "../dropdown/Dropdown";
 import { Item } from "../dropdown/types";
 import { Colors } from "../../globalStyle/Colors";
 
-interface Props {
+interface Props extends StackProps {
   dropDownsData: { label: string; items: Item[] }[];
 }
 
-const FilterLayout = ({ dropDownsData }: Props) => {
+const FilterLayout = ({ dropDownsData, ...props }: Props) => {
   return (
     <Stack
+      {...props}
       direction="row"
-      height={67}
-      borderBottom={1}
       borderColor={Colors.lavenderGray}
       gap={"20px"}
     >

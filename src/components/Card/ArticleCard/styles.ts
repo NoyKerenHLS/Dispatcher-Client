@@ -2,18 +2,17 @@ import { type SxProps } from "@mui/material";
 import { Colors } from "../../../globalStyle/Colors";
 
 export const articleCardStyle: SxProps = {
-  height: { sx: "450px", sm: "242px" },
-  width: { sx: "343px", sm: "728px", md: "988px" },
+  height: { xs: "450px", sm: "242px" },
+  maxWidth: "988px",
 };
 
 export const titleStyle: SxProps = {
   fontSize: "18px",
   fontWeight: "700",
-  maxWidth: "470px",
   pr: "inherit",
   overflow: "hidden",
   display: "-webkit-box",
-  WebkitLineClamp: 2,
+  WebkitLineClamp: { xs: 3, md: 2 },
   WebkitBoxOrient: "vertical",
 };
 
@@ -24,7 +23,7 @@ export const descriptiontStyle: SxProps = {
   lineHeight: "17px",
   overflow: "hidden",
   display: "-webkit-box",
-  WebkitLineClamp: 2,
+  WebkitLineClamp: { xs: 3, md: 2 },
   WebkitBoxOrient: "vertical",
 };
 

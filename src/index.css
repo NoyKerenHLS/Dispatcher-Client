@@ -1,3 +1,9 @@
 :root {
   font-family: roboto;
+  background-color: #f3f3ff;
+}
+
+body {
+  margin: 0;
+  padding: 0;
 }

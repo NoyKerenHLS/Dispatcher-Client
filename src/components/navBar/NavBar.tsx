@@ -10,7 +10,7 @@ const dropDownItems: Item[] = [
   { id: "everything", item: "Eeverything" },
 ];
 
-const recentSearches = [""]; // get from local storage
+const recentSearches = ["soccer"]; // get from local storage
 
 interface Props {
   dropDownLabel: string;
@@ -20,7 +20,7 @@ interface Props {
 
 const NavBar = ({ dropDownLabel, handleSearch, logo }: Props) => {
   return (
-    <AppBar sx={navBarStyle}>
+    <AppBar sx={navBarStyle} component={"nav"}>
       <Icon sx={logoStyle}>{logo ? logo : <LogoIcon />}</Icon>
       <SearchBar
         dropDownLabel={dropDownLabel}
