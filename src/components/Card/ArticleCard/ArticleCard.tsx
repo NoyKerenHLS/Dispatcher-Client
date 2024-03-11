@@ -21,9 +21,9 @@ const ArticleCard = ({ data }: Props) => {
   return (
     <Card sx={articleCardStyle}>
       <Stack direction={{ xs: "column", sm: "row" }} height="100%">
-        <Box flex={2}>
+        <Box flex={{ sm: 3, md: 2 }}>
           <img
-            style={{ width: "100%", height: "100%" }}
+            style={{ width: "100%", height: "100%" }} // fix for mobile
             src={image}
             alt={image}
           />
@@ -31,7 +31,7 @@ const ArticleCard = ({ data }: Props) => {
 
         <Stack
           direction={"column"}
-          sx={{ padding: "16px", width: "100%", gap: "14px" }}
+          sx={{ padding: "16px", gap: "14px" }}
           flex={5}
         >
           {data.publishedAt && (
@@ -59,7 +59,7 @@ const ArticleCard = ({ data }: Props) => {
           <Button
             sx={{
               mt: "auto",
-              width: { xs: "90%", sm: "unset" },
+              width: { xs: "100%", sm: "unset" },
               alignSelf: { sm: "flex-end" },
             }}
             label="navigate to dispatch"
