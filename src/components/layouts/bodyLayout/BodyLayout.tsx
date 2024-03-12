@@ -1,13 +1,13 @@
 import { FC } from "react";
-import { ArticleData } from "../../card/articleCard/types";
-import { Box, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import ArticlesLayout from "./articlesLayout/ArticlesLayout";
 import WidgetLayout from "./widgetsLayout/WidgetLayout";
 import { lineChartData, pieChartData } from "../../../utils/MockUpData";
+import { ApiData } from "../../card/articleCard/types";
 
 interface Props {
-  articlesData: ArticleData[];
-  label: string;
+  articlesData?: ApiData;
+  label?: string;
 }
 
 // will calculate charts data here based on articles data

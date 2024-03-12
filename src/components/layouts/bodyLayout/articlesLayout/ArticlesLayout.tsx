@@ -1,18 +1,20 @@
 import { FC } from "react";
-import { ArticleData } from "../../../card/articleCard/types";
+import { ApiData } from "../../../card/articleCard/types";
 import { Stack, StackProps } from "@mui/material";
 import ArticleCard from "../../../card/articleCard/ArticleCard";
 
 interface Props extends StackProps {
-  articlesData: ArticleData[];
+  articlesData?: ApiData;
 }
 
 const ArticlesLayout: FC<Props> = ({ articlesData, ...props }) => {
   return (
     <Stack {...props} gap="24px" alignItems="center">
-      {articlesData.map((data) => (
-        <ArticleCard key={data.source.id} data={data} />
-      ))}
+      {articlesData
+        ? articlesData?.articles.map((data) => (
+            <ArticleCard key={data.title} data={data} />
+          ))
+        : ""}
     </Stack>
   );
 };

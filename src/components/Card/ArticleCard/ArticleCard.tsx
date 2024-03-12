@@ -1,7 +1,6 @@
 import { Card } from "../Card";
 import Button from "../../button/Button";
 import { Box, Typography, Stack } from "@mui/material";
-import { ArticleData } from "./types";
 import {
   articleCardStyle,
   commentStyle,
@@ -10,7 +9,7 @@ import {
 } from "./styles";
 
 interface Props {
-  data: ArticleData;
+  data: any;
 }
 
 const ArticleCard = ({ data }: Props) => {

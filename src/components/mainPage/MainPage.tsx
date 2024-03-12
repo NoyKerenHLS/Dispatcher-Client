@@ -1,16 +1,7 @@
-import { Box, Stack } from "@mui/material";
-import React, { FC } from "react";
-import NavBar from "../navBar/NavBar";
-import {
-  articlesData,
-  dropDownsData,
-  handleSearch,
-  sourceDropDown,
-} from "../../utils/MockUpData";
-import FilterLayout from "../filtersLayout/FilterLayout";
-import BodyLayout from "../layouts/bodyLayout/BodyLayout";
-import FilterLayoutMobileTablet from "../filtersLayout/FilterLayoutMobileTablet";
+import { Stack } from "@mui/material";
+import { FC } from "react";
 import { APP_BAR_HEIGHT } from "../navBar/styles";
+import TopHeadLines from "../pages/TopHeadLienes";
 
 interface IProps {}
 
@@ -25,29 +16,7 @@ const MainPage: FC<IProps> = () => {
         px: { md: "240px" },
       }}
     >
-      <Stack
-        gap={"20px"}
-        divider={
-          <Box
-            sx={{
-              border: "0.75px solid #D9DBE9",
-              display: { xs: "none", md: "flex" },
-            }}
-          />
-        }
-      >
-        <Box>
-          <FilterLayout
-            dropDownsData={dropDownsData}
-            sx={{ display: { xs: "none", md: "flex" } }}
-          />
-          <FilterLayoutMobileTablet dropDownData={sourceDropDown} />
-        </Box>
-        <BodyLayout
-          articlesData={articlesData}
-          label="Top Headlines in Israel"
-        />
-      </Stack>
+      <TopHeadLines />
     </Stack>
   );
 };

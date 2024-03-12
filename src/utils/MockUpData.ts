@@ -1,4 +1,3 @@
-import { ArticleData } from "../components/card/articleCard/types";
 import { LineChartData } from "../components/chart/lineChart/types";
 import { PieChartData } from "../components/chart/pieChart/types";
 
@@ -38,7 +37,7 @@ export const handleSearch = (value: string) => {
   console.log(value);
 };
 
-export const articlesData: ArticleData[] = [
+export const articlesData = [
   {
     source: {
       id: "1",
