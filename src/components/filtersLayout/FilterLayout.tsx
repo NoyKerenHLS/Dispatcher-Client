@@ -3,6 +3,7 @@ import Dropdown from "../dropdown/Dropdown";
 import { Item } from "../dropdown/types";
 import { Colors } from "../../globalStyle/Colors";
 import { useSearchParams } from "react-router-dom";
+import { categories, countries, sources } from "../pages/utils";
 
 interface Props extends StackProps {
   dropDownsData: { label: string; items: Item[] }[];
@@ -11,34 +12,31 @@ interface Props extends StackProps {
 const FilterLayout = ({ dropDownsData, ...props }: Props) => {
   const [searchParams, setSearchParam] = useSearchParams();
 
-  const sources = [
-    { id: "1", item: "source 1" },
-    { id: "2", item: "source 2" },
-    { id: "3", item: "source 3" },
-    { id: "4", item: "source 4" },
-  ];
-
-  const categories = [
-    { id: "1", item: "Sport" },
-    { id: "2", item: "Finance" },
-    { id: "3", item: "Entertainment" },
-  ];
-
-  const countries = [
-    { id: "1", item: "Israel" },
-    { id: "2", item: "USA" },
-    { id: "3", item: "Greece" },
-  ];
-
   const handleCountrySelect = (event: SelectChangeEvent) => {
     const value = event.target.value;
-
-    setSearchParam({ country: value });
+    const categoryParam = searchParams.get("category");
+    if (categoryParam) {
+      setSearchParam({ country: value, category: categoryParam });
+    } else {
+      setSearchParam({ country: value });
+    }
   };
 
-  const handleSourceSelect = (event: SelectChangeEvent) => {};
+  const handleCategorySelect = (event: SelectChangeEvent) => {
+    const value = event.target.value;
+    const countryParam = searchParams.get("country");
+    if (countryParam) {
+      setSearchParam({ country: countryParam, category: value });
+    } else {
+      setSearchParam({ category: value });
+    }
+  };
 
-  const handleCategorySelect = (event: SelectChangeEvent) => {};
+  const handleSourceSelect = (event: SelectChangeEvent) => {
+    const value = event.target.value;
+
+    setSearchParam({ sources: value });
+  };
 
   return (
     <Stack
@@ -48,9 +46,9 @@ const FilterLayout = ({ dropDownsData, ...props }: Props) => {
       gap={"20px"}
     >
       <Dropdown
-        label="Sorces"
-        items={sources}
-        handleSelect={handleSourceSelect}
+        label="Country"
+        items={countries}
+        handleSelect={handleCountrySelect}
       />
       <Dropdown
         label="Category"
@@ -58,9 +56,9 @@ const FilterLayout = ({ dropDownsData, ...props }: Props) => {
         handleSelect={handleCategorySelect}
       />
       <Dropdown
-        label="Country"
-        items={countries}
-        handleSelect={handleCountrySelect}
+        label="Sorces"
+        items={sources}
+        handleSelect={handleSourceSelect}
       />
     </Stack>
   );

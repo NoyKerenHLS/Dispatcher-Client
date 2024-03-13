@@ -84,6 +84,9 @@ const Dropdown = ({
         sx: menuStyle,
       }}
     >
+      <MenuItem sx={menuItemStyle} value={""}>
+        <em>None</em>
+      </MenuItem>
       {items.map((item) => (
         <MenuItem key={item.id} value={item.item} sx={menuItemStyle}>
           {item.item}

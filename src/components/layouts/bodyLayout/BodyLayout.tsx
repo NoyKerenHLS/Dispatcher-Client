@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import ArticlesLayout from "./articlesLayout/ArticlesLayout";
 import WidgetLayout from "./widgetsLayout/WidgetLayout";
@@ -7,7 +7,7 @@ import { ApiData } from "../../card/articleCard/types";
 
 interface Props {
   articlesData?: ApiData;
-  label?: string;
+  label?: React.ReactNode;
 }
 
 // will calculate charts data here based on articles data
@@ -15,17 +15,7 @@ interface Props {
 const BodyLayout: FC<Props> = ({ articlesData, label }) => {
   return (
     <Stack gap={"20px"}>
-      <Typography
-        sx={{
-          color: "#262146",
-          fontSize: "24px",
-          fontWeight: 500,
-          width: "100%",
-          pl: "25px",
-        }}
-      >
-        {label}
-      </Typography>
+      {label}
       <Stack
         direction={"row"}
         sx={{

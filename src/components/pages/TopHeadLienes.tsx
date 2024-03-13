@@ -1,4 +1,4 @@
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { FC, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import FilterLayout from "../filtersLayout/FilterLayout";
@@ -6,30 +6,33 @@ import FilterLayoutMobileTablet from "../filtersLayout/FilterLayoutMobileTablet"
 import BodyLayout from "../layouts/bodyLayout/BodyLayout";
 import { dropDownsData, sourceDropDown } from "../../utils/MockUpData";
 import { useQuery } from "@tanstack/react-query";
-import { getArticles } from "../../ApiData";
+import { getTopHeadlinesArticles } from "../../ApiData";
 import { ApiData } from "../card/articleCard/types";
+import { countryCodes } from "./utils";
+import { landingLabelStyle, resultLabelStyle } from "./styles";
 
 interface IProps {}
 
 const TopHeadLines: FC<IProps> = () => {
   const [searchParams, setSearchParam] = useSearchParams();
-  //const [country, setCountry] = useState("il");
-
-  const countryCodes = {
-    Israel: "il",
-    USA: "us",
-    Greece: "gr",
-  };
 
   const country = searchParams.get("country") as keyof typeof countryCodes;
+  const category = searchParams.get("category");
+  const sources = searchParams.get("sources");
+
   var countryCode = countryCodes[country] ? countryCodes[country] : "il";
+  var label = "Top Headlines In Isreal";
+  var labelSx = landingLabelStyle;
 
   const { data } = useQuery<ApiData>({
-    queryKey: ["articles", { countryCode }],
-    queryFn: getArticles,
+    queryKey: ["articles", { countryCode, category, sources }],
+    queryFn: getTopHeadlinesArticles,
   });
 
-  console.log(data?.articles);
+  if (country || category || sources) {
+    label = `${data?.totalResults} Total results`;
+    labelSx = resultLabelStyle;
+  }
 
   return (
     <Stack
@@ -50,7 +53,10 @@ const TopHeadLines: FC<IProps> = () => {
         />
         <FilterLayoutMobileTablet dropDownData={sourceDropDown} />
       </Box>
-      <BodyLayout articlesData={data} label="Top Headlines in Israel" />
+      <BodyLayout
+        articlesData={data}
+        label={<Typography sx={labelSx}>{label}</Typography>}
+      />
     </Stack>
   );
 };
