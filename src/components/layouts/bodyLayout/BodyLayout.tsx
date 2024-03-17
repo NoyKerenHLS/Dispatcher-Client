@@ -1,9 +1,8 @@
-import React, { FC } from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { FC } from "react";
+import { Box, Stack } from "@mui/material";
 import ArticlesLayout from "./articlesLayout/ArticlesLayout";
 import WidgetLayout from "./widgetsLayout/WidgetLayout";
 import { lineChartData, pieChartData } from "../../../utils/MockUpData";
-import { InfiniteData } from "@tanstack/react-query";
 
 interface Props {}
 

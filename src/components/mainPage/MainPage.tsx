@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { FC } from "react";
 import { APP_BAR_HEIGHT } from "../navBar/styles";
 import FilterLayout from "../filtersLayout/FilterLayout";

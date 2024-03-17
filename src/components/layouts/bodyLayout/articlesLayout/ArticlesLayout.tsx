@@ -26,19 +26,18 @@ const ArticlesLayout: FC<Props> = ({ ...props }) => {
 
   const filters = { category, sources, countryCode };
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery({
-      queryKey: ["articles", filters],
-      queryFn: getTopHeadlinesArticles, //TODO get articles
-      initialPageParam: 1,
-      getNextPageParam: (lastPage, allPages) => {
-        const nextPage = lastPage.articles.length
-          ? allPages.length + 1
-          : undefined;
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
+    queryKey: ["articles", filters],
+    queryFn: getTopHeadlinesArticles, //TODO get articles
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      const nextPage = lastPage.articles.length
+        ? allPages.length + 1
+        : undefined;
 
-        return nextPage;
-      },
-    });
+      return nextPage;
+    },
+  });
 
   useEffect(() => {
     if (inView && hasNextPage) {

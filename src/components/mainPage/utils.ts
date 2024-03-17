@@ -1,5 +1,5 @@
-import { SetURLSearchParams, useSearchParams } from "react-router-dom";
-import { Item, dropDownDataType } from "../dropdown/types";
+import { SetURLSearchParams } from "react-router-dom";
+import { dropDownDataType } from "../dropdown/types";
 import { SelectChangeEvent } from "@mui/material";
 
 const handleCountrySelect = (
