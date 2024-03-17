@@ -24,7 +24,9 @@ export const getTopHeadlinesArticles = async ({
   const [_key, filters] = queryKey;
 
   const pageEndpoint = "/top-headlines";
-  const filtersParam = `&country=${filters.countryCode}&sources=${filters.sources}&category=${filters.category}`;
+  const filtersParam = filters.sources
+    ? `&sources=${filters.sources}`
+    : `&country=${filters.countryCode}&category=${filters.category}`;
   const pageFetchingParam = `&page=${pageParam}&pageSize=${PAGE_SIZE}`;
 
   const url =

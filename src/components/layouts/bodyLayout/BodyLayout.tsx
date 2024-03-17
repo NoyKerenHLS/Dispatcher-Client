@@ -5,41 +5,35 @@ import WidgetLayout from "./widgetsLayout/WidgetLayout";
 import { lineChartData, pieChartData } from "../../../utils/MockUpData";
 import { InfiniteData } from "@tanstack/react-query";
 
-interface Props {
-  articlesData?: InfiniteData<any, unknown>;
-  label?: React.ReactNode;
-}
+interface Props {}
 
 // will calculate charts data here based on articles data
 
-const BodyLayout: FC<Props> = ({ articlesData, label }) => {
+const BodyLayout: FC<Props> = () => {
   return (
-    <Stack gap={"20px"}>
-      {label}
-      <Stack
-        direction={"row"}
+    <Stack
+      direction={"row"}
+      sx={{
+        gap: "15px",
+        pr: { xs: "10px", md: "unset" },
+        pl: { xs: "20px", md: "unset" },
+      }}
+    >
+      <Box
         sx={{
-          gap: "15px",
-          pr: { xs: "10px", md: "unset" },
-          pl: { xs: "20px", md: "unset" },
+          overflow: "auto",
+          height: "100vh",
         }}
       >
-        <Box
-          sx={{
-            overflow: "auto",
-            height: "100vh",
-          }}
-        >
-          <ArticlesLayout mr={{ xs: "10px", md: "30px" }} />
-        </Box>
+        <ArticlesLayout mr={{ xs: "10px", md: "30px" }} />
+      </Box>
 
-        <Box sx={{ display: { xs: "none", md: "block" } }}>
-          <WidgetLayout
-            pieChartData={pieChartData}
-            lineChartData={lineChartData}
-          />
-        </Box>
-      </Stack>
+      <Box sx={{ display: { xs: "none", md: "block" } }}>
+        <WidgetLayout
+          pieChartData={pieChartData}
+          lineChartData={lineChartData}
+        />
+      </Box>
     </Stack>
   );
 };

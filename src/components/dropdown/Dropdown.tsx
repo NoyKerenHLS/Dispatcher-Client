@@ -15,14 +15,18 @@ import {
   iconButtonStyle,
 } from "./styles";
 import ArrowIcon from "../Icons/dropDown/downArrowIcon";
-import { useSearchParams } from "react-router-dom";
+import { SetURLSearchParams, useSearchParams } from "react-router-dom";
 
 interface Props extends SelectProps {
   label: string;
   items: Item[];
   dropdownType?: AppDropDowns;
   icon?: React.ReactNode;
-  handleSelect: (event: SelectChangeEvent) => void;
+  handleSelect: (
+    event: SelectChangeEvent,
+    searchParams: URLSearchParams,
+    setSearchParam: SetURLSearchParams
+  ) => void;
 }
 
 const Dropdown = ({
@@ -35,6 +39,7 @@ const Dropdown = ({
 }: Props) => {
   const [selected, setSelected] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
+  const [searchParams, setSearchParam] = useSearchParams();
 
   const styledComb = { ...(sx ?? {}), ...dropDownStyles[dropdownType] };
   const menuStyle = menuDropDownStyle[dropdownType];
@@ -42,7 +47,7 @@ const Dropdown = ({
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelected(event.target.value);
-    handleSelect(event);
+    handleSelect(event, searchParams, setSearchParam);
   };
 
   const handleOpen = () => {

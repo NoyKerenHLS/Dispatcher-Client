@@ -41,9 +41,7 @@ const MainPage: FC<IProps> = () => {
             dropDownData={sourceDropDown} // TODO this is mockup
           />
         </Box>
-        <BodyLayout
-          label={<Typography>Top Headlines In Israel</Typography>} // TODO syle and label
-        />
+        <BodyLayout />
       </Stack>
     </Stack>
   );

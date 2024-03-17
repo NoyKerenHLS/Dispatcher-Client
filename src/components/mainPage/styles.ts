@@ -5,12 +5,10 @@ export const landingLabelStyle: SxProps = {
   fontSize: "24px",
   fontWeight: 500,
   width: "100%",
-  pl: "25px",
 };
 
 export const resultLabelStyle: SxProps = {
   color: "rgba(90, 90, 137, 0.5)",
   fontSize: "14px",
   width: "100%",
-  pl: "25px",
 };

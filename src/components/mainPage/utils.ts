@@ -1,4 +1,44 @@
-import { Item } from "../dropdown/types";
+import { SetURLSearchParams, useSearchParams } from "react-router-dom";
+import { Item, dropDownDataType } from "../dropdown/types";
+import { SelectChangeEvent } from "@mui/material";
+
+const handleCountrySelect = (
+  event: SelectChangeEvent,
+  searchParams: URLSearchParams,
+  setSearchParam: SetURLSearchParams
+) => {
+  const value = event.target.value;
+  const categoryParam = searchParams.get("category");
+  if (categoryParam) {
+    setSearchParam({ country: value, category: categoryParam });
+  } else {
+    setSearchParam({ country: value });
+  }
+};
+
+const handleCategorySelect = (
+  event: SelectChangeEvent,
+  searchParams: URLSearchParams,
+  setSearchParam: SetURLSearchParams
+) => {
+  const value = event.target.value;
+  const countryParam = searchParams.get("country");
+  if (countryParam) {
+    setSearchParam({ country: countryParam, category: value });
+  } else {
+    setSearchParam({ category: value });
+  }
+};
+
+const handleSourceSelect = (
+  event: SelectChangeEvent,
+  searchParams: URLSearchParams,
+  setSearchParam: SetURLSearchParams
+) => {
+  const value = event.target.value;
+
+  setSearchParam({ sources: value });
+};
 
 export const countryCodes = {
   Argentina: "ar",
@@ -80,8 +120,8 @@ const countries = [
   { id: "32", item: "USA" },
 ];
 
-export const headlinesDropDowns: { label: string; items: Item[] }[] = [
-  { label: "Country", items: countries },
-  { label: "Category", items: categories },
-  { label: "Sources", items: sources },
+export const headlinesDropDowns: dropDownDataType[] = [
+  { label: "Country", items: countries, handleSelect: handleCountrySelect },
+  { label: "Category", items: categories, handleSelect: handleCategorySelect },
+  { label: "Sources", items: sources, handleSelect: handleSourceSelect },
 ];
