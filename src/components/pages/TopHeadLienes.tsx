@@ -1,15 +1,15 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useSearchParams } from "react-router-dom";
 import FilterLayout from "../filtersLayout/FilterLayout";
 import FilterLayoutMobileTablet from "../filtersLayout/FilterLayoutMobileTablet";
 import BodyLayout from "../layouts/bodyLayout/BodyLayout";
 import { dropDownsData, sourceDropDown } from "../../utils/MockUpData";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getTopHeadlinesArticles } from "../../ApiData";
 import { ApiData } from "../card/articleCard/types";
 import { countryCodes } from "./utils";
-import { landingLabelStyle, resultLabelStyle } from "./styles";
+import { landingLabelStyle, resultLabelStyle } from "../mainPage/styles";
 
 interface IProps {}
 
@@ -24,13 +24,20 @@ const TopHeadLines: FC<IProps> = () => {
   var label = "Top Headlines In Isreal";
   var labelSx = landingLabelStyle;
 
-  const { data } = useQuery<ApiData>({
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ["articles", { countryCode, category, sources }],
     queryFn: getTopHeadlinesArticles,
+    initialPageParam: 1,
+    getNextPageParam: (LastPage, allPages) => {
+      const nextPage = LastPage.length ? allPages.length + 1 : undefined;
+      return nextPage;
+    },
   });
 
+  console.log(data);
+
   if (country || category || sources) {
-    label = `${data?.totalResults} Total results`;
+    label = `${data?.pages[0].totalResults} Total results`;
     labelSx = resultLabelStyle;
   }
 

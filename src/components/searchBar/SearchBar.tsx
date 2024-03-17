@@ -1,24 +1,30 @@
-import { Box, Stack, StackProps } from "@mui/material";
+import { Box, SelectChangeEvent, Stack, StackProps } from "@mui/material";
 import Autocomplete from "../autocomplete/Autocomplete";
 import Dropdown from "../dropdown/Dropdown";
-import { Item } from "../dropdown/types";
 import { searchBarStlyle } from "./styles";
+import { useSearchParams } from "react-router-dom";
 
-interface Props extends StackProps {
-  dropDownLabel: string;
-  dropDownItems: Item[];
-  recentSearches: string[];
-  handleSearch: (value: string) => void;
-}
+interface Props extends StackProps {}
 
-const SearchBar = ({
-  dropDownLabel,
-  dropDownItems,
-  recentSearches,
-  handleSearch,
-  sx,
-}: Props) => {
+const SearchBar = ({ sx }: Props) => {
   const styledComb = { ...(sx ?? {}), ...searchBarStlyle };
+  const [searchParams, setSearchParam] = useSearchParams();
+
+  const dropDownItems = [
+    { id: "top", item: "Top Headlines" },
+    { id: "everything", item: "Eeverything" },
+  ];
+
+  const handleSelect = (event: SelectChangeEvent) => {
+    const value = event.target.value;
+    const pageParam = value === "Everything" ? "everything" : "topHeadlines";
+
+    setSearchParam({ page: pageParam });
+  };
+
+  const handleSearch = (value: string) => {};
+
+  const recentSearches = ["soccer"];
 
   return (
     <Stack
@@ -38,8 +44,9 @@ const SearchBar = ({
         itemListSx={{ width: "423px" }}
       ></Autocomplete>
       <Dropdown
+        handleSelect={handleSelect}
         dropdownType="autocomplete"
-        label={dropDownLabel}
+        label="Top Headlines"
         items={dropDownItems}
       ></Dropdown>
     </Stack>

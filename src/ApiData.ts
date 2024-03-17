@@ -1,20 +1,34 @@
 import axios from "axios";
 
-export const getTopHeadlinesArticles = async ({ queryKey }: any) => {
-  const [_key, { countryCode, category, sources }] = queryKey;
-  console.log(category);
+export type Pages = "Headlines" | "Everything";
+const baseUrl = "https://newsapi.org/v2";
+const API_KRY = "?apiKey=da77a58986be4a1c8de3119abcf1b937";
+const PAGE_SIZE = "20";
 
-  const topHeadLinesUrl = "https://newsapi.org/v2/top-headlines";
-  const API_KRY = "&apiKey=57185ad1d6c848bd960890cd850014cb";
-  var query = `?country=${countryCode}`;
+// export const getArticles = async (
+//   page: Pages,
+//   { pageParam, queryKey }: any
+// ) => {
+//   page === "Headlines"
+//     ? getTopHeadlinesArticles({ pageParam, queryKey })
+//     : getEverytingArticles({ pageParam, queryKey });
+// };
 
-  if (sources) {
-    query = `?sources=${sources}`;
-  } else if (category) {
-    query = query + `&category=${category}`;
-  }
+export const getTopHeadlinesArticles = async ({
+  pageParam,
+  queryKey,
+}: {
+  pageParam: number;
+  queryKey: any;
+}) => {
+  const [_key, filters] = queryKey;
 
-  const url = topHeadLinesUrl + query + API_KRY;
+  const pageEndpoint = "/top-headlines";
+  const filtersParam = `&country=${filters.countryCode}&sources=${filters.sources}&category=${filters.category}`;
+  const pageFetchingParam = `&page=${pageParam}&pageSize=${PAGE_SIZE}`;
+
+  const url =
+    baseUrl + pageEndpoint + API_KRY + filtersParam + pageFetchingParam;
 
   console.log(url);
 
@@ -25,3 +39,5 @@ export const getTopHeadlinesArticles = async ({ queryKey }: any) => {
     return error;
   }
 };
+
+// export const getEverytingArticles = async ({ pageParam, queryKey }: any) => {};

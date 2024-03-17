@@ -7,18 +7,20 @@ import {
   descriptiontStyle,
   titleStyle,
 } from "./styles";
+import { FC } from "react";
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
   data: any;
+  innerRef?: React.Ref<HTMLDivElement>;
 }
 
-const ArticleCard = ({ data }: Props) => {
+const ArticleCard: FC<Props> = ({ data, innerRef }: Props) => {
   const image = data.urlToImage
     ? data.urlToImage
     : "https://techcrunch.com/wp-content/uploads/2023/05/GettyImages-1467844599.jpg?w=1024";
 
   return (
-    <Card sx={articleCardStyle}>
+    <Card innerRef={innerRef} sx={articleCardStyle}>
       <Stack direction={{ xs: "column", sm: "row" }} height="100%">
         <Box flex={{ sm: 3, md: 2 }}>
           <img

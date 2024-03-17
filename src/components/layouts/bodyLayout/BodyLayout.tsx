@@ -3,10 +3,10 @@ import { Box, Stack, Typography } from "@mui/material";
 import ArticlesLayout from "./articlesLayout/ArticlesLayout";
 import WidgetLayout from "./widgetsLayout/WidgetLayout";
 import { lineChartData, pieChartData } from "../../../utils/MockUpData";
-import { ApiData } from "../../card/articleCard/types";
+import { InfiniteData } from "@tanstack/react-query";
 
 interface Props {
-  articlesData?: ApiData;
+  articlesData?: InfiniteData<any, unknown>;
   label?: React.ReactNode;
 }
 
@@ -30,10 +30,7 @@ const BodyLayout: FC<Props> = ({ articlesData, label }) => {
             height: "100vh",
           }}
         >
-          <ArticlesLayout
-            articlesData={articlesData}
-            mr={{ xs: "10px", md: "30px" }}
-          />
+          <ArticlesLayout mr={{ xs: "10px", md: "30px" }} />
         </Box>
 
         <Box sx={{ display: { xs: "none", md: "block" } }}>
