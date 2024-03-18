@@ -6,8 +6,15 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { getEverytingArticles } from "../../ApiData";
 import { resultLabelStyle } from "./styles";
 import { ApiData } from "../card/articleCard/types";
-import { Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { languageCodes } from "./utils";
+import WidgetLayout from "../layouts/bodyLayout/widgetsLayout/WidgetLayout";
+import { PieChartData } from "../chart/pieChart/types";
+import {
+  createLineDataArr,
+  createPieDataArr,
+} from "../layouts/bodyLayout/widgetsLayout/utils";
+import { LineChartData } from "../chart/lineChart/types";
 
 interface IProps {}
 
@@ -48,14 +55,33 @@ const EverythingPage: FC<IProps> = () => {
 
   const articles =
     data?.pages.flatMap<ApiData["articles"][0]>((page) => page.articles) ?? [];
+
+  const pieChartData: PieChartData[] = createPieDataArr(articles);
+  const lineChartData: LineChartData[] = createLineDataArr(articles);
+
   return (
     <Stack gap="20px">
       <Typography sx={labelSx}>{label}</Typography>
-      <ArticlesLayout
-        innerRef={ref}
-        articles={articles}
-        mr={{ xs: "10px", md: "30px" }}
-      />
+      <Stack
+        direction={"row"}
+        sx={{
+          gap: "15px",
+          pr: { xs: "10px", md: "unset" },
+          pl: { xs: "20px", md: "unset" },
+        }}
+      >
+        <ArticlesLayout
+          innerRef={ref}
+          articles={articles}
+          mr={{ xs: "10px", md: "30px" }}
+        />
+        <Box sx={{ display: { xs: "none", md: "block" } }}>
+          <WidgetLayout
+            pieChartData={pieChartData}
+            lineChartData={lineChartData}
+          />
+        </Box>
+      </Stack>
     </Stack>
   );
 };

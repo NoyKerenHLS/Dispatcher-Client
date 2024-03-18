@@ -8,6 +8,7 @@ import {
   titleStyle,
 } from "./styles";
 import { FC } from "react";
+import { formatDate } from "./utils";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   data: any;
@@ -36,7 +37,9 @@ const ArticleCard: FC<Props> = ({ data, innerRef }: Props) => {
           flex={5}
         >
           {data.publishedAt && (
-            <Typography sx={commentStyle}>{data.publishedAt}</Typography>
+            <Typography sx={commentStyle}>
+              {formatDate(data.publishedAt)}
+            </Typography>
           )}
 
           {data.title && (

@@ -16,7 +16,7 @@ const ArticlesLayout: FC<Props> = ({ articles, innerRef, ...props }) => {
         height: "100vh",
       }}
     >
-      <Stack {...props} gap="24px" alignItems="center">
+      <Stack {...props} gap="24px" alignItems="stretch">
         {articles.map((article, index) => {
           const shouldObserveInView = index < articles.length - 1;
 
