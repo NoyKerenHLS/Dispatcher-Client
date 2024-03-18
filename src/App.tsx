@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import MainPage from "./components/mainPage/MainPage";
+import MainPage from "./components/pages/MainPage";
 import NavBar from "./components/navBar/NavBar";
 import { handleSearch } from "./utils/MockUpData";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

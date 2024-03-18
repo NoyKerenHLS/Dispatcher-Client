@@ -13,7 +13,7 @@ interface Props {
 
 const WidgetLayout: FC<Props> = ({ pieChartData, lineChartData }) => {
   return (
-    <Stack gap="24px">
+    <Stack mt="56px" gap="24px">
       <WidgetCard title="Sources">
         <PieChart data={pieChartData} />
       </WidgetCard>

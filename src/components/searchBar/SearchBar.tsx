@@ -3,6 +3,7 @@ import Autocomplete from "../autocomplete/Autocomplete";
 import Dropdown from "../dropdown/Dropdown";
 import { searchBarStlyle } from "./styles";
 import { useSearchParams } from "react-router-dom";
+import { Scope } from "../../ApiData";
 
 interface Props extends StackProps {}
 
@@ -15,11 +16,15 @@ const SearchBar = ({ sx }: Props) => {
     { id: "everything", item: "Eeverything" },
   ];
 
+  if (!searchParams.get("scope")) {
+    setSearchParam({ scope: "topHeadlines" });
+  }
+
   const handleSelect = (event: SelectChangeEvent) => {
     const value = event.target.value;
-    const pageParam = value === "Everything" ? "everything" : "topHeadlines";
+    const scopeParam: Scope = value as Scope;
 
-    setSearchParam({ page: pageParam });
+    setSearchParam({ scope: scopeParam });
   };
 
   const handleSearch = (value: string) => {};

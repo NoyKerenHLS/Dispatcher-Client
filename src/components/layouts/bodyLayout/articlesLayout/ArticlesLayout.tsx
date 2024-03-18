@@ -1,77 +1,39 @@
-import { FC, useEffect } from "react";
-import { ApiData } from "../../../card/articleCard/types";
-import { Stack, StackProps, Typography } from "@mui/material";
+import { FC } from "react";
+import { Box, Stack, StackProps } from "@mui/material";
 import ArticleCard from "../../../card/articleCard/ArticleCard";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { useSearchParams } from "react-router-dom";
-import { countryCodes } from "../../../mainPage/utils";
-import { getTopHeadlinesArticles } from "../../../../ApiData";
-import { useInView } from "react-intersection-observer";
-import { landingLabelStyle, resultLabelStyle } from "../../../mainPage/styles";
+import { Article } from "./type";
 
-interface Props extends StackProps {}
+interface Props extends StackProps {
+  articles: Article[];
+  innerRef: React.Ref<HTMLDivElement>;
+}
 
-const ArticlesLayout: FC<Props> = ({ ...props }) => {
-  const [searchParams, setSearchParam] = useSearchParams();
-  const { ref, inView } = useInView();
-
-  var label = "Top Headlines In Isreal";
-  var labelSx = landingLabelStyle;
-
-  const country = searchParams.get("country") as keyof typeof countryCodes;
-  const category = searchParams.get("category") || "";
-  const sources = searchParams.get("sources") || "";
-
-  var countryCode = countryCodes[country] || "il";
-
-  const filters = { category, sources, countryCode };
-
-  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
-    queryKey: ["articles", filters],
-    queryFn: getTopHeadlinesArticles, //TODO get articles
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages) => {
-      const nextPage = lastPage.articles.length
-        ? allPages.length + 1
-        : undefined;
-
-      return nextPage;
-    },
-  });
-
-  useEffect(() => {
-    if (inView && hasNextPage) {
-      fetchNextPage();
-    }
-  }, [inView, hasNextPage, fetchNextPage]);
-
-  if (country || category || sources) {
-    label = `${data?.pages[0].totalResults} Total results`;
-    labelSx = resultLabelStyle;
-  }
-
-  const content = data?.pages.map((apiData: ApiData) =>
-    apiData.articles.map((article, index) => {
-      if (apiData.articles.length === index + 1) {
-        return (
-          <ArticleCard
-            innerRef={ref}
-            key={article.title}
-            data={article}
-          ></ArticleCard>
-        );
-      }
-      return <ArticleCard key={article.title} data={article}></ArticleCard>;
-    })
-  );
-
+const ArticlesLayout: FC<Props> = ({ articles, innerRef, ...props }) => {
   return (
-    <Stack gap="20px">
-      <Typography sx={labelSx}>{label}</Typography>
+    <Box
+      sx={{
+        overflow: "auto",
+        height: "100vh",
+      }}
+    >
       <Stack {...props} gap="24px" alignItems="center">
-        {content}
+        {articles.map((article, index) => {
+          const shouldObserveInView = index < articles.length - 1;
+
+          if (shouldObserveInView) {
+            return (
+              <ArticleCard
+                innerRef={innerRef}
+                key={article.title}
+                data={article}
+              />
+            );
+          }
+
+          return <ArticleCard key={article.title} data={article} />;
+        })}
       </Stack>
-    </Stack>
+    </Box>
   );
 };
 

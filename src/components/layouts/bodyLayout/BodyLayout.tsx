@@ -1,14 +1,20 @@
 import { FC } from "react";
 import { Box, Stack } from "@mui/material";
-import ArticlesLayout from "./articlesLayout/ArticlesLayout";
 import WidgetLayout from "./widgetsLayout/WidgetLayout";
 import { lineChartData, pieChartData } from "../../../utils/MockUpData";
+import { useSearchParams } from "react-router-dom";
+import { Scope } from "../../../ApiData";
+import TopHeadlinesPage from "../../pages/TopHeadlinesPage";
+import EverythingPage from "../../pages/EverythingPage";
 
 interface Props {}
 
 // will calculate charts data here based on articles data
 
 const BodyLayout: FC<Props> = () => {
+  const [searchParams, setSearchParam] = useSearchParams();
+  const pageScope: Scope = "topHeadlines"; //searchParams.get("scope") as Scope;
+
   return (
     <Stack
       direction={"row"}
@@ -18,14 +24,7 @@ const BodyLayout: FC<Props> = () => {
         pl: { xs: "20px", md: "unset" },
       }}
     >
-      <Box
-        sx={{
-          overflow: "auto",
-          height: "100vh",
-        }}
-      >
-        <ArticlesLayout mr={{ xs: "10px", md: "30px" }} />
-      </Box>
+      {pageScope === "topHeadlines" ? <TopHeadlinesPage /> : <EverythingPage />}
 
       <Box sx={{ display: { xs: "none", md: "block" } }}>
         <WidgetLayout

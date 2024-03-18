@@ -1,18 +1,9 @@
 import axios from "axios";
 
-export type Pages = "Headlines" | "Everything";
+export type Scope = "topHeadlines" | "Everything";
 const baseUrl = "https://newsapi.org/v2";
-const API_KRY = "?apiKey=da77a58986be4a1c8de3119abcf1b937";
+const API_KRY = "?apiKey=bb4c03f4a58741b3ade559261ef6a112";
 const PAGE_SIZE = "20";
-
-// export const getArticles = async (
-//   page: Pages,
-//   { pageParam, queryKey }: any
-// ) => {
-//   page === "Headlines"
-//     ? getTopHeadlinesArticles({ pageParam, queryKey })
-//     : getEverytingArticles({ pageParam, queryKey });
-// };
 
 export const getTopHeadlinesArticles = async ({
   pageParam,
@@ -42,4 +33,30 @@ export const getTopHeadlinesArticles = async ({
   }
 };
 
-// export const getEverytingArticles = async ({ pageParam, queryKey }: any) => {};
+export const getEverytingArticles = async ({
+  pageParam,
+  queryKey,
+}: {
+  pageParam: number;
+  queryKey: any;
+}) => {
+  const [_key, filters] = queryKey;
+
+  const pageEndpoint = "/everything";
+  const filtersParam = filters.sources
+    ? `&sources=${filters.sources}`
+    : `&sortBy=${filters.sortBy}&language=${filters.language}`; //TODO add date and q
+  const pageFetchingParam = `&page=${pageParam}&pageSize=${PAGE_SIZE}`;
+
+  const url =
+    baseUrl + pageEndpoint + API_KRY + filtersParam + pageFetchingParam;
+
+  console.log(url);
+
+  try {
+    const { data } = await axios.get(url);
+    return data;
+  } catch (error) {
+    return error;
+  }
+};

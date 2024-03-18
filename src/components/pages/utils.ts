@@ -8,9 +8,14 @@ const handleCountrySelect = (
   setSearchParam: SetURLSearchParams
 ) => {
   const value = event.target.value;
+  const scopeParam = searchParams.get("scope")!;
   const categoryParam = searchParams.get("category");
   if (categoryParam) {
-    setSearchParam({ country: value, category: categoryParam });
+    setSearchParam({
+      scope: scopeParam,
+      country: value,
+      category: categoryParam,
+    });
   } else {
     setSearchParam({ country: value });
   }
