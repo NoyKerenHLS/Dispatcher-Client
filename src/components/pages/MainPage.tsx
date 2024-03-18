@@ -6,21 +6,45 @@ import FilterLayoutMobileTablet from "../filtersLayout/FilterLayoutMobileTablet"
 import BodyLayout from "../layouts/bodyLayout/BodyLayout";
 import { everythingDropDowns, headlinesDropDowns } from "./utils";
 import { useSearchParams } from "react-router-dom";
-import { Scope } from "../../ApiData";
+import { Scope, getSources } from "../../ApiData";
 import TopHeadlinesPage from "./TopHeadlinesPage";
 import EverythingPage from "./EverythingPage";
 import EmptyPage from "./EmptyPage";
+import { useQuery } from "@tanstack/react-query";
 
 interface IProps {}
 
 const MainPage: FC<IProps> = () => {
   const [searchParams, setSearchParam] = useSearchParams();
 
+  const data = useQuery({ queryKey: ["sources"], queryFn: getSources });
+
+  const sourcesCodes: Record<string, string> = {};
+
+  if (data.data?.sources) {
+    data.data.sources.forEach(
+      (source: { name: string | number; id: string }) => {
+        sourcesCodes[source.name] = source.id;
+      }
+    );
+  }
+
+  const sources = Object.entries(sourcesCodes).map(([source], index) => ({
+    id: (index + 1).toString(),
+    item: source,
+  }));
+
   const pageScope: Scope = searchParams.get("scope") as Scope;
   const q = searchParams.get("q");
 
   const dropDownsData =
-    pageScope === "topheadlines" ? headlinesDropDowns : everythingDropDowns; // TODO
+    pageScope === "topheadlines" ? headlinesDropDowns : everythingDropDowns;
+
+  dropDownsData.map((dropDownData) => {
+    if (dropDownData.label === "Sources") {
+      dropDownData.items = sources;
+    }
+  });
   return (
     <Stack
       gap="20px"

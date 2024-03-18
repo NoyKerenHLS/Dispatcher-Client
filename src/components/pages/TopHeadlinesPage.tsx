@@ -1,8 +1,8 @@
 import { FC, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { countryCodes } from "./utils";
-import { Scope, getTopHeadlinesArticles } from "../../ApiData";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { Scope, getSources, getTopHeadlinesArticles } from "../../ApiData";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import ArticlesLayout from "../layouts/bodyLayout/articlesLayout/ArticlesLayout";
 import { ApiData } from "../card/articleCard/types";
 import { useInView } from "react-intersection-observer";
@@ -22,17 +22,31 @@ const TopHeadlinesPage: FC<IProps> = () => {
   const [searchParams, setSearchParam] = useSearchParams();
   const { ref, inView } = useInView();
 
+  const sourceData = useQuery({ queryKey: ["sources"], queryFn: getSources });
+
+  const sourcesCodes: Record<string, string> = {};
+
+  if (sourceData.data?.sources) {
+    sourceData.data.sources.forEach(
+      (source: { name: string | number; id: string }) => {
+        sourcesCodes[source.name] = source.id;
+      }
+    );
+  }
+
   const country = searchParams.get("country") as keyof typeof countryCodes;
   const category = searchParams.get("category") || "";
-  const sources = searchParams.get("sources") || "";
+  const source = searchParams.get("sources") as keyof typeof sourcesCodes;
   const q = searchParams.get("q") || "";
   const scope: Scope = (searchParams.get("scope") as Scope) || "topHeadlines";
 
   const countryCode = countryCodes[country] || "il";
+  const sourceCode = sourcesCodes[source];
+
   let label = "Top Headlines In Isreal";
   let labelSx = landingLabelStyle;
 
-  const filters = { scope, category, sources, countryCode, q }; //TODO make type
+  const filters = { scope, category, sourceCode, countryCode, q }; //TODO make type
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ["topHeadlinesArticles", filters],
@@ -53,7 +67,7 @@ const TopHeadlinesPage: FC<IProps> = () => {
     }
   }, [inView, hasNextPage, fetchNextPage]);
 
-  if (country || category || sources) {
+  if (country || category || source) {
     label = `${data?.pages[0].totalResults} Total results`;
     labelSx = resultLabelStyle;
   }

@@ -2,8 +2,8 @@ import { FC, useEffect } from "react";
 import ArticlesLayout from "../layouts/bodyLayout/articlesLayout/ArticlesLayout";
 import { useSearchParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { getEverytingArticles } from "../../ApiData";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { getEverytingArticles, getSources } from "../../ApiData";
 import { resultLabelStyle } from "./styles";
 import { ApiData } from "../card/articleCard/types";
 import { Box, Stack, Typography } from "@mui/material";
@@ -22,14 +22,28 @@ const EverythingPage: FC<IProps> = () => {
   const [searchParams, setSearchParam] = useSearchParams();
   const { ref, inView } = useInView();
 
+  const sourceData = useQuery({ queryKey: ["sources"], queryFn: getSources });
+
+  const sourcesCodes: Record<string, string> = {};
+
+  if (sourceData.data?.sources) {
+    sourceData.data.sources.forEach(
+      (source: { name: string | number; id: string }) => {
+        sourcesCodes[source.name] = source.id;
+      }
+    );
+  }
+
   const sortBy = searchParams.get("sortBy") || "";
   const language = searchParams.get("language") as keyof typeof languageCodes;
-  const sources = searchParams.get("sources") || "";
+  const source = searchParams.get("sources") as keyof typeof sourcesCodes;
   const date = searchParams.get("date") || "";
   const q = searchParams.get("q") || "";
 
   const languageCode = languageCodes[language] || "";
-  const filters = { sortBy, sources, languageCode, date, q };
+  const sourceCode = sourcesCodes[source];
+
+  const filters = { sortBy, sourceCode, languageCode, date, q };
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ["everythingArticles", filters],
