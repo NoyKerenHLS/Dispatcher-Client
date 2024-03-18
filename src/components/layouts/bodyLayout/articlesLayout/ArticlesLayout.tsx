@@ -24,7 +24,7 @@ const ArticlesLayout: FC<Props> = ({ articles, innerRef, ...props }) => {
             return (
               <ArticleCard
                 innerRef={innerRef}
-                key={article.title}
+                key={index + article.title}
                 data={article}
               />
             );

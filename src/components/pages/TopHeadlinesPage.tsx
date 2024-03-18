@@ -11,20 +11,21 @@ import { landingLabelStyle, resultLabelStyle } from "./styles";
 
 interface IProps {}
 
-const TopHeadlinesPage: FC<IProps> = (props) => {
+const TopHeadlinesPage: FC<IProps> = () => {
   const [searchParams, setSearchParam] = useSearchParams();
   const { ref, inView } = useInView();
 
   const country = searchParams.get("country") as keyof typeof countryCodes;
   const category = searchParams.get("category") || "";
   const sources = searchParams.get("sources") || "";
+  const q = searchParams.get("q") || "";
   const scope: Scope = (searchParams.get("scope") as Scope) || "topHeadlines";
 
-  let countryCode = countryCodes[country] || "il";
+  const countryCode = countryCodes[country] || "il";
   let label = "Top Headlines In Isreal";
   let labelSx = landingLabelStyle;
 
-  const filters = { scope, category, sources, countryCode }; //TODO make type
+  const filters = { scope, category, sources, countryCode, q }; //TODO make type
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ["topHeadlinesArticles", filters],

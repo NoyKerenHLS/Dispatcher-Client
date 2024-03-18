@@ -6,6 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import { Scope } from "../../../ApiData";
 import TopHeadlinesPage from "../../pages/TopHeadlinesPage";
 import EverythingPage from "../../pages/EverythingPage";
+import EmptyPage from "../../pages/EmptyPage";
 
 interface Props {}
 
@@ -13,7 +14,8 @@ interface Props {}
 
 const BodyLayout: FC<Props> = () => {
   const [searchParams, setSearchParam] = useSearchParams();
-  const pageScope: Scope = "topHeadlines"; //searchParams.get("scope") as Scope;
+  const pageScope: Scope = searchParams.get("scope") as Scope;
+  const q = searchParams.get("q");
 
   return (
     <Stack
@@ -24,7 +26,13 @@ const BodyLayout: FC<Props> = () => {
         pl: { xs: "20px", md: "unset" },
       }}
     >
-      {pageScope === "topHeadlines" ? <TopHeadlinesPage /> : <EverythingPage />}
+      {pageScope === "topheadlines" ? (
+        <TopHeadlinesPage />
+      ) : q ? (
+        <EverythingPage />
+      ) : (
+        <EmptyPage />
+      )}
 
       <Box sx={{ display: { xs: "none", md: "block" } }}>
         <WidgetLayout

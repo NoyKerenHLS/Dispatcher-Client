@@ -4,13 +4,18 @@ import { APP_BAR_HEIGHT } from "../navBar/styles";
 import FilterLayout from "../filtersLayout/FilterLayout";
 import FilterLayoutMobileTablet from "../filtersLayout/FilterLayoutMobileTablet";
 import BodyLayout from "../layouts/bodyLayout/BodyLayout";
-import { headlinesDropDowns } from "./utils";
-import { sourceDropDown } from "../../utils/MockUpData";
+import { everythingDropDowns, headlinesDropDowns } from "./utils";
+import { useSearchParams } from "react-router-dom";
 
 interface IProps {}
 
 const MainPage: FC<IProps> = () => {
-  const dropDownsData = headlinesDropDowns; // TODO
+  const [searchParams, setSearchParam] = useSearchParams();
+
+  const dropDownsData =
+    searchParams.get("scope") === "topheadlines"
+      ? headlinesDropDowns
+      : everythingDropDowns; // TODO
   return (
     <Stack
       gap="20px"
@@ -38,7 +43,7 @@ const MainPage: FC<IProps> = () => {
             sx={{ display: { xs: "none", md: "flex" } }}
           />
           <FilterLayoutMobileTablet
-            dropDownData={sourceDropDown} // TODO this is mockup
+            dropDownData={dropDownsData[0]} // TODO this is mockup
           />
         </Box>
         <BodyLayout />

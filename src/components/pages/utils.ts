@@ -1,6 +1,7 @@
 import { SetURLSearchParams } from "react-router-dom";
 import { dropDownDataType } from "../dropdown/types";
 import { SelectChangeEvent } from "@mui/material";
+import { Scope } from "../../ApiData";
 
 const handleCountrySelect = (
   event: SelectChangeEvent,
@@ -8,17 +9,9 @@ const handleCountrySelect = (
   setSearchParam: SetURLSearchParams
 ) => {
   const value = event.target.value;
-  const scopeParam = searchParams.get("scope")!;
-  const categoryParam = searchParams.get("category");
-  if (categoryParam) {
-    setSearchParam({
-      scope: scopeParam,
-      country: value,
-      category: categoryParam,
-    });
-  } else {
-    setSearchParam({ country: value });
-  }
+
+  searchParams.set("country", value);
+  setSearchParam(searchParams);
 };
 
 const handleCategorySelect = (
@@ -27,12 +20,9 @@ const handleCategorySelect = (
   setSearchParam: SetURLSearchParams
 ) => {
   const value = event.target.value;
-  const countryParam = searchParams.get("country");
-  if (countryParam) {
-    setSearchParam({ country: countryParam, category: value });
-  } else {
-    setSearchParam({ category: value });
-  }
+
+  searchParams.set("category", value);
+  setSearchParam(searchParams);
 };
 
 const handleSourceSelect = (
@@ -42,7 +32,31 @@ const handleSourceSelect = (
 ) => {
   const value = event.target.value;
 
-  setSearchParam({ sources: value });
+  const scope: Scope = searchParams.get("scope") as Scope;
+  setSearchParam({ scope: scope, sources: value });
+};
+
+const handleSortBySelect = (
+  event: SelectChangeEvent,
+  searchParams: URLSearchParams,
+  setSearchParam: SetURLSearchParams
+) => {
+  const value = event.target.value;
+  const sort = value.replace(/[ \t\r\n]/g, "");
+
+  searchParams.set("sortBy", sort);
+  setSearchParam(searchParams);
+};
+
+const handleLanguageSelect = (
+  event: SelectChangeEvent,
+  searchParams: URLSearchParams,
+  setSearchParam: SetURLSearchParams
+) => {
+  const value = event.target.value;
+
+  searchParams.set("language", value);
+  setSearchParam(searchParams);
 };
 
 export const countryCodes = {
@@ -78,6 +92,28 @@ export const countryCodes = {
   USA: "us",
 };
 
+export const languageCodes = {
+  Arabic: "ar",
+  German: "de",
+  English: "en",
+  Spanish: "es",
+  French: "fr",
+  Hebrew: "he",
+  Italian: "it",
+  Dutch: "nl",
+  Norwegian: "no",
+  Portuguese: "pt",
+  Russian: "ru",
+  Swedish: "sv",
+  Undefined: "ud",
+  Chinese: "zh",
+};
+
+const languages = Object.entries(languageCodes).map(([language], index) => ({
+  id: (index + 1).toString(),
+  item: language,
+}));
+
 const sources = [{ id: "1", item: "bbc-news" }];
 
 const categories = [
@@ -90,43 +126,25 @@ const categories = [
   { id: "7", item: "technology" },
 ];
 
-const countries = [
-  { id: "1", item: "Argentina" },
-  { id: "2", item: "Australia" },
-  { id: "3", item: "Austria" },
-  { id: "4", item: "Belgium" },
-  { id: "5", item: "Brazil" },
-  { id: "6", item: "Greece" },
-  { id: "7", item: "Bulgaria" },
-  { id: "8", item: "Canada" },
-  { id: "9", item: "China" },
-  { id: "10", item: "Colombia" },
-  { id: "11", item: "Cuba" },
-  { id: "12", item: "Egypt" },
-  { id: "13", item: "Germany" },
-  { id: "14", item: "Greece" },
-  { id: "15", item: "Hungary" },
-  { id: "16", item: "India" },
-  { id: "17", item: "Indonesia" },
-  { id: "18", item: "Indonesia" },
-  { id: "19", item: "Ireland" },
-  { id: "20", item: "Israel" },
-  { id: "21", item: "Italy" },
-  { id: "22", item: "Japan" },
-  { id: "23", item: "Mexico" },
-  { id: "24", item: "Netherlands" },
-  { id: "25", item: "Norway" },
-  { id: "26", item: "Poland" },
-  { id: "27", item: "Russia" },
-  { id: "28", item: "Romania" },
-  { id: "29", item: "Turkey" },
-  { id: "30", item: "Ukraine" },
-  { id: "31", item: "UK" },
-  { id: "32", item: "USA" },
+const countries = Object.entries(countryCodes).map(([country], index) => ({
+  id: (index + 1).toString(),
+  item: country,
+}));
+
+const sortBy = [
+  { id: "1", item: "relevancy" },
+  { id: "2", item: "popularity" },
+  { id: "3", item: "published at" },
 ];
 
 export const headlinesDropDowns: dropDownDataType[] = [
   { label: "Country", items: countries, handleSelect: handleCountrySelect },
   { label: "Category", items: categories, handleSelect: handleCategorySelect },
   { label: "Sources", items: sources, handleSelect: handleSourceSelect },
+];
+
+export const everythingDropDowns: dropDownDataType[] = [
+  { label: "Sort By", items: sortBy, handleSelect: handleSortBySelect },
+  { label: "Sources", items: sources, handleSelect: handleSourceSelect },
+  { label: "Language", items: languages, handleSelect: handleLanguageSelect },
 ];

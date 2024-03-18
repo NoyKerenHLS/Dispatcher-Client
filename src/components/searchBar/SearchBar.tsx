@@ -2,8 +2,9 @@ import { Box, SelectChangeEvent, Stack, StackProps } from "@mui/material";
 import Autocomplete from "../autocomplete/Autocomplete";
 import Dropdown from "../dropdown/Dropdown";
 import { searchBarStlyle } from "./styles";
+import { dropDownDataType } from "../dropdown/types";
 import { useSearchParams } from "react-router-dom";
-import { Scope } from "../../ApiData";
+import { useEffect } from "react";
 
 interface Props extends StackProps {}
 
@@ -13,21 +14,26 @@ const SearchBar = ({ sx }: Props) => {
 
   const dropDownItems = [
     { id: "top", item: "Top Headlines" },
-    { id: "everything", item: "Eeverything" },
+    { id: "everything", item: "Everything" },
   ];
 
-  if (!searchParams.get("scope")) {
-    setSearchParam({ scope: "topHeadlines" });
-  }
+  useEffect(() => {
+    if (!searchParams.get("scope")) {
+      setSearchParam({ scope: "topheadlines" });
+    }
+  }, []);
 
   const handleSelect = (event: SelectChangeEvent) => {
     const value = event.target.value;
-    const scopeParam: Scope = value as Scope;
+    const scopeParam = value.replace(/[ \t\r\n]/g, "").toLowerCase();
 
     setSearchParam({ scope: scopeParam });
   };
 
-  const handleSearch = (value: string) => {};
+  const handleSearch = (value: string) => {
+    searchParams.set("q", value);
+    setSearchParam(searchParams);
+  };
 
   const recentSearches = ["soccer"];
 
