@@ -1,5 +1,5 @@
 import { SetURLSearchParams } from "react-router-dom";
-import { dropDownDataType } from "../dropdown/types";
+import { Item, dropDownDataType } from "../dropdown/types";
 import { SelectChangeEvent } from "@mui/material";
 import { Scope } from "../../ApiData";
 
@@ -120,7 +120,30 @@ const languages = Object.entries(languageCodes).map(([language], index) => ({
   item: language,
 }));
 
-const sources = [{ id: "1", item: "bbc-news" }];
+const sources: Item[] = [];
+
+export const createSourcesCoedes = (
+  sources: { name: string; id: string }[]
+) => {
+  const sourcesCodes: Record<string, string> = {};
+
+  sources.forEach((source: { name: string; id: string }) => {
+    sourcesCodes[source.name] = source.id;
+  });
+
+  return sourcesCodes;
+};
+
+export const transformSources = (
+  sourcesData: { name: string; id: string }[]
+) => {
+  const transformedSources = sourcesData.map((source, index) => ({
+    id: (index + 1).toString(),
+    item: source.name,
+  }));
+
+  return transformedSources;
+};
 
 const categories = [
   { id: "1", item: "business" },

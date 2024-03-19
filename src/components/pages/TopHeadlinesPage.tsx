@@ -1,6 +1,6 @@
 import { FC, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { countryCodes } from "./utils";
+import { countryCodes, createSourcesCoedes } from "./utils";
 import { Scope, getSources, getTopHeadlinesArticles } from "../../ApiData";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import ArticlesLayout from "../layouts/bodyLayout/articlesLayout/ArticlesLayout";
@@ -15,6 +15,7 @@ import {
   createLineDataArr,
   createPieDataArr,
 } from "../layouts/bodyLayout/widgetsLayout/utils";
+import { TopHeadlinesFilters } from "./types";
 
 interface IProps {}
 
@@ -24,14 +25,10 @@ const TopHeadlinesPage: FC<IProps> = () => {
 
   const sourceData = useQuery({ queryKey: ["sources"], queryFn: getSources });
 
-  const sourcesCodes: Record<string, string> = {};
+  let sourcesCodes: Record<string, string> = {};
 
   if (sourceData.data?.sources) {
-    sourceData.data.sources.forEach(
-      (source: { name: string | number; id: string }) => {
-        sourcesCodes[source.name] = source.id;
-      }
-    );
+    sourcesCodes = createSourcesCoedes(sourceData.data?.sources);
   }
 
   const country = searchParams.get("country") as keyof typeof countryCodes;
@@ -46,7 +43,7 @@ const TopHeadlinesPage: FC<IProps> = () => {
   let label = "Top Headlines In Isreal";
   let labelSx = landingLabelStyle;
 
-  const filters = { scope, category, sourceCode, countryCode, q }; //TODO make type
+  const filters: TopHeadlinesFilters = { category, sourceCode, countryCode, q };
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ["topHeadlinesArticles", filters],

@@ -7,7 +7,7 @@ import { getEverytingArticles, getSources } from "../../ApiData";
 import { resultLabelStyle } from "./styles";
 import { ApiData } from "../card/articleCard/types";
 import { Box, Stack, Typography } from "@mui/material";
-import { languageCodes } from "./utils";
+import { createSourcesCoedes, languageCodes } from "./utils";
 import WidgetLayout from "../layouts/bodyLayout/widgetsLayout/WidgetLayout";
 import { PieChartData } from "../chart/pieChart/types";
 import {
@@ -15,6 +15,7 @@ import {
   createPieDataArr,
 } from "../layouts/bodyLayout/widgetsLayout/utils";
 import { LineChartData } from "../chart/lineChart/types";
+import { everythingFilters } from "./types";
 
 interface IProps {}
 
@@ -24,14 +25,10 @@ const EverythingPage: FC<IProps> = () => {
 
   const sourceData = useQuery({ queryKey: ["sources"], queryFn: getSources });
 
-  const sourcesCodes: Record<string, string> = {};
+  let sourcesCodes: Record<string, string> = {};
 
   if (sourceData.data?.sources) {
-    sourceData.data.sources.forEach(
-      (source: { name: string | number; id: string }) => {
-        sourcesCodes[source.name] = source.id;
-      }
-    );
+    sourcesCodes = createSourcesCoedes(sourceData.data?.sources);
   }
 
   const sortBy = searchParams.get("sortBy") || "";
@@ -45,7 +42,13 @@ const EverythingPage: FC<IProps> = () => {
 
   console.log(source);
 
-  const filters = { sortBy, sourceCode, languageCode, date, q };
+  const filters: everythingFilters = {
+    sortBy,
+    sourceCode,
+    languageCode,
+    date,
+    q,
+  };
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ["everythingArticles", filters],
@@ -91,7 +94,7 @@ const EverythingPage: FC<IProps> = () => {
           articles={articles}
           mr={{ xs: "10px", md: "30px" }}
         />
-        <Box sx={{ display: { xs: "none", md: "block" } }}>
+        <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <WidgetLayout
             pieChartData={pieChartData}
             lineChartData={lineChartData}
