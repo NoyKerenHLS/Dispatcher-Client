@@ -16,12 +16,12 @@ import {
 } from "../layouts/bodyLayout/widgetsLayout/utils";
 import { LineChartData } from "../chart/lineChart/types";
 import { everythingFilters } from "./types";
+import { LastPage } from "@mui/icons-material";
 
 interface IProps {}
 
 const EverythingPage: FC<IProps> = () => {
   const [searchParams, setSearchParam] = useSearchParams();
-  const { ref, inView } = useInView();
 
   const sourceData = useQuery({ queryKey: ["sources"], queryFn: getSources });
 
@@ -39,8 +39,6 @@ const EverythingPage: FC<IProps> = () => {
 
   const languageCode = languageCodes[language] || "";
   const sourceCode = sourcesCodes[source];
-
-  console.log(source);
 
   const filters: everythingFilters = {
     sortBy,
@@ -63,12 +61,6 @@ const EverythingPage: FC<IProps> = () => {
     },
   });
 
-  useEffect(() => {
-    if (inView && hasNextPage) {
-      fetchNextPage();
-    }
-  }, [inView, hasNextPage, fetchNextPage]);
-
   const label = `${data?.pages[0].totalResults} Total results`;
   const labelSx = resultLabelStyle;
 
@@ -90,8 +82,9 @@ const EverythingPage: FC<IProps> = () => {
         }}
       >
         <ArticlesLayout
-          innerRef={ref}
           articles={articles}
+          hasNextPage={hasNextPage}
+          fetchNextPage={fetchNextPage}
           mr={{ xs: "10px", md: "30px" }}
         />
         <Box sx={{ display: { xs: "none", md: "flex" } }}>

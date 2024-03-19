@@ -1,14 +1,36 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Box, Stack, StackProps } from "@mui/material";
 import ArticleCard from "../../../card/articleCard/ArticleCard";
 import { Article } from "./type";
+import { useInView } from "react-intersection-observer";
+import {
+  FetchNextPageOptions,
+  InfiniteData,
+  InfiniteQueryObserverResult,
+} from "@tanstack/react-query";
 
 interface Props extends StackProps {
   articles: Article[];
-  innerRef: React.Ref<HTMLDivElement>;
+  hasNextPage: boolean;
+  fetchNextPage: (
+    options?: FetchNextPageOptions | undefined
+  ) => Promise<InfiniteQueryObserverResult<InfiniteData<any, unknown>, Error>>;
 }
 
-const ArticlesLayout: FC<Props> = ({ articles, innerRef, ...props }) => {
+const ArticlesLayout: FC<Props> = ({
+  articles,
+  hasNextPage,
+  fetchNextPage,
+  ...props
+}) => {
+  const { ref, inView } = useInView();
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
+
   return (
     <Box
       sx={{
@@ -23,7 +45,7 @@ const ArticlesLayout: FC<Props> = ({ articles, innerRef, ...props }) => {
           if (shouldObserveInView) {
             return (
               <ArticleCard
-                innerRef={innerRef}
+                innerRef={ref}
                 key={index + article.title}
                 data={article}
               />

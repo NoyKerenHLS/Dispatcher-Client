@@ -21,7 +21,6 @@ interface IProps {}
 
 const TopHeadlinesPage: FC<IProps> = () => {
   const [searchParams, setSearchParam] = useSearchParams();
-  const { ref, inView } = useInView();
 
   const sourceData = useQuery({ queryKey: ["sources"], queryFn: getSources });
 
@@ -35,7 +34,6 @@ const TopHeadlinesPage: FC<IProps> = () => {
   const category = searchParams.get("category") || "";
   const source = searchParams.get("sources") as keyof typeof sourcesCodes;
   const q = searchParams.get("q") || "";
-  const scope: Scope = (searchParams.get("scope") as Scope) || "topHeadlines";
 
   const countryCode = countryCodes[country] || "il";
   const sourceCode = sourcesCodes[source];
@@ -58,12 +56,6 @@ const TopHeadlinesPage: FC<IProps> = () => {
     },
   });
 
-  useEffect(() => {
-    if (inView && hasNextPage) {
-      fetchNextPage();
-    }
-  }, [inView, hasNextPage, fetchNextPage]);
-
   if (country || category || source) {
     label = `${data?.pages[0].totalResults} Total results`;
     labelSx = resultLabelStyle;
@@ -79,7 +71,7 @@ const TopHeadlinesPage: FC<IProps> = () => {
     <Stack gap="20px">
       <Typography sx={labelSx}>{label}</Typography>
       <Stack
-        direction={"row"}
+        direction="row"
         sx={{
           gap: "15px",
           pr: { xs: "10px", md: "unset" },
@@ -87,7 +79,8 @@ const TopHeadlinesPage: FC<IProps> = () => {
         }}
       >
         <ArticlesLayout
-          innerRef={ref}
+          hasNextPage={hasNextPage}
+          fetchNextPage={fetchNextPage}
           articles={articles}
           mr={{ xs: "10px", md: "30px" }}
         />
