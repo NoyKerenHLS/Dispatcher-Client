@@ -9,12 +9,13 @@ import {
   transformSources,
 } from "./utils";
 import { useSearchParams } from "react-router-dom";
-import { Scope, getSources } from "../../ApiData";
+import { getSources } from "../../ApiData";
 import TopHeadlinesPage from "./TopHeadlinesPage";
 import EverythingPage from "./EverythingPage";
 import EmptyPage from "./EmptyPage";
 import { useQuery } from "@tanstack/react-query";
 import { Item } from "../dropdown/types";
+import { Scope } from "./types";
 
 interface IProps {}
 

@@ -1,7 +1,6 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import ArticlesLayout from "../layouts/bodyLayout/articlesLayout/ArticlesLayout";
 import { useSearchParams } from "react-router-dom";
-import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getEverytingArticles, getSources } from "../../ApiData";
 import { resultLabelStyle } from "./styles";
@@ -16,7 +15,6 @@ import {
 } from "../layouts/bodyLayout/widgetsLayout/utils";
 import { LineChartData } from "../chart/lineChart/types";
 import { everythingFilters } from "./types";
-import { LastPage } from "@mui/icons-material";
 
 interface IProps {}
 

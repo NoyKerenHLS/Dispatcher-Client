@@ -1,7 +1,7 @@
 import { SetURLSearchParams } from "react-router-dom";
 import { Item, dropDownDataType } from "../dropdown/types";
 import { SelectChangeEvent } from "@mui/material";
-import { Scope } from "../../ApiData";
+import { Scope } from "./types";
 
 const handleCountrySelect = (
   event: SelectChangeEvent,

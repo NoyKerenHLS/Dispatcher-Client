@@ -1,11 +1,10 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { useSearchParams } from "react-router-dom";
 import { countryCodes, createSourcesCoedes } from "./utils";
-import { Scope, getSources, getTopHeadlinesArticles } from "../../ApiData";
+import { getSources, getTopHeadlinesArticles } from "../../ApiData";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import ArticlesLayout from "../layouts/bodyLayout/articlesLayout/ArticlesLayout";
 import { ApiData } from "../card/articleCard/types";
-import { useInView } from "react-intersection-observer";
 import { Box, Stack, Typography } from "@mui/material";
 import { landingLabelStyle, resultLabelStyle } from "./styles";
 import WidgetLayout from "../layouts/bodyLayout/widgetsLayout/WidgetLayout";

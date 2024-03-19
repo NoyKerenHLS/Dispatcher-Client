@@ -1,4 +1,4 @@
-import { Scope } from "../../ApiData";
+export type Scope = "topheadlines" | "everything";
 
 export type TopHeadlinesFilters = {
   category: string;
