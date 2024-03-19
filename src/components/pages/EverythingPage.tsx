@@ -43,6 +43,8 @@ const EverythingPage: FC<IProps> = () => {
   const languageCode = languageCodes[language] || "";
   const sourceCode = sourcesCodes[source];
 
+  console.log(source);
+
   const filters = { sortBy, sourceCode, languageCode, date, q };
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({

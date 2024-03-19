@@ -33,7 +33,13 @@ const handleSourceSelect = (
   const value = event.target.value;
 
   const scope: Scope = searchParams.get("scope") as Scope;
-  setSearchParam({ scope: scope, sources: value });
+
+  if (scope === "topheadlines") {
+    setSearchParam({ scope: scope, sources: value });
+  } else {
+    searchParams.set("sources", value);
+    setSearchParam(searchParams);
+  }
 };
 
 const handleSortBySelect = (
