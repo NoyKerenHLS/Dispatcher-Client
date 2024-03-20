@@ -34,11 +34,11 @@ const PieChart: FC<Props> = ({ data }) => {
   }));
 
   return (
-    <StyledPieChart width={372} height={395} style={{}}>
+    <StyledPieChart width={372} height={395}>
       <Pie
         data={data}
         cx="50%"
-        cy="25%"
+        cy="50%"
         innerRadius={60}
         outerRadius={70}
         dataKey="value"
@@ -54,7 +54,7 @@ const PieChart: FC<Props> = ({ data }) => {
           />
         ))}
         <Label
-          value={sumValues}
+          value={data.length}
           position="center"
           style={{ color: "#030035" }}
         ></Label>
@@ -62,7 +62,7 @@ const PieChart: FC<Props> = ({ data }) => {
 
       <Legend
         align="center"
-        wrapperStyle={{ top: 160 }}
+        wrapperStyle={{ top: 170, overflow: "auto", height: "250px" }}
         payload={payload}
         content={({ payload }) => (
           <Stack>

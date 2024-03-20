@@ -1,29 +1,39 @@
 import { Card } from "../Card";
 import Button from "../../button/Button";
 import { Box, Typography, Stack } from "@mui/material";
-import { ArticleData } from "./types";
 import {
   articleCardStyle,
   commentStyle,
   descriptiontStyle,
   titleStyle,
 } from "./styles";
+import { FC } from "react";
+import { formatDate } from "./utils";
 
-interface Props {
-  data: ArticleData;
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  data: any;
+  innerRef?: React.Ref<HTMLDivElement>;
 }
 
-const ArticleCard = ({ data }: Props) => {
+const ArticleCard: FC<Props> = ({ data, innerRef }: Props) => {
   const image = data.urlToImage
     ? data.urlToImage
     : "https://techcrunch.com/wp-content/uploads/2023/05/GettyImages-1467844599.jpg?w=1024";
 
   return (
-    <Card sx={articleCardStyle}>
+    <Card innerRef={innerRef} sx={articleCardStyle}>
       <Stack direction={{ xs: "column", sm: "row" }} height="100%">
-        <Box flex={{ sm: 3, md: 2 }}>
+        <Box display={{ xs: "none", sm: "flex" }} flex={{ sm: 3, md: 2 }}>
           <img
-            style={{ width: "100%", height: "100%" }} // fix for mobile
+            style={{ width: "100%", height: "100%" }}
+            src={image}
+            alt={image}
+          />
+        </Box>
+
+        <Box display={{ xs: "flex", sm: "none" }} flex={{ sm: 3, md: 2 }}>
+          <img
+            style={{ width: "100%", height: "150px" }}
             src={image}
             alt={image}
           />
@@ -35,7 +45,9 @@ const ArticleCard = ({ data }: Props) => {
           flex={5}
         >
           {data.publishedAt && (
-            <Typography sx={commentStyle}>{data.publishedAt}</Typography>
+            <Typography sx={commentStyle}>
+              {formatDate(data.publishedAt)}
+            </Typography>
           )}
 
           {data.title && (

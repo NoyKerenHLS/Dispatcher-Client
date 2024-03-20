@@ -17,9 +17,5 @@ const dropDownItems: Item[] = [
 const recentSearches = ["soccer"];
 
 export const Primary: Story = {
-  args: {
-    dropDownLabel: "Top Headlines",
-    dropDownItems: dropDownItems,
-    recentSearches: recentSearches,
-  },
+  args: {},
 };

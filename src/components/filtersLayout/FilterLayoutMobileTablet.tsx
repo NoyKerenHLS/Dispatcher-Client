@@ -2,11 +2,11 @@ import { IconButton, Stack, StackProps } from "@mui/material";
 import { FC } from "react";
 import { Colors } from "../../globalStyle/Colors";
 import Dropdown from "../dropdown/Dropdown";
-import { Item } from "../dropdown/types";
+import { Item, dropDownDataType } from "../dropdown/types";
 import FilterIcon from "../Icons/mobileTabletIcons/FilterIcon";
 
 interface Props extends StackProps {
-  dropDownData: Item[];
+  dropDownData: dropDownDataType;
 }
 
 const FilterLayoutMobileTablet: FC<Props> = ({ dropDownData, ...props }) => {
@@ -28,8 +28,9 @@ const FilterLayoutMobileTablet: FC<Props> = ({ dropDownData, ...props }) => {
           "& .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
             { pr: "20px" },
         }}
-        label="Sort by"
-        items={dropDownData}
+        label={dropDownData.label}
+        items={dropDownData.items}
+        handleSelect={dropDownData.handleSelect}
       />
       <IconButton>
         <FilterIcon />
