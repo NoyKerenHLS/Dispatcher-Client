@@ -166,6 +166,17 @@ const sortBy = [
   { id: "3", item: "published at" },
 ];
 
+export const generateDropdownLabel = (
+  dropdownName: string,
+  searchParams: URLSearchParams
+) => {
+  if (searchParams.get(dropdownName.toLowerCase())) {
+    return searchParams.get(dropdownName.toLowerCase()) || "";
+  }
+
+  return dropdownName || "";
+};
+
 export const headlinesDropDowns: dropDownDataType[] = [
   { label: "Country", items: countries, handleSelect: handleCountrySelect },
   { label: "Category", items: categories, handleSelect: handleCategorySelect },

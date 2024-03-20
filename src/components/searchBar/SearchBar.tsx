@@ -5,8 +5,7 @@ import { searchBarStlyle } from "./styles";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
-import { Item } from "../dropdown/types";
-
+import { Scope } from "../pages/types";
 interface Props extends StackProps {}
 
 const SearchBar = ({ sx }: Props) => {
@@ -16,20 +15,22 @@ const SearchBar = ({ sx }: Props) => {
     "stored-searches",
     []
   );
+  const [dropdownLabel, setDropdownLabel] = useState("Top Headlines");
 
   const dropDownItems = [
     { id: "top", item: "Top Headlines" },
     { id: "everything", item: "Everything" },
   ];
 
-  const autocompleteOptions: Item[] = recentSearches.map((option, index) => ({
-    id: index.toString(),
-    item: option,
-  }));
+  const scope = searchParams.get("scope");
 
   useEffect(() => {
-    if (!searchParams.get("scope")) {
+    if (!scope) {
       setSearchParam({ scope: "topheadlines" });
+    } else {
+      const newDropdownLabel =
+        scope === "topheadlines" ? "Top Headlines" : "Everything";
+      setDropdownLabel(newDropdownLabel);
     }
   }, []);
 
@@ -44,6 +45,10 @@ const SearchBar = ({ sx }: Props) => {
     searchParams.set("q", value);
     setSearchParam(searchParams);
     const storedSearches = recentSearches;
+    const index = storedSearches.indexOf(value);
+    if (index !== -1) {
+      storedSearches.splice(index, 1);
+    }
     storedSearches.unshift(value);
     setRecentSearches(storedSearches);
   };
@@ -72,7 +77,7 @@ const SearchBar = ({ sx }: Props) => {
       }
     >
       <Autocomplete
-        options={autocompleteOptions}
+        options={recentSearches}
         handleSearch={handleSearch}
         handleClear={handleClear}
         handleDeleteItem={handleDeleteItem}
@@ -81,7 +86,7 @@ const SearchBar = ({ sx }: Props) => {
       <Dropdown
         handleSelect={handleSelect}
         dropdownType="autocomplete"
-        label="Top Headlines"
+        label={dropdownLabel}
         items={dropDownItems}
       ></Dropdown>
     </Stack>

@@ -16,10 +16,9 @@ import {
   searchBarAutocompleteStyle,
 } from "./styles";
 import React, { useState } from "react";
-import { Item } from "../dropdown/types";
 
 interface Props {
-  options: Item[];
+  options: string[];
   icon?: React.ReactNode;
   sx?: SxProps;
   itemListSx?: SxProps;
@@ -37,7 +36,7 @@ const Autocomplete = ({
   handleClear,
   handleDeleteItem,
 }: Props) => {
-  const headLine = { id: "-1", item: "Recent Searches" };
+  const headLine = "Recent Searches";
   const styledComb = { ...(sx ?? {}), ...searchBarAutocompleteStyle };
 
   const [inputValue, setInputValue] = useState<string>("");
@@ -60,19 +59,18 @@ const Autocomplete = ({
         <Paper {...props} sx={{ ...itemListSx, marginTop: "6px" }} />
       )}
       renderOption={(props, option) => (
-        <Box key={option.id}>
+        <Box key={option}>
           {option === headLine ? (
             <Box sx={headLineStyle}>
-              <p>{option.item}</p>
+              <p>{option}</p>
               <p onClick={handleClear}>{"Clear"}</p>
             </Box>
           ) : (
             <li style={listItemStyle} {...props}>
-              {option.item}
+              {option}
               <IconButton
                 onClick={(event) => {
-                  event.stopPropagation(),
-                    handleDeleteItem(parseInt(option.id));
+                  event.stopPropagation(), handleDeleteItem(parseInt(option));
                 }}
               >
                 <XIcon />
