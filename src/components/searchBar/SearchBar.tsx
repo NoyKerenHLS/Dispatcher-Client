@@ -2,20 +2,30 @@ import { Box, SelectChangeEvent, Stack, StackProps } from "@mui/material";
 import Autocomplete from "../autocomplete/Autocomplete";
 import Dropdown from "../dropdown/Dropdown";
 import { searchBarStlyle } from "./styles";
-import { dropDownDataType } from "../dropdown/types";
 import { useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useLocalStorage } from "usehooks-ts";
+import { Item } from "../dropdown/types";
 
 interface Props extends StackProps {}
 
 const SearchBar = ({ sx }: Props) => {
   const styledComb = { ...(sx ?? {}), ...searchBarStlyle };
   const [searchParams, setSearchParam] = useSearchParams();
+  const [recentSearches, setRecentSearches] = useLocalStorage<string[]>(
+    "stored-searches",
+    []
+  );
 
   const dropDownItems = [
     { id: "top", item: "Top Headlines" },
     { id: "everything", item: "Everything" },
   ];
+
+  const autocompleteOptions: Item[] = recentSearches.map((option, index) => ({
+    id: index.toString(),
+    item: option,
+  }));
 
   useEffect(() => {
     if (!searchParams.get("scope")) {
@@ -33,9 +43,21 @@ const SearchBar = ({ sx }: Props) => {
   const handleSearch = (value: string) => {
     searchParams.set("q", value);
     setSearchParam(searchParams);
+    const storedSearches = recentSearches;
+    storedSearches.unshift(value);
+    setRecentSearches(storedSearches);
   };
 
-  const recentSearches = ["soccer"];
+  const handleClear = () => {
+    setRecentSearches([]);
+  };
+
+  const handleDeleteItem = (index: number) => {
+    const newRecentSearches = recentSearches;
+    newRecentSearches.splice(index, 1);
+
+    setRecentSearches(newRecentSearches);
+  };
 
   return (
     <Stack
@@ -50,8 +72,10 @@ const SearchBar = ({ sx }: Props) => {
       }
     >
       <Autocomplete
-        options={recentSearches}
+        options={autocompleteOptions}
         handleSearch={handleSearch}
+        handleClear={handleClear}
+        handleDeleteItem={handleDeleteItem}
         itemListSx={{ width: "423px" }}
       ></Autocomplete>
       <Dropdown
