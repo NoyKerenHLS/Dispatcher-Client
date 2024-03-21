@@ -9,6 +9,7 @@ import {
 } from "./styles";
 import { FC } from "react";
 import { formatDate } from "./utils";
+import mockUpImg from "../../../assets/mockUpImg.webp";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   data: any;
@@ -16,9 +17,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const ArticleCard: FC<Props> = ({ data, innerRef }: Props) => {
-  const image = data.urlToImage
-    ? data.urlToImage
-    : "https://techcrunch.com/wp-content/uploads/2023/05/GettyImages-1467844599.jpg?w=1024";
+  const image = data.urlToImage ? data.urlToImage : mockUpImg;
 
   return (
     <Card innerRef={innerRef} sx={articleCardStyle}>

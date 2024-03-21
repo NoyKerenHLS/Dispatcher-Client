@@ -1,9 +1,5 @@
 import axios from "axios";
 
-const baseUrl = "https://newsapi.org/v2";
-const API_KRY = "?apiKey=1ab54f6161084c749f2dcd1a00f84f22";
-const PAGE_SIZE = "20";
-
 export const getTopHeadlinesArticles = async ({
   pageParam,
   queryKey,

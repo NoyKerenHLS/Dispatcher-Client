@@ -68,9 +68,7 @@ const MainPage: FC<IProps> = () => {
             dropDownsData={dropDownsData}
             sx={{ display: { xs: "none", md: "flex" } }}
           />
-          <FilterLayoutMobileTablet
-            dropDownData={dropDownsData[0]} // TODO this is mockup
-          />
+          <FilterLayoutMobileTablet dropDownData={dropDownsData[0]} />
         </Box>
         {pageScope === "topheadlines" ? (
           <TopHeadlinesPage />

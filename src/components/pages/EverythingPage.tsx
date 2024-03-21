@@ -16,9 +16,7 @@ import {
 import { LineChartData } from "../chart/lineChart/types";
 import { everythingFilters } from "./types";
 
-interface IProps {}
-
-const EverythingPage: FC<IProps> = () => {
+const EverythingPage: FC = () => {
   const [searchParams, setSearchParam] = useSearchParams();
 
   const sourceData = useQuery({ queryKey: ["sources"], queryFn: getSources });
