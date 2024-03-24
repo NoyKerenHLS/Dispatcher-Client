@@ -12,9 +12,9 @@ import { everythingFilters } from "./types";
 import {
   createLineDataArr,
   createPieDataArr,
-} from "../containers/bodyLayout/widgetsContainer/utils";
-import ArticlesContainer from "../containers/bodyLayout/articlesContainer/ArticlesContaier";
-import WidgetContainer from "../containers/bodyLayout/widgetsContainer/WidgetsContainer";
+} from "../containers/bodyContainer/widgetsContainer/utils";
+import ArticlesContainer from "../containers/bodyContainer/articlesContainer/ArticlesContaier";
+import WidgetContainer from "../containers/bodyContainer/widgetsContainer/WidgetsContainer";
 
 const EverythingPage: FC = () => {
   const [searchParams, setSearchParam] = useSearchParams();

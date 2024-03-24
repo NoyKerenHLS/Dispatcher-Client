@@ -3,10 +3,10 @@ import { Box, Stack } from "@mui/material";
 import WidgetContainer from "./widgetsContainer/WidgetsContainer";
 import { lineChartData, pieChartData } from "../../../utils/MockUpData";
 import { useSearchParams } from "react-router-dom";
-import { Scope } from "../../../ApiData";
 import TopHeadlinesPage from "../../pages/TopHeadlinesPage";
 import EverythingPage from "../../pages/EverythingPage";
 import EmptyPage from "../../pages/EmptyPage";
+import { Scope } from "../../pages/types";
 
 interface Props {}
 

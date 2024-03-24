@@ -9,12 +9,12 @@ import { landingLabelStyle, resultLabelStyle } from "./styles";
 import { PieChartData } from "../chart/pieChart/types";
 import { LineChartData } from "../chart/lineChart/types";
 import { TopHeadlinesFilters } from "./types";
-import ArticlesContainer from "../containers/bodyLayout/articlesContainer/ArticlesContaier";
+import ArticlesContainer from "../containers/bodyContainer/articlesContainer/ArticlesContaier";
 import {
   createLineDataArr,
   createPieDataArr,
-} from "../containers/bodyLayout/widgetsContainer/utils";
-import WidgetContainer from "../containers/bodyLayout/widgetsContainer/WidgetsContainer";
+} from "../containers/bodyContainer/widgetsContainer/utils";
+import WidgetContainer from "../containers/bodyContainer/widgetsContainer/WidgetsContainer";
 
 interface IProps {}
 
