@@ -1,8 +1,8 @@
 import { Box, Stack } from "@mui/material";
 import { FC } from "react";
 import { APP_BAR_HEIGHT } from "../navBar/styles";
-import FilterLayout from "../filtersLayout/FilterLayout";
-import FilterLayoutMobileTablet from "../filtersLayout/FilterLayoutMobileTablet";
+import FilterContainer from "../filtersContainer/FiltersContainer";
+import FilterContainerMobileTablet from "../filtersContainer/FiltersContainerMobileTablet";
 import {
   everythingDropDowns,
   headlinesDropDowns,
@@ -64,11 +64,11 @@ const MainPage: FC<IProps> = () => {
         }
       >
         <Box>
-          <FilterLayout
+          <FilterContainer
             dropDownsData={dropDownsData}
             sx={{ display: { xs: "none", md: "flex" } }}
           />
-          <FilterLayoutMobileTablet dropDownData={dropDownsData[0]} />
+          <FilterContainerMobileTablet dropDownData={dropDownsData[0]} />
         </Box>
         {pageScope === "topheadlines" ? (
           <TopHeadlinesPage />

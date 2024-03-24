@@ -10,7 +10,7 @@ function App() {
   return (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <NavBar dropDownLabel={"Top Headlines"} handleSearch={handleSearch} />
+        <NavBar />
         <MainPage />
       </QueryClientProvider>
     </BrowserRouter>

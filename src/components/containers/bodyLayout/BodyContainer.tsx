@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Box, Stack } from "@mui/material";
-import WidgetLayout from "./widgetsLayout/WidgetLayout";
+import WidgetContainer from "./widgetsContainer/WidgetsContainer";
 import { lineChartData, pieChartData } from "../../../utils/MockUpData";
 import { useSearchParams } from "react-router-dom";
 import { Scope } from "../../../ApiData";
@@ -12,7 +12,7 @@ interface Props {}
 
 // will calculate charts data here based on articles data
 
-const BodyLayout: FC<Props> = () => {
+const BodyContainer: FC<Props> = () => {
   const [searchParams, setSearchParam] = useSearchParams();
   const pageScope: Scope = searchParams.get("scope") as Scope;
   const q = searchParams.get("q");
@@ -35,7 +35,7 @@ const BodyLayout: FC<Props> = () => {
       )}
 
       <Box sx={{ display: { xs: "none", md: "block" } }}>
-        <WidgetLayout
+        <WidgetContainer
           pieChartData={pieChartData}
           lineChartData={lineChartData}
         />
@@ -44,4 +44,4 @@ const BodyLayout: FC<Props> = () => {
   );
 };
 
-export default BodyLayout;
+export default BodyContainer;

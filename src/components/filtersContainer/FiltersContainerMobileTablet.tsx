@@ -9,7 +9,7 @@ interface Props extends StackProps {
   dropDownData: dropDownDataType;
 }
 
-const FilterLayoutMobileTablet: FC<Props> = ({ dropDownData, ...props }) => {
+const FilterContainerMobileTablet: FC<Props> = ({ dropDownData, ...props }) => {
   return (
     <Stack
       {...props}
@@ -39,4 +39,4 @@ const FilterLayoutMobileTablet: FC<Props> = ({ dropDownData, ...props }) => {
   );
 };
 
-export default FilterLayoutMobileTablet;
+export default FilterContainerMobileTablet;

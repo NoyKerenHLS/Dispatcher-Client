@@ -11,7 +11,7 @@ interface Props {
   lineChartData: LineChartData[];
 }
 
-const WidgetLayout: FC<Props> = ({ pieChartData, lineChartData }) => {
+const WidgetContainer: FC<Props> = ({ pieChartData, lineChartData }) => {
   return (
     <Stack gap="24px">
       <WidgetCard title="Sources">
@@ -26,4 +26,4 @@ const WidgetLayout: FC<Props> = ({ pieChartData, lineChartData }) => {
   );
 };
 
-export default WidgetLayout;
+export default WidgetContainer;

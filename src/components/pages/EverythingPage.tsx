@@ -1,5 +1,4 @@
 import { FC } from "react";
-import ArticlesLayout from "../layouts/bodyLayout/articlesLayout/ArticlesLayout";
 import { useSearchParams } from "react-router-dom";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getEverytingArticles, getSources } from "../../ApiData";
@@ -7,14 +6,15 @@ import { resultLabelStyle } from "./styles";
 import { ApiData } from "../card/articleCard/types";
 import { Box, Stack, Typography } from "@mui/material";
 import { createSourcesCoedes, languageCodes } from "./utils";
-import WidgetLayout from "../layouts/bodyLayout/widgetsLayout/WidgetLayout";
 import { PieChartData } from "../chart/pieChart/types";
+import { LineChartData } from "../chart/lineChart/types";
+import { everythingFilters } from "./types";
 import {
   createLineDataArr,
   createPieDataArr,
-} from "../layouts/bodyLayout/widgetsLayout/utils";
-import { LineChartData } from "../chart/lineChart/types";
-import { everythingFilters } from "./types";
+} from "../containers/bodyLayout/widgetsContainer/utils";
+import ArticlesContainer from "../containers/bodyLayout/articlesContainer/ArticlesContaier";
+import WidgetContainer from "../containers/bodyLayout/widgetsContainer/WidgetsContainer";
 
 const EverythingPage: FC = () => {
   const [searchParams, setSearchParam] = useSearchParams();
@@ -28,19 +28,23 @@ const EverythingPage: FC = () => {
   }
 
   const sortBy = searchParams.get("sortBy") || "";
-  const language = searchParams.get("language") as keyof typeof languageCodes;
-  const source = searchParams.get("sources") as keyof typeof sourcesCodes;
-  const date = searchParams.get("date") || "";
+  const language =
+    (searchParams.get("language") as keyof typeof languageCodes) || "";
+  const source =
+    (searchParams.get("sources") as keyof typeof sourcesCodes) || "";
+  const from = searchParams.get("from") || "";
+  const to = searchParams.get("to") || "";
   const q = searchParams.get("q") || "";
 
-  const languageCode = languageCodes[language] || "";
+  const languageCode = languageCodes[language];
   const sourceCode = sourcesCodes[source];
 
   const filters: everythingFilters = {
     sortBy,
     sourceCode,
     languageCode,
-    date,
+    from,
+    to,
     q,
   };
 
@@ -77,14 +81,14 @@ const EverythingPage: FC = () => {
           pl: { xs: "20px", md: "unset" },
         }}
       >
-        <ArticlesLayout
+        <ArticlesContainer
           articles={articles}
           hasNextPage={hasNextPage}
           fetchNextPage={fetchNextPage}
           mr={{ xs: "10px", md: "30px" }}
         />
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
-          <WidgetLayout
+          <WidgetContainer
             pieChartData={pieChartData}
             lineChartData={lineChartData}
           />

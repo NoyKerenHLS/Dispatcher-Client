@@ -11,6 +11,7 @@ export type everythingFilters = {
   sortBy: string;
   sourceCode: string;
   languageCode: string;
-  date: string; // Date?
+  from: string;
+  to: string;
   q: string;
 };

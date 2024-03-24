@@ -3,18 +3,18 @@ import { useSearchParams } from "react-router-dom";
 import { countryCodes, createSourcesCoedes } from "./utils";
 import { getSources, getTopHeadlinesArticles } from "../../ApiData";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import ArticlesLayout from "../layouts/bodyLayout/articlesLayout/ArticlesLayout";
 import { ApiData } from "../card/articleCard/types";
 import { Box, Stack, Typography } from "@mui/material";
 import { landingLabelStyle, resultLabelStyle } from "./styles";
-import WidgetLayout from "../layouts/bodyLayout/widgetsLayout/WidgetLayout";
 import { PieChartData } from "../chart/pieChart/types";
 import { LineChartData } from "../chart/lineChart/types";
+import { TopHeadlinesFilters } from "./types";
+import ArticlesContainer from "../containers/bodyLayout/articlesContainer/ArticlesContaier";
 import {
   createLineDataArr,
   createPieDataArr,
-} from "../layouts/bodyLayout/widgetsLayout/utils";
-import { TopHeadlinesFilters } from "./types";
+} from "../containers/bodyLayout/widgetsContainer/utils";
+import WidgetContainer from "../containers/bodyLayout/widgetsContainer/WidgetsContainer";
 
 interface IProps {}
 
@@ -77,14 +77,14 @@ const TopHeadlinesPage: FC<IProps> = () => {
           pl: { xs: "20px", md: "unset" },
         }}
       >
-        <ArticlesLayout
+        <ArticlesContainer
           hasNextPage={hasNextPage}
           fetchNextPage={fetchNextPage}
           articles={articles}
           mr={{ xs: "10px", md: "30px" }}
         />
         <Box sx={{ display: { xs: "none", md: "block" } }}>
-          <WidgetLayout
+          <WidgetContainer
             pieChartData={pieChartData}
             lineChartData={lineChartData}
           />

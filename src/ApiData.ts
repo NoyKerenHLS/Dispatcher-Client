@@ -34,7 +34,7 @@ export const getEverytingArticles = async ({
 
   const filtersString = filters.sourceCode
     ? `%26sources=${filters.sourceCode}%26q=${filters.q}`
-    : `%26sortBy=${filters.sortBy}%26language=${filters.languageCode}%26q=${filters.q}`;
+    : `%26sortBy=${filters.sortBy}%26language=${filters.languageCode}%26q=${filters.q}%26from=${filters.from}%26to=${filters.to}`;
 
   try {
     const { data } = await axios.get(

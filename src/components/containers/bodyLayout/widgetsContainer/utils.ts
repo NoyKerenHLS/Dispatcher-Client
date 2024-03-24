@@ -1,6 +1,6 @@
 import { LineChartData } from "../../../chart/lineChart/types";
 import { PieChartData } from "../../../chart/pieChart/types";
-import { Article } from "../articlesLayout/type";
+import { Article } from "../articlesContainer/type";
 
 export const createPieDataArr = (articles: Article[]) => {
   const sourceCounts: PieChartData[] = [];

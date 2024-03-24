@@ -4,10 +4,10 @@ import { Colors } from "../../globalStyle/Colors";
 
 const filterDropDown: SxProps = {
   height: "47px",
+  width: "175px",
   borderRadius: "10px",
   borderColor: Colors.white,
   bgcolor: Colors.white,
-  px: { md: "22.5px" },
   color: Colors.slateBlue, //color enum
   fontSize: "14px",
   "& .MuiOutlinedInput-notchedOutline": {

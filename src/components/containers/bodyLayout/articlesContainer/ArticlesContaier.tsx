@@ -17,7 +17,7 @@ interface Props extends StackProps {
   ) => Promise<InfiniteQueryObserverResult<InfiniteData<any, unknown>, Error>>;
 }
 
-const ArticlesLayout: FC<Props> = ({
+const ArticlesContainer: FC<Props> = ({
   articles,
   hasNextPage,
   fetchNextPage,
@@ -59,4 +59,4 @@ const ArticlesLayout: FC<Props> = ({
   );
 };
 
-export default ArticlesLayout;
+export default ArticlesContainer;

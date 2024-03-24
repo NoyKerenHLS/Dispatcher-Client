@@ -9,7 +9,7 @@ interface Props extends StackProps {
   dropDownsData: dropDownDataType[];
 }
 
-const FilterLayout = ({ dropDownsData, ...props }: Props) => {
+const FilterContainer = ({ dropDownsData, ...props }: Props) => {
   const [searchParams, setSearchParam] = useSearchParams();
   return (
     <Stack
@@ -30,4 +30,4 @@ const FilterLayout = ({ dropDownsData, ...props }: Props) => {
   );
 };
 
-export default FilterLayout;
+export default FilterContainer;
