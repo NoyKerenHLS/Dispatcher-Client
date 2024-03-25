@@ -3,39 +3,43 @@ import { PieChartData } from "../../../chart/pieChart/types";
 import { Article } from "../articlesContainer/type";
 
 export const createPieDataArr = (articles: Article[]) => {
-  const sourceCounts: PieChartData[] = [];
+  const sourceCounts: { [key: string]: number } = {};
 
-  articles.forEach((article) => {
-    const existingSourceCountIndex = sourceCounts.findIndex(
-      (sc) => sc.name === article.source.name
-    );
-    if (existingSourceCountIndex !== -1) {
-      sourceCounts[existingSourceCountIndex].value++;
-    } else {
-      sourceCounts.push({ name: article.source.name, value: 1 });
-    }
-  });
+  articles.forEach((article) =>
+    sourceCounts[article.source.name]
+      ? (sourceCounts[article.source.name] = +1)
+      : (sourceCounts[article.source.name] = 1)
+  );
 
-  return sourceCounts;
+  const sourcesAmount: PieChartData[] = Object.entries(sourceCounts).map(
+    ([key, value]) => ({
+      name: key,
+      value: value,
+    })
+  );
+
+  return sourcesAmount;
 };
 
 export const createLineDataArr = (articles: Article[]) => {
-  const monthCounts: LineChartData[] = [];
+  const monthCounts: { [key: string]: number } = {};
 
   articles.forEach((article) => {
     const monthName = getMonthName(article.publishedAt);
 
-    const existingMonthCountIndex = monthCounts.findIndex(
-      (mc) => mc.name === monthName
-    );
-    if (existingMonthCountIndex !== -1) {
-      monthCounts[existingMonthCountIndex].value++;
-    } else {
-      monthCounts.push({ name: monthName, value: 1 });
-    }
+    monthCounts[monthName]
+      ? (monthCounts[monthName] = +1)
+      : (monthCounts[monthName] = 1);
   });
 
-  return monthCounts;
+  const monthAmount: LineChartData[] = Object.entries(monthCounts).map(
+    ([key, value]) => ({
+      name: key,
+      value: value,
+    })
+  );
+
+  return monthAmount;
 };
 
 const getMonthName = (dateString: string): string => {

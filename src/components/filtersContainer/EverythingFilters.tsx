@@ -24,6 +24,12 @@ const EverythingFilters: FC<IProps> = ({ dropDownsData, handleSelect }) => {
     }
   };
 
+  const handleCleanDate = () => {
+    searchParams.delete("from");
+    searchParams.delete("to");
+    setSearchParam(searchParams);
+  };
+
   return (
     <>
       <Dropdown
@@ -32,7 +38,10 @@ const EverythingFilters: FC<IProps> = ({ dropDownsData, handleSelect }) => {
         items={dropDownsData[0].items}
         handleSelect={handleSelect}
       />
-      <DatePicker handleChange={handleDtaeChange} />
+      <DatePicker
+        handleChange={handleDtaeChange}
+        handleClean={handleCleanDate}
+      />
       <Dropdown
         key={dropDownsData[1].name}
         label={dropDownsData[1].name}

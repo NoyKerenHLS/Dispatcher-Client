@@ -1,17 +1,17 @@
 import { Box } from "@mui/material";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { DateRangePicker } from "rsuite";
 import "rsuite/DateRangePicker/styles/index.css";
 import { Colors } from "../../globalStyle/Colors";
 import calenderIcon from "../Icons/datePicker/calenderIcon";
-import { useSearchParams } from "react-router-dom";
 import { DateRange } from "rsuite/esm/DateRangePicker";
 
 interface IProps {
   handleChange: (date: DateRange | null) => void;
+  handleClean: () => void;
 }
 
-const componentName: FC<IProps> = ({ handleChange }) => {
+const componentName: FC<IProps> = ({ handleChange, handleClean }) => {
   return (
     <Box
       sx={{
@@ -26,6 +26,7 @@ const componentName: FC<IProps> = ({ handleChange }) => {
         placeholder="Date"
         caretAs={calenderIcon}
         onChange={(date) => handleChange(date)}
+        onClean={handleClean}
       />
     </Box>
   );

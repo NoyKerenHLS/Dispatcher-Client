@@ -137,17 +137,6 @@ export const getArticlesFromPage = (pages: any[]) => {
   return pages.flatMap<ApiData["articles"][0]>((page) => page.articles);
 };
 
-export const generateDropdownLabel = (
-  dropdownName: string,
-  searchParams: URLSearchParams
-) => {
-  if (searchParams.get(dropdownName.toLowerCase())) {
-    return searchParams.get(dropdownName.toLowerCase()) || "";
-  }
-
-  return dropdownName || "";
-};
-
 export const headlinesDropDowns = [
   { name: "Country", items: countries },
   { name: "Category", items: categories },
