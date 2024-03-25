@@ -1,15 +1,25 @@
-import { IconButton, Stack, StackProps } from "@mui/material";
+import {
+  IconButton,
+  SelectChangeEvent,
+  Stack,
+  StackProps,
+} from "@mui/material";
 import { FC } from "react";
 import { Colors } from "../../globalStyle/Colors";
 import Dropdown from "../dropdown/Dropdown";
-import { Item, dropDownDataType } from "../dropdown/types";
 import FilterIcon from "../Icons/mobileTabletIcons/FilterIcon";
+import { DropdownData, Item } from "../dropdown/types";
 
 interface Props extends StackProps {
-  dropDownData: dropDownDataType;
+  dropDownsData: DropdownData[];
+  handleSelect: (event: SelectChangeEvent, dropdownName: string) => void;
 }
 
-const FilterContainerMobileTablet: FC<Props> = ({ dropDownData, ...props }) => {
+const FilterContainerMobileTablet: FC<Props> = ({
+  dropDownsData,
+  handleSelect,
+  ...props
+}) => {
   return (
     <Stack
       {...props}
@@ -28,9 +38,9 @@ const FilterContainerMobileTablet: FC<Props> = ({ dropDownData, ...props }) => {
           "& .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
             { pr: "20px" },
         }}
-        label={dropDownData.label}
-        items={dropDownData.items}
-        handleSelect={dropDownData.handleSelect}
+        label={dropDownsData[0].name}
+        items={dropDownsData[0].items}
+        handleSelect={handleSelect}
       />
       <IconButton>
         <FilterIcon />

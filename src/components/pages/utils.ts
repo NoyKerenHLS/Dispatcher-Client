@@ -1,68 +1,50 @@
-import { SetURLSearchParams } from "react-router-dom";
-import { Item, dropDownDataType } from "../dropdown/types";
 import { SelectChangeEvent } from "@mui/material";
-import { Scope } from "./types";
+import { ApiData } from "../card/articleCard/types";
+import { Source } from "../filtersContainer/types";
 
-const handleCountrySelect = (
-  event: SelectChangeEvent,
-  searchParams: URLSearchParams,
-  setSearchParam: SetURLSearchParams
-) => {
-  const value = event.target.value;
+export const landingLabel = "Top Headlines In Israel";
 
-  searchParams.set("country", value);
-  setSearchParam(searchParams);
-};
+export const createFilters = (params: [string, string][]) => {
+  let filters = "";
 
-const handleCategorySelect = (
-  event: SelectChangeEvent,
-  searchParams: URLSearchParams,
-  setSearchParam: SetURLSearchParams
-) => {
-  const value = event.target.value;
+  if (params.length !== 0) {
+    params.map((param) => {
+      filters += `%26${param[0]}=${param[1]}`;
+    });
 
-  searchParams.set("category", value);
-  setSearchParam(searchParams);
-};
-
-const handleSourceSelect = (
-  event: SelectChangeEvent,
-  searchParams: URLSearchParams,
-  setSearchParam: SetURLSearchParams
-) => {
-  const value = event.target.value;
-
-  const scope: Scope = searchParams.get("scope") as Scope;
-
-  if (scope === "topheadlines") {
-    setSearchParam({ scope: scope, sources: value });
-  } else {
-    searchParams.set("sources", value);
-    setSearchParam(searchParams);
+    return filters;
   }
+
+  return "%26Country=il";
 };
 
-const handleSortBySelect = (
+export const createParam = (
   event: SelectChangeEvent,
-  searchParams: URLSearchParams,
-  setSearchParam: SetURLSearchParams
+  dropdownName: string,
+  sourcesCodes?: { [key: string]: string }
 ) => {
-  const value = event.target.value;
-  const sort = value.replace(/[ \t\r\n]/g, "");
+  let value = "";
+  const name = dropdownName.replace(/[ \t\r\n]/g, "");
 
-  searchParams.set("sortBy", sort);
-  setSearchParam(searchParams);
-};
+  switch (dropdownName) {
+    case "Sources":
+      value = sourcesCodes
+        ? sourcesCodes[event.target.value as keyof typeof sourcesCodes]
+        : "";
+      break;
+    case "Language":
+      value = languageCodes[event.target.value as keyof typeof languageCodes];
+      break;
+    case "Country":
+      value = countryCodes[event.target.value as keyof typeof countryCodes];
+      break;
 
-const handleLanguageSelect = (
-  event: SelectChangeEvent,
-  searchParams: URLSearchParams,
-  setSearchParam: SetURLSearchParams
-) => {
-  const value = event.target.value;
+    default:
+      value = event.target.value.replace(/[ \t\r\n]/g, "");
+      break;
+  }
 
-  searchParams.set("language", value);
-  setSearchParam(searchParams);
+  return { name, value };
 };
 
 export const countryCodes = {
@@ -120,29 +102,14 @@ const languages = Object.entries(languageCodes).map(([language], index) => ({
   item: language,
 }));
 
-const sources: Item[] = [];
+export const createSourcesCoedes = (sources: Source[]) => {
+  let sourcesCodes: { [key: string]: string } = {};
 
-export const createSourcesCoedes = (
-  sources: { name: string; id: string }[]
-) => {
-  const sourcesCodes: Record<string, string> = {};
-
-  sources.forEach((source: { name: string; id: string }) => {
+  sources.forEach((source: Source) => {
     sourcesCodes[source.name] = source.id;
   });
 
   return sourcesCodes;
-};
-
-export const transformSources = (
-  sourcesData: { name: string; id: string }[]
-) => {
-  const transformedSources = sourcesData.map((source, index) => ({
-    id: (index + 1).toString(),
-    item: source.name,
-  }));
-
-  return transformedSources;
 };
 
 const categories = [
@@ -166,6 +133,10 @@ const sortBy = [
   { id: "3", item: "published at" },
 ];
 
+export const getArticlesFromPage = (pages: any[]) => {
+  return pages.flatMap<ApiData["articles"][0]>((page) => page.articles);
+};
+
 export const generateDropdownLabel = (
   dropdownName: string,
   searchParams: URLSearchParams
@@ -177,14 +148,19 @@ export const generateDropdownLabel = (
   return dropdownName || "";
 };
 
-export const headlinesDropDowns: dropDownDataType[] = [
-  { label: "Country", items: countries, handleSelect: handleCountrySelect },
-  { label: "Category", items: categories, handleSelect: handleCategorySelect },
-  { label: "Sources", items: sources, handleSelect: handleSourceSelect },
+export const headlinesDropDowns = [
+  { name: "Country", items: countries },
+  { name: "Category", items: categories },
+  { name: "Sources", items: [] },
 ];
 
-export const everythingDropDowns: dropDownDataType[] = [
-  { label: "Sort By", items: sortBy, handleSelect: handleSortBySelect },
-  { label: "Sources", items: sources, handleSelect: handleSourceSelect },
-  { label: "Language", items: languages, handleSelect: handleLanguageSelect },
+export const everythingDropDowns = [
+  { name: "Sort By", items: sortBy },
+  { name: "Sources", items: [] },
+  { name: "Language", items: languages },
 ];
+
+export const dropdowns = {
+  everything: everythingDropDowns,
+  "top-headlines": headlinesDropDowns,
+};

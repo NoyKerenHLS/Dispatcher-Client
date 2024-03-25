@@ -1,5 +1,24 @@
 import axios from "axios";
 
+export const getArticles = async ({
+  pageParam,
+  queryKey,
+}: {
+  pageParam: number;
+  queryKey: any;
+}) => {
+  const [_key, scope, filters, pageSize] = queryKey;
+
+  try {
+    const { data } = await axios.get(
+      `articles?scope=${scope}&filters=${filters}&page=${pageParam}&pageSize=${pageSize}`
+    );
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const getTopHeadlinesArticles = async ({
   pageParam,
   queryKey,
@@ -48,7 +67,7 @@ export const getEverytingArticles = async ({
 
 export const getSources = async () => {
   try {
-    const { data } = await axios.get("top-headlines/sources");
+    const { data } = await axios.get("articles/sources");
     return data;
   } catch (error) {
     return error;

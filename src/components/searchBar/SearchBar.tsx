@@ -5,7 +5,7 @@ import { searchBarStlyle } from "./styles";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
-import { Scope } from "../pages/types";
+import { createParam, dropDownItems, getNewSearches } from "./utils";
 interface Props extends StackProps {}
 
 const SearchBar = ({ sx }: Props) => {
@@ -17,39 +17,30 @@ const SearchBar = ({ sx }: Props) => {
   );
   const [dropdownLabel, setDropdownLabel] = useState("Top Headlines");
 
-  const dropDownItems = [
-    { id: "top", item: "Top Headlines" },
-    { id: "everything", item: "Everything" },
-  ];
-
   const scope = searchParams.get("scope");
 
   useEffect(() => {
     if (!scope) {
-      setSearchParam({ scope: "topheadlines" });
+      setSearchParam({ scope: "top-headlines", Country: "il" });
     } else {
       const newDropdownLabel =
-        scope === "topheadlines" ? "Top Headlines" : "Everything";
+        scope === "top-headlines" ? "Top Headlines" : "Everything";
       setDropdownLabel(newDropdownLabel);
     }
   }, []);
 
   const handleSelect = (event: SelectChangeEvent) => {
-    const value = event.target.value;
-    const scopeParam = value.replace(/[ \t\r\n]/g, "").toLowerCase();
+    const param = createParam(event.target.value);
 
-    setSearchParam({ scope: scopeParam });
+    param === "top-headlines"
+      ? setSearchParam({ scope: param, Country: "il" })
+      : setSearchParam({ scope: param });
   };
 
   const handleSearch = (value: string) => {
     searchParams.set("q", value);
     setSearchParam(searchParams);
-    const storedSearches = recentSearches;
-    const index = storedSearches.indexOf(value);
-    if (index !== -1) {
-      storedSearches.splice(index, 1);
-    }
-    storedSearches.unshift(value);
+    const storedSearches = getNewSearches(recentSearches, value);
     setRecentSearches(storedSearches);
   };
 

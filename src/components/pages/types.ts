@@ -1,4 +1,4 @@
-export type Scope = "topheadlines" | "everything";
+export type Scope = "top-headlines" | "everything";
 
 export type TopHeadlinesFilters = {
   category: string;

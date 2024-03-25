@@ -22,11 +22,7 @@ interface Props extends SelectProps {
   items: Item[];
   dropdownType?: AppDropDowns;
   icon?: React.ReactNode;
-  handleSelect: (
-    event: SelectChangeEvent,
-    searchParams: URLSearchParams,
-    setSearchParam: SetURLSearchParams
-  ) => void;
+  handleSelect: (event: SelectChangeEvent, dropdownName: string) => void;
 }
 
 const Dropdown = ({
@@ -39,7 +35,6 @@ const Dropdown = ({
 }: Props) => {
   const [selected, setSelected] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
-  const [searchParams, setSearchParam] = useSearchParams();
 
   const styledComb = { ...(sx ?? {}), ...dropDownStyles[dropdownType] };
   const menuStyle = menuDropDownStyle[dropdownType];
@@ -47,7 +42,7 @@ const Dropdown = ({
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelected(event.target.value);
-    handleSelect(event, searchParams, setSearchParam);
+    handleSelect(event, label);
   };
 
   const handleOpen = () => {

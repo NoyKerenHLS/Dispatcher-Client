@@ -8,20 +8,10 @@ import { useSearchParams } from "react-router-dom";
 import { DateRange } from "rsuite/esm/DateRangePicker";
 
 interface IProps {
-  //handleChange: (date: DateRange | null) => void;
+  handleChange: (date: DateRange | null) => void;
 }
 
-const componentName: FC<IProps> = () => {
-  const [searchParams, setSearchParam] = useSearchParams();
-  const handleDtaeChange = (dateRange: DateRange | null) => {
-    if (dateRange) {
-      const startDateISO = dateRange[0].toISOString();
-      const endDateISO = dateRange[1].toISOString();
-      searchParams.set("from", startDateISO);
-      searchParams.set("to", endDateISO);
-      setSearchParam(searchParams);
-    }
-  };
+const componentName: FC<IProps> = ({ handleChange }) => {
   return (
     <Box
       sx={{
@@ -35,7 +25,7 @@ const componentName: FC<IProps> = () => {
         style={{ width: "175px", alignSelf: "center" }}
         placeholder="Date"
         caretAs={calenderIcon}
-        onChange={(date) => handleDtaeChange(date)}
+        onChange={(date) => handleChange(date)}
       />
     </Box>
   );
