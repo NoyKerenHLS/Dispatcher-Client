@@ -23,7 +23,8 @@ const componentName: FC<IProps> = ({ handleChange, handleClean }) => {
     >
       <DateRangePicker
         style={{ width: "175px", alignSelf: "center" }}
-        placeholder="Date"
+        label="Date"
+        placeholder=" "
         caretAs={calenderIcon}
         onChange={(date) => handleChange(date)}
         onClean={handleClean}
