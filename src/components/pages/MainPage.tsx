@@ -34,7 +34,7 @@ const MainPage: FC<IProps> = () => {
   }
 
   const filters = createFilters(params);
-  const pageSize = 20;
+  const pageSize = 10;
   const pageScope: Scope =
     (searchParams.get("scope") as Scope) || "top-headlines";
 
@@ -48,9 +48,10 @@ const MainPage: FC<IProps> = () => {
     queryFn: getArticles,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
-      const nextPage = lastPage.articles.length
-        ? allPages.length + 1
-        : undefined;
+      const nextPage =
+        lastPage.articles.length && lastPage.hasMorePage
+          ? allPages.length + 1
+          : undefined;
 
       return nextPage;
     },

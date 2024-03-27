@@ -1,6 +1,7 @@
 export type ApiData = {
   status: string;
   totalResults: number;
+  hasMorePage: boolean; //db
   articles: {
     source: {
       id: string;
