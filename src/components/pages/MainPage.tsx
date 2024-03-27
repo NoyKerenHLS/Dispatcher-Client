@@ -48,10 +48,9 @@ const MainPage: FC<IProps> = () => {
     queryFn: getArticles,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
-      const nextPage =
-        lastPage.articles.length && lastPage.hasMorePage
-          ? allPages.length + 1
-          : undefined;
+      const nextPage = lastPage.articles.length
+        ? allPages.length + 1
+        : undefined;
 
       return nextPage;
     },
