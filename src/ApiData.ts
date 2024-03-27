@@ -21,7 +21,8 @@ export const getArticles = async ({
 
 export const getSources = async () => {
   try {
-    const { data } = await axios.get("articles/sources");
+    const { data } = await axios.get("articles/sources/db");
+    console.log(data);
     return data;
   } catch (error) {
     return error;
