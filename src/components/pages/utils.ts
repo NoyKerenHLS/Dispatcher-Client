@@ -128,8 +128,7 @@ const countries = Object.entries(countryCodes).map(([country], index) => ({
 
 const sortBy = [
   { id: "1", item: "relevancy" },
-  { id: "2", item: "popularity" },
-  { id: "3", item: "published at" },
+  { id: "2", item: "published at" },
 ];
 
 export const getArticlesFromPage = (pages: any[]) => {

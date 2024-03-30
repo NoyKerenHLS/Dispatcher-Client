@@ -34,10 +34,7 @@ const FilterContainerMobileTablet: FC<Props> = ({
       }}
     >
       <Dropdown
-        sx={{
-          "& .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
-            { pr: "20px" },
-        }}
+        dropdownType="mobileTablet"
         label={dropDownsData[0].name}
         items={dropDownsData[0].items}
         handleSelect={handleSelect}
