@@ -7,7 +7,7 @@ import WidgetCard from "../card/WidgetCard/WidgetCard";
 
 interface IProps {}
 
-const EmptyPage: FC<IProps> = (props) => {
+const EmptyPage: FC<IProps> = () => {
   return (
     <Stack direction="row">
       <Box

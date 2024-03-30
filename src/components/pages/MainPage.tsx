@@ -26,7 +26,7 @@ import { LineChartData } from "../chart/lineChart/types";
 interface IProps {}
 
 const MainPage: FC<IProps> = () => {
-  const [searchParams, setSearchParam] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const params = [];
   for (let entry of searchParams.entries()) {
@@ -71,6 +71,7 @@ const MainPage: FC<IProps> = () => {
         mt: APP_BAR_HEIGHT,
         pt: { xs: "0px", md: "20px" },
         px: { md: "240px" },
+        overflowX: "hidden",
       }}
     >
       <Stack
