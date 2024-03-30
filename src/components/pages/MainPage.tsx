@@ -57,9 +57,8 @@ const MainPage: FC<IProps> = () => {
   });
 
   const articles = getArticlesFromPage(data?.pages ?? []);
-  const isEmptyPage =
-    data?.pages[0].totalResults === 0 ||
-    (pageScope === "everything" && !searchParams.get("q"));
+  const isEmptyPage = data?.pages[0].totalResults === 0;
+  //|| (pageScope === "everything" && !searchParams.get("q")); - api
 
   const pieChartData: PieChartData[] = createPieDataArr(articles);
   const lineChartData: LineChartData[] = createLineDataArr(articles);
