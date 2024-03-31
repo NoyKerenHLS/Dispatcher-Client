@@ -38,13 +38,6 @@ const FilterContainer = ({ dropDownsData, sources }: Props) => {
       setSearchParam(searchParams);
       return;
     }
-
-    if (dropdownName === "Sources") {
-      searchParams.delete("Country");
-      searchParams.delete("Category");
-    }
-
-    searchParams.delete("Sources");
     searchParams.set(param.name, param.value);
     setSearchParam(searchParams);
   };

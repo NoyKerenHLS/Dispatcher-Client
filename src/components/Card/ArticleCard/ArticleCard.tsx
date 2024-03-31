@@ -9,7 +9,8 @@ import {
 } from "./styles";
 import { FC } from "react";
 import { formatDate } from "./utils";
-import mockUpImg from "../../../assets/mockUpImg.webp";
+import dispatcherLogo from "../../../assets/dispatcherLogo.jpg";
+import { useSearchParams } from "react-router-dom";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   data: any;
@@ -17,7 +18,13 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const ArticleCard: FC<Props> = ({ data, innerRef }: Props) => {
-  const image = data.urlToImage ? data.urlToImage : mockUpImg;
+  const [searchParams] = useSearchParams();
+  const image = data.urlToImage ? data.urlToImage : dispatcherLogo;
+
+  //for israel
+  const alignItems = searchParams.get("Country") === "il" ? "end" : "unset";
+  const direction = searchParams.get("Country") === "il" ? "rtl" : "unset";
+  const pr = searchParams.get("Country") === "il" ? "unset" : "inherit";
 
   return (
     <Card innerRef={innerRef} sx={articleCardStyle}>
@@ -42,6 +49,7 @@ const ArticleCard: FC<Props> = ({ data, innerRef }: Props) => {
           direction={"column"}
           sx={{ padding: "16px", gap: "14px" }}
           flex={5}
+          alignItems={alignItems}
         >
           {data.publishedAt && (
             <Typography sx={commentStyle}>
@@ -50,7 +58,10 @@ const ArticleCard: FC<Props> = ({ data, innerRef }: Props) => {
           )}
 
           {data.title && (
-            <Typography lineHeight={"22px"} sx={titleStyle}>
+            <Typography
+              lineHeight={"22px"}
+              sx={{ ...titleStyle, direction: direction, pr: pr }}
+            >
               {data.title}
             </Typography>
           )}
