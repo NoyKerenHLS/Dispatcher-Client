@@ -22,24 +22,39 @@ export const createPieDataArr = (articles: Article[]) => {
 };
 
 export const createLineDataArr = (articles: Article[]) => {
-  const monthCounts: { [key: string]: number } = {};
+  const dayCount: { [key: string]: number } = {
+    Sunday: 0,
+    Monday: 0,
+    Tuesday: 0,
+    Wednesday: 0,
+    Thursday: 0,
+  };
 
   articles.forEach((article) => {
-    const monthName = getMonthName(article.publishedAt);
+    const date = new Date(article.publishedAt);
+    const dayOfWeek = date.getDay();
+    const daysOfWeek = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const dayName = daysOfWeek[dayOfWeek];
 
-    monthCounts[monthName]
-      ? (monthCounts[monthName] = +1)
-      : (monthCounts[monthName] = 1);
+    dayCount[dayName] = +1;
   });
 
-  const monthAmount: LineChartData[] = Object.entries(monthCounts).map(
+  const daysAmount: LineChartData[] = Object.entries(dayCount).map(
     ([key, value]) => ({
       name: key,
       value: value,
     })
   );
 
-  return monthAmount;
+  return daysAmount;
 };
 
 const getMonthName = (dateString: string): string => {

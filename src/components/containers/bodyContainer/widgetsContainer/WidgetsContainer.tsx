@@ -35,7 +35,7 @@ const WidgetContainer: FC<Props> = ({
           <PieChart data={pieChartData} />
         )}
       </WidgetCard>
-      <WidgetCard title="Dates">
+      <WidgetCard title="Days Of Week">
         {loading ? (
           <Box display="flex" justifyContent="center">
             <Skeleton

@@ -43,7 +43,7 @@ const EmptyPage: FC<IProps> = () => {
         </WidgetCard>
 
         <WidgetCard
-          title="Dates"
+          title="Days Of Week"
           childrexSx={{ alignSelf: "center", padding: "30px" }}
         >
           <img src={chartNotFound} alt="chartNotFound" />
