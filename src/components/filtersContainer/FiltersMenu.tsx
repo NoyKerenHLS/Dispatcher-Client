@@ -67,14 +67,6 @@ const FiltersMenu: FC<IProps> = ({
         />
       </MenuItem>
       <Divider />{" "}
-      {!isTopHeadlines && (
-        <MenuItem>
-          <DatePicker
-            handleChange={handleDtaeChange}
-            handleClean={handleCleanDate}
-          />
-        </MenuItem>
-      )}
       <MenuItem>
         <Dropdown
           sx={{ width: "300px" }}
