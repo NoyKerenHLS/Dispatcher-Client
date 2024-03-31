@@ -31,7 +31,7 @@ const ArticleCard: FC<Props> = ({ data, innerRef }: Props) => {
       <Stack direction={{ xs: "column", sm: "row" }} height="100%">
         <Box display={{ xs: "none", sm: "flex" }} flex={{ sm: 3, md: 2 }}>
           <img
-            style={{ width: "100%", height: "100%" }}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
             src={image}
             alt={image}
           />
