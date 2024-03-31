@@ -57,6 +57,7 @@ const MainPage: FC<IProps> = () => {
   });
 
   const articles = getArticlesFromPage(data?.pages ?? []);
+  const loading = data ? false : true;
   const isEmptyPage = data?.pages[0].totalResults === 0;
   //|| (pageScope === "everything" && !searchParams.get("q")); - api
 
@@ -90,25 +91,25 @@ const MainPage: FC<IProps> = () => {
           sources={sourceData.data?.sources}
         />
 
-        <Stack
-          direction={"row"}
-          sx={{
-            gap: "15px",
-            pr: { xs: "10px", md: "unset" },
-            pl: { xs: "20px", md: "unset" },
-          }}
-        >
-          <Stack gap="20px">
-            {isLandingPage ? (
-              <Typography sx={landingLabelStyle}>{landingLabel}</Typography>
-            ) : (
-              <Typography
-                sx={resultLabelStyle}
-              >{`${data?.pages[0].totalResults} Total results`}</Typography>
-            )}
-            {isEmptyPage ? (
-              <EmptyPage />
-            ) : (
+        {isEmptyPage ? (
+          <EmptyPage />
+        ) : (
+          <Stack
+            direction={"row"}
+            sx={{
+              gap: "15px",
+              pr: { xs: "10px", md: "unset" },
+              pl: { xs: "20px", md: "unset" },
+            }}
+          >
+            <Stack gap="20px">
+              {isLandingPage ? (
+                <Typography sx={landingLabelStyle}>{landingLabel}</Typography>
+              ) : (
+                <Typography
+                  sx={resultLabelStyle}
+                >{`${data?.pages[0].totalResults} Total results`}</Typography>
+              )}
               <Stack
                 direction={"row"}
                 sx={{
@@ -118,6 +119,7 @@ const MainPage: FC<IProps> = () => {
                 }}
               >
                 <ArticlesContainer
+                  loading={loading}
                   articles={articles}
                   hasNextPage={hasNextPage}
                   fetchNextPage={fetchNextPage}
@@ -125,14 +127,15 @@ const MainPage: FC<IProps> = () => {
                 />
                 <Box sx={{ display: { xs: "none", md: "flex" } }}>
                   <WidgetContainer
+                    loading={loading}
                     pieChartData={pieChartData}
                     lineChartData={lineChartData}
                   />
                 </Box>
               </Stack>
-            )}
+            </Stack>
           </Stack>
-        </Stack>
+        )}
       </Stack>
     </Stack>
   );

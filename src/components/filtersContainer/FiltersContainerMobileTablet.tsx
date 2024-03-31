@@ -4,22 +4,46 @@ import {
   Stack,
   StackProps,
 } from "@mui/material";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Colors } from "../../globalStyle/Colors";
 import Dropdown from "../dropdown/Dropdown";
 import FilterIcon from "../Icons/mobileTabletIcons/FilterIcon";
 import { DropdownData, Item } from "../dropdown/types";
+import FiltersMenu from "./FiltersMenu";
+import { createParam, dropDownItems } from "../searchBar/utils";
+import { useSearchParams } from "react-router-dom";
 
 interface Props extends StackProps {
   dropDownsData: DropdownData[];
   handleSelect: (event: SelectChangeEvent, dropdownName: string) => void;
+  isTopHeadlines: boolean;
 }
 
 const FilterContainerMobileTablet: FC<Props> = ({
   dropDownsData,
   handleSelect,
+  isTopHeadlines,
   ...props
 }) => {
+  const [searchParams, setSearchParam] = useSearchParams();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleScopeSelect = (event: SelectChangeEvent) => {
+    const param = createParam(event.target.value);
+
+    param === "top-headlines"
+      ? setSearchParam({ scope: param, Country: "il" })
+      : setSearchParam({ scope: param });
+  };
+
   return (
     <Stack
       {...props}
@@ -35,13 +59,20 @@ const FilterContainerMobileTablet: FC<Props> = ({
     >
       <Dropdown
         dropdownType="mobileTablet"
-        label={dropDownsData[0].name}
-        items={dropDownsData[0].items}
-        handleSelect={handleSelect}
+        label="Top Headlines"
+        items={dropDownItems}
+        handleSelect={handleScopeSelect}
       />
-      <IconButton>
+      <IconButton onClick={handleClick}>
         <FilterIcon />
       </IconButton>
+      <FiltersMenu
+        handleClose={handleClose}
+        handleSelect={handleSelect}
+        anchorEl={anchorEl}
+        dropDownsData={dropDownsData}
+        isTopHeadlines={isTopHeadlines}
+      />
     </Stack>
   );
 };

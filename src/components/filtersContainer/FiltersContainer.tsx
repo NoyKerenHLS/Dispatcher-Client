@@ -72,6 +72,7 @@ const FilterContainer = ({ dropDownsData, sources }: Props) => {
         )}
       </Box>
       <FilterContainerMobileTablet
+        isTopHeadlines={isTopHeadlines}
         dropDownsData={dropDownsData}
         handleSelect={HandleSelect}
       />

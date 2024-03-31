@@ -47,10 +47,9 @@ const autocompleteDropDown: SxProps = {
 
 export const mobileTabletDropDown: SxProps = {
   height: "30px",
-  width: "100px",
   borderColor: Colors.white,
   bgcolor: Colors.white,
-  color: Colors.slateBlue, //color enum
+  color: Colors.slateBlue,
   fontSize: "14px",
   "& .MuiOutlinedInput-notchedOutline": {
     borderColor: "white",
@@ -80,6 +79,7 @@ const autoCompleteMenuStyle: SxProps = {
 
 const mobileTabletMenuStyle: SxProps = {
   mt: "5px",
+  maxHeight: "220px",
 };
 
 export const menuDropDownStyle: Record<AppDropDowns, SxProps> = {

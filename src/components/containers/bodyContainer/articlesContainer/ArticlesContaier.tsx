@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import { Box, Stack, StackProps } from "@mui/material";
+import { Box, Skeleton, Stack, StackProps } from "@mui/material";
 import ArticleCard from "../../../card/articleCard/ArticleCard";
 import { Article } from "./type";
 import { useInView } from "react-intersection-observer";
@@ -8,10 +8,12 @@ import {
   InfiniteData,
   InfiniteQueryObserverResult,
 } from "@tanstack/react-query";
+import { articlesData } from "../../../../utils/MockUpData";
 
 interface Props extends StackProps {
   articles: Article[];
   hasNextPage: boolean;
+  loading: boolean;
   fetchNextPage: (
     options?: FetchNextPageOptions | undefined
   ) => Promise<InfiniteQueryObserverResult<InfiniteData<any, unknown>, Error>>;
@@ -21,6 +23,7 @@ const ArticlesContainer: FC<Props> = ({
   articles,
   hasNextPage,
   fetchNextPage,
+  loading,
   ...props
 }) => {
   const { ref, inView } = useInView();
@@ -39,21 +42,35 @@ const ArticlesContainer: FC<Props> = ({
       }}
     >
       <Stack {...props} gap="24px" alignItems="stretch">
-        {articles.map((article, index) => {
-          const shouldObserveInView = index < articles.length - 1;
+        {loading
+          ? articlesData.map((data, index) => (
+              <Box width="100%" key={index}>
+                <Skeleton
+                  key={index}
+                  variant="rectangular"
+                  sx={{
+                    height: { xs: "450px", sm: "242px" },
+                    width: { xs: "300px", sm: "700px", md: "800px" },
+                    borderRadius: "20px",
+                  }}
+                />
+              </Box>
+            ))
+          : articles.map((article, index) => {
+              const shouldObserveInView = index < articles.length - 1;
 
-          if (shouldObserveInView) {
-            return (
-              <ArticleCard
-                innerRef={ref}
-                key={index + article.title}
-                data={article}
-              />
-            );
-          }
+              if (shouldObserveInView) {
+                return (
+                  <ArticleCard
+                    innerRef={ref}
+                    key={index + article.title}
+                    data={article}
+                  />
+                );
+              }
 
-          return <ArticleCard key={article.title} data={article} />;
-        })}
+              return <ArticleCard key={article.title} data={article} />;
+            })}
       </Stack>
     </Box>
   );

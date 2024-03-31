@@ -69,7 +69,7 @@ const PieChart: FC<Props> = ({ data }) => {
             {payload?.map((entry, index) => (
               <Stack direction="row" key={`entry-${index}`}>
                 <span>
-                  <CircleIcon sx={{ width: "5px", color: entry.color }} />
+                  <CircleIcon sx={{ width: "10px", color: entry.color }} />
                 </span>
                 {entry.value}
               </Stack>

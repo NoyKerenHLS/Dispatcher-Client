@@ -6,9 +6,11 @@ import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { createParam, dropDownItems, getNewSearches } from "./utils";
-interface Props extends StackProps {}
+interface Props extends StackProps {
+  dropDown?: boolean;
+}
 
-const SearchBar = ({ sx }: Props) => {
+const SearchBar = ({ sx, dropDown = true }: Props) => {
   const styledComb = { ...(sx ?? {}), ...searchBarStlyle };
   const [searchParams, setSearchParam] = useSearchParams();
   const [recentSearches, setRecentSearches] = useLocalStorage<string[]>(
@@ -63,7 +65,9 @@ const SearchBar = ({ sx }: Props) => {
         <Box
           height="40px"
           component="hr"
-          sx={{ border: "0.75px solid #D9DBE9" }}
+          sx={{
+            border: "0.75px solid #D9DBE9",
+          }}
         />
       }
     >
@@ -74,12 +78,15 @@ const SearchBar = ({ sx }: Props) => {
         handleDeleteItem={handleDeleteItem}
         itemListSx={{ width: "423px" }}
       ></Autocomplete>
-      <Dropdown
-        handleSelect={handleSelect}
-        dropdownType="autocomplete"
-        label={dropdownLabel}
-        items={dropDownItems}
-      ></Dropdown>
+      {dropDown && (
+        <Dropdown
+          sx={{ display: { xs: "none", md: "flex" } }}
+          handleSelect={handleSelect}
+          dropdownType="autocomplete"
+          label={dropdownLabel}
+          items={dropDownItems}
+        ></Dropdown>
+      )}
     </Stack>
   );
 };
