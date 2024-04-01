@@ -11,6 +11,7 @@ import {
   legendNameStyle,
   legendValStyle,
 } from "./styles";
+import { pieChartData } from "../../../utils/MockUpData";
 
 interface Props {
   data: PieChartData[];
@@ -18,6 +19,8 @@ interface Props {
 
 const PieChart: FC<Props> = ({ data }) => {
   const sumValues = data.reduce((acc, entry) => acc + entry.value, 0);
+
+  console.log(data);
 
   const payload: Payload[] = data.map((entry, index) => ({
     value: (
@@ -30,7 +33,7 @@ const PieChart: FC<Props> = ({ data }) => {
     ),
     dataKey: "value",
     type: "circle",
-    color: COLORS[index % COLORS.length],
+    color: COLORS[(index + 1) % COLORS.length],
   }));
 
   return (
@@ -50,7 +53,7 @@ const PieChart: FC<Props> = ({ data }) => {
           <Cell
             style={{ outline: "none" }}
             key={`cell-${index}`}
-            fill={COLORS[index % COLORS.length]}
+            fill={COLORS[(index + 1) % COLORS.length]}
           />
         ))}
         <Label

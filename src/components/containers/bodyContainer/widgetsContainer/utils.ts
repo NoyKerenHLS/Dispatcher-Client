@@ -7,9 +7,12 @@ export const createPieDataArr = (articles: Article[]) => {
 
   articles.forEach((article) =>
     sourceCounts[article.source.name]
-      ? (sourceCounts[article.source.name] = +1)
+      ? (sourceCounts[article.source.name] =
+          sourceCounts[article.source.name] + 1)
       : (sourceCounts[article.source.name] = 1)
   );
+
+  console.log(sourceCounts);
 
   const sourcesAmount: PieChartData[] = Object.entries(sourceCounts).map(
     ([key, value]) => ({
@@ -44,7 +47,7 @@ export const createLineDataArr = (articles: Article[]) => {
     ];
     const dayName = daysOfWeek[dayOfWeek];
 
-    dayCount[dayName] = +1;
+    dayCount[dayName] = dayCount[dayName] + 1;
   });
 
   const daysAmount: LineChartData[] = Object.entries(dayCount).map(
