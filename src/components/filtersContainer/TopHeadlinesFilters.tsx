@@ -5,7 +5,7 @@ import { SelectChangeEvent } from "@mui/material";
 
 interface IProps {
   dropDownsData: DropdownData[];
-  handleSelect: (event: SelectChangeEvent, dropdownName: string) => void;
+  handleSelect: (value: string, dropdownName: string) => void;
 }
 
 const TopHeadlinesFilters: FC<IProps> = ({ dropDownsData, handleSelect }) => {

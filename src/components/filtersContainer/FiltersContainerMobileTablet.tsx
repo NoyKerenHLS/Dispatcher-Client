@@ -1,21 +1,17 @@
-import {
-  IconButton,
-  SelectChangeEvent,
-  Stack,
-  StackProps,
-} from "@mui/material";
+import { Box, Drawer, IconButton, Stack, StackProps } from "@mui/material";
 import { FC, useState } from "react";
 import { Colors } from "../../globalStyle/Colors";
 import Dropdown from "../dropdown/Dropdown";
 import FilterIcon from "../Icons/mobileTabletIcons/FilterIcon";
-import { DropdownData, Item } from "../dropdown/types";
+import { DropdownData } from "../dropdown/types";
 import FiltersMenu from "./FiltersMenu";
 import { createParam, dropDownItems } from "../searchBar/utils";
 import { useSearchParams } from "react-router-dom";
+import Button from "../button/Button";
 
 interface Props extends StackProps {
   dropDownsData: DropdownData[];
-  handleSelect: (event: SelectChangeEvent, dropdownName: string) => void;
+  handleSelect: (value: string, dropdownName: string) => void;
   isTopHeadlines: boolean;
 }
 
@@ -26,22 +22,22 @@ const FilterContainerMobileTablet: FC<Props> = ({
   ...props
 }) => {
   const [searchParams, setSearchParam] = useSearchParams();
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [open, setOpen] = useState(false);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+  const toggleDrawer = () => {
+    setOpen(!open);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleScopeSelect = (event: SelectChangeEvent) => {
-    const param = createParam(event.target.value);
+  const handleScopeSelect = (value: string) => {
+    const param = createParam(value);
 
     param === "top-headlines"
       ? setSearchParam({ scope: param, Country: "il" })
       : setSearchParam({ scope: param });
+  };
+
+  const handleClick = () => {
+    toggleDrawer();
   };
 
   return (
@@ -59,20 +55,38 @@ const FilterContainerMobileTablet: FC<Props> = ({
     >
       <Dropdown
         dropdownType="mobileTablet"
-        label="Top Headlines"
-        items={dropDownItems}
-        handleSelect={handleScopeSelect}
+        label={dropDownsData[0].name}
+        items={dropDownsData[0].items}
+        handleSelect={handleSelect}
       />
-      <IconButton onClick={handleClick}>
+      <IconButton onClick={toggleDrawer}>
         <FilterIcon />
       </IconButton>
-      <FiltersMenu
-        handleClose={handleClose}
-        handleSelect={handleSelect}
-        anchorEl={anchorEl}
-        dropDownsData={dropDownsData}
-        isTopHeadlines={isTopHeadlines}
-      />
+      <Drawer anchor="right" open={open} onClose={toggleDrawer}>
+        <FiltersMenu
+          handleSelect={handleSelect}
+          open={open}
+          dropDownsData={dropDownsData}
+          isTopHeadlines={isTopHeadlines}
+        />
+        <Box display="flex" height="100%" alignItems="end">
+          <Box
+            sx={{
+              padding: "20px",
+              backgroundColor: Colors.lightGray,
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Button
+              sx={{ pl: "48px" }}
+              label="view results"
+              onClick={handleClick}
+            />
+          </Box>
+        </Box>
+      </Drawer>
     </Stack>
   );
 };

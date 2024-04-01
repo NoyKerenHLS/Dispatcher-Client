@@ -11,6 +11,7 @@ import { FC } from "react";
 import { formatDate } from "./utils";
 import dispatcherLogo from "../../../assets/dispatcherLogo.jpg";
 import { useSearchParams } from "react-router-dom";
+import ArrowIcon from "../../Icons/button/RightArrowIcon";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   data: any;
@@ -85,6 +86,7 @@ const ArticleCard: FC<Props> = ({ data, innerRef }: Props) => {
               alignSelf: { sm: "flex-end" },
             }}
             label="navigate to dispatch"
+            icon={<ArrowIcon />}
             component="a"
             href={data.url!}
             disabled={!data.url}

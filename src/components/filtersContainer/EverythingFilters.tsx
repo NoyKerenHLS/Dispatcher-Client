@@ -8,7 +8,7 @@ import { useSearchParams } from "react-router-dom";
 
 interface IProps {
   dropDownsData: DropdownData[];
-  handleSelect: (event: SelectChangeEvent, dropdownName: string) => void;
+  handleSelect: (value: string, dropdownName: string) => void;
 }
 
 const EverythingFilters: FC<IProps> = ({ dropDownsData, handleSelect }) => {

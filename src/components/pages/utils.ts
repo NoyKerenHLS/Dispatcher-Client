@@ -19,32 +19,32 @@ export const createFilters = (params: [string, string][]) => {
 };
 
 export const createParam = (
-  event: SelectChangeEvent,
+  value: string,
   dropdownName: string,
   sourcesCodes?: { [key: string]: string }
 ) => {
-  let value = "";
+  let pValue = "";
   const name = dropdownName.replace(/[ \t\r\n]/g, "");
 
   switch (dropdownName) {
     case "Sources":
-      value = sourcesCodes
-        ? sourcesCodes[event.target.value as keyof typeof sourcesCodes]
+      pValue = sourcesCodes
+        ? sourcesCodes[value as keyof typeof sourcesCodes]
         : "";
       break;
     case "Language":
-      value = languageCodes[event.target.value as keyof typeof languageCodes];
+      pValue = languageCodes[value as keyof typeof languageCodes];
       break;
     case "Country":
-      value = countryCodes[event.target.value as keyof typeof countryCodes];
+      pValue = countryCodes[value as keyof typeof countryCodes];
       break;
 
     default:
-      value = event.target.value.replace(/[ \t\r\n]/g, "");
+      pValue = value.replace(/[ \t\r\n]/g, "");
       break;
   }
 
-  return { name, value };
+  return { name, pValue };
 };
 
 // export const countryCodes = {
@@ -143,8 +143,8 @@ export const headlinesDropDowns = [
 
 export const everythingDropDowns = [
   { name: "Sort By", items: sortBy },
-  { name: "Sources", items: [] },
   { name: "Language", items: languages },
+  { name: "Sources", items: [] },
 ];
 
 export const dropdowns = {

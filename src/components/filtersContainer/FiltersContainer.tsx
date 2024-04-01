@@ -30,15 +30,28 @@ const FilterContainer = ({ dropDownsData, sources }: Props) => {
     }
   }
 
-  const HandleSelect = (event: SelectChangeEvent, dropdownName: string) => {
-    const param = createParam(event, dropdownName, sourcesCodes);
+  const HandleSelect = (value: string, dropdownName: string) => {
+    const param = createParam(value, dropdownName, sourcesCodes);
 
-    if (!param.value) {
+    console.log(param);
+
+    if (!param.pValue || param.pValue === "None") {
       searchParams.delete(param.name);
       setSearchParam(searchParams);
       return;
     }
-    searchParams.set(param.name, param.value);
+
+    if (param.pValue === "top-headlines") {
+      setSearchParam({ scope: "top-headlines", Country: "il" });
+      return;
+    }
+
+    if (param.pValue === "everything") {
+      setSearchParam({ scope: "everything" });
+      return;
+    }
+
+    searchParams.set(param.name, param.pValue);
     setSearchParam(searchParams);
   };
 

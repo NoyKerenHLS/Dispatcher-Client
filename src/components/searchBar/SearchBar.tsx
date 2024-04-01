@@ -31,8 +31,8 @@ const SearchBar = ({ sx, dropDown = true }: Props) => {
     }
   }, []);
 
-  const handleSelect = (event: SelectChangeEvent) => {
-    const param = createParam(event.target.value);
+  const handleSelect = (value: string) => {
+    const param = createParam(value);
 
     param === "top-headlines"
       ? setSearchParam({ scope: param, Country: "il" })

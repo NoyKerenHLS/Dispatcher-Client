@@ -11,7 +11,7 @@ export const titleStyle: SxProps = {
   fontWeight: "700",
   overflow: "hidden",
   display: "-webkit-box",
-  WebkitLineClamp: { xs: 3, md: 2 },
+  WebkitLineClamp: { xs: 3, sm: 1, md: 2 },
   WebkitBoxOrient: "vertical",
 };
 

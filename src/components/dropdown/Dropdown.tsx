@@ -22,7 +22,7 @@ interface Props extends SelectProps {
   items: Item[];
   dropdownType?: AppDropDowns;
   icon?: React.ReactNode;
-  handleSelect: (event: SelectChangeEvent, dropdownName: string) => void;
+  handleSelect: (value: string, dropdownName: string) => void;
 }
 
 const Dropdown = ({
@@ -42,7 +42,7 @@ const Dropdown = ({
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelected(event.target.value);
-    handleSelect(event, label);
+    handleSelect(event.target.value, label);
   };
 
   const handleOpen = () => {
