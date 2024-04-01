@@ -1,8 +1,8 @@
-import { Box, SelectChangeEvent } from "@mui/material";
+import { Box } from "@mui/material";
 import { Colors } from "../../globalStyle/Colors";
 import { createParam, createSourcesCoedes } from "../pages/utils";
 import { useSearchParams } from "react-router-dom";
-import { DropdownData, Item } from "../dropdown/types";
+import { DropdownData } from "../dropdown/types";
 import { Scope } from "../pages/types";
 import TopHeadlinesFilters from "./TopHeadlinesFilters";
 import EverythingFilters from "./EverythingFilters";

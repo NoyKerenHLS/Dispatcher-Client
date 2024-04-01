@@ -1,4 +1,4 @@
-import { Box, SelectChangeEvent, Stack, StackProps } from "@mui/material";
+import { Box, Stack, StackProps } from "@mui/material";
 import Autocomplete from "../autocomplete/Autocomplete";
 import Dropdown from "../dropdown/Dropdown";
 import { searchBarStlyle } from "./styles";

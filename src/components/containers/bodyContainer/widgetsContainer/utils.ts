@@ -56,10 +56,3 @@ export const createLineDataArr = (articles: Article[]) => {
 
   return daysAmount;
 };
-
-const getMonthName = (dateString: string): string => {
-  const date = new Date(dateString);
-  const options: Intl.DateTimeFormatOptions = { month: "long" };
-  const fullMonthName = date.toLocaleDateString("en-US", options);
-  return fullMonthName.substring(0, 3);
-};

@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { DropdownData } from "../dropdown/types";
 import Dropdown from "../dropdown/Dropdown";
-import { SelectChangeEvent } from "@mui/material";
 
 interface IProps {
   dropDownsData: DropdownData[];

@@ -1,20 +1,9 @@
-import {
-  Box,
-  Divider,
-  Drawer,
-  MenuItem,
-  SelectChangeEvent,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Divider, MenuItem, Stack, Typography } from "@mui/material";
 import { FC, useState } from "react";
 import { DropdownData, Item } from "../dropdown/types";
 import { DateRange } from "rsuite/esm/DateRangePicker";
 import { useSearchParams } from "react-router-dom";
-import DatePicker from "../datePicker/DatePicker";
 import { Colors } from "../../globalStyle/Colors";
-import { languageCodes } from "../pages/utils";
-import Button from "../button/Button";
 import { dropDownItems } from "../searchBar/utils";
 
 interface IProps {

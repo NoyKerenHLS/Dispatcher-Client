@@ -5,8 +5,6 @@ import Dropdown from "../dropdown/Dropdown";
 import FilterIcon from "../Icons/mobileTabletIcons/FilterIcon";
 import { DropdownData } from "../dropdown/types";
 import FiltersMenu from "./FiltersMenu";
-import { createParam, dropDownItems } from "../searchBar/utils";
-import { useSearchParams } from "react-router-dom";
 import Button from "../button/Button";
 
 interface Props extends StackProps {
@@ -21,19 +19,10 @@ const FilterContainerMobileTablet: FC<Props> = ({
   isTopHeadlines,
   ...props
 }) => {
-  const [searchParams, setSearchParam] = useSearchParams();
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = () => {
     setOpen(!open);
-  };
-
-  const handleScopeSelect = (value: string) => {
-    const param = createParam(value);
-
-    param === "top-headlines"
-      ? setSearchParam({ scope: param, Country: "il" })
-      : setSearchParam({ scope: param });
   };
 
   const handleClick = () => {

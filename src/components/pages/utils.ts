@@ -1,4 +1,3 @@
-import { SelectChangeEvent } from "@mui/material";
 import { ApiData } from "../card/articleCard/types";
 import { Source } from "../filtersContainer/types";
 

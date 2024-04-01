@@ -15,7 +15,6 @@ import {
   iconButtonStyle,
 } from "./styles";
 import ArrowIcon from "../Icons/dropDown/downArrowIcon";
-import { SetURLSearchParams, useSearchParams } from "react-router-dom";
 
 interface Props extends SelectProps {
   label: string;
