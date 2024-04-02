@@ -25,10 +25,6 @@ const FilterContainerMobileTablet: FC<Props> = ({
     setOpen(!open);
   };
 
-  const handleClick = () => {
-    toggleDrawer();
-  };
-
   return (
     <Stack
       {...props}
@@ -71,7 +67,7 @@ const FilterContainerMobileTablet: FC<Props> = ({
             <Button
               sx={{ pl: "48px" }}
               label="view results"
-              onClick={handleClick}
+              onClick={toggleDrawer}
             />
           </Box>
         </Box>

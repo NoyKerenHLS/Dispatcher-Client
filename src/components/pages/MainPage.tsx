@@ -67,7 +67,7 @@ const MainPage: FC<IProps> = () => {
   return (
     <Stack
       gap="20px"
-      alignItems="center"
+      alignItems="strech"
       sx={{
         mt: APP_BAR_HEIGHT,
         pt: { xs: "0px", md: "20px" },

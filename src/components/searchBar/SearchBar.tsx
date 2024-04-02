@@ -8,10 +8,11 @@ import { useLocalStorage } from "usehooks-ts";
 import { createParam, dropDownItems, getNewSearches } from "./utils";
 interface Props extends StackProps {
   dropDown?: boolean;
+  width?: string;
 }
 
-const SearchBar = ({ sx, dropDown = true }: Props) => {
-  const styledComb = { ...(sx ?? {}), ...searchBarStlyle };
+const SearchBar = ({ sx, dropDown = true, width = "423px" }: Props) => {
+  const styledComb = { ...(sx ?? {}), ...searchBarStlyle, width };
   const [searchParams, setSearchParam] = useSearchParams();
   const [recentSearches, setRecentSearches] = useLocalStorage<string[]>(
     "stored-searches",
@@ -57,6 +58,20 @@ const SearchBar = ({ sx, dropDown = true }: Props) => {
     setRecentSearches(newRecentSearches);
   };
 
+  if (dropDown) {
+    return (
+      <Box display="flex" flexDirection="row" sx={styledComb}>
+        <Autocomplete
+          options={recentSearches}
+          handleSearch={handleSearch}
+          handleClear={handleClear}
+          handleDeleteItem={handleDeleteItem}
+          itemListSx={{ width: width }}
+        ></Autocomplete>
+      </Box>
+    );
+  }
+
   return (
     <Stack
       direction={"row"}
@@ -76,17 +91,15 @@ const SearchBar = ({ sx, dropDown = true }: Props) => {
         handleSearch={handleSearch}
         handleClear={handleClear}
         handleDeleteItem={handleDeleteItem}
-        itemListSx={{ width: "423px" }}
+        itemListSx={{ width: width }}
       ></Autocomplete>
-      {dropDown && (
-        <Dropdown
-          sx={{ display: { xs: "none", md: "flex" } }}
-          handleSelect={handleSelect}
-          dropdownType="autocomplete"
-          label={dropdownLabel}
-          items={dropDownItems}
-        ></Dropdown>
-      )}
+      <Dropdown
+        sx={{ display: { xs: "none", md: "flex" } }}
+        handleSelect={handleSelect}
+        dropdownType="autocomplete"
+        label={dropdownLabel}
+        items={dropDownItems}
+      ></Dropdown>
     </Stack>
   );
 };

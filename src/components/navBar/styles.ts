@@ -14,6 +14,7 @@ export const searchBarStyle = {
   height: "50px",
   alignSelf: "center",
   ml: { sm: "51px", md: "154px" },
+  width: "423px",
 };
 
 export const logoStyle = { py: "12px", pl: "25px" };
