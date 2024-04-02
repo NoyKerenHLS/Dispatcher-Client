@@ -1,10 +1,10 @@
-import { Hidden, Stack, StackProps } from "@mui/material";
+import { Stack, StackProps } from "@mui/material";
 import Dropdown from "../dropdown/Dropdown";
-import { Item } from "../dropdown/types";
+import { dropDownDataType } from "../dropdown/types";
 import { Colors } from "../../globalStyle/Colors";
 
 interface Props extends StackProps {
-  dropDownsData: { label: string; items: Item[] }[];
+  dropDownsData: dropDownDataType[];
 }
 
 const FilterLayout = ({ dropDownsData, ...props }: Props) => {
@@ -15,12 +15,13 @@ const FilterLayout = ({ dropDownsData, ...props }: Props) => {
       borderColor={Colors.lavenderGray}
       gap={"20px"}
     >
-      {dropDownsData.map((data) => (
+      {dropDownsData.map((dropDownData) => (
         <Dropdown
-          key={data.label}
-          label={data.label}
-          items={data.items}
-        ></Dropdown>
+          key={dropDownData.label}
+          label={dropDownData.label}
+          items={dropDownData.items}
+          handleSelect={dropDownData.handleSelect}
+        />
       ))}
     </Stack>
   );
