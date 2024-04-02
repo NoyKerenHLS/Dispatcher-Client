@@ -7,7 +7,7 @@ import WidgetCard from "../card/WidgetCard/WidgetCard";
 
 interface IProps {}
 
-const EmptyPage: FC<IProps> = (props) => {
+const EmptyPage: FC<IProps> = () => {
   return (
     <Stack direction="row">
       <Box
@@ -43,7 +43,7 @@ const EmptyPage: FC<IProps> = (props) => {
         </WidgetCard>
 
         <WidgetCard
-          title="Dates"
+          title="Days Of Week"
           childrexSx={{ alignSelf: "center", padding: "30px" }}
         >
           <img src={chartNotFound} alt="chartNotFound" />

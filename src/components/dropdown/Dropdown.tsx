@@ -15,18 +15,13 @@ import {
   iconButtonStyle,
 } from "./styles";
 import ArrowIcon from "../Icons/dropDown/downArrowIcon";
-import { SetURLSearchParams, useSearchParams } from "react-router-dom";
 
 interface Props extends SelectProps {
   label: string;
   items: Item[];
   dropdownType?: AppDropDowns;
   icon?: React.ReactNode;
-  handleSelect: (
-    event: SelectChangeEvent,
-    searchParams: URLSearchParams,
-    setSearchParam: SetURLSearchParams
-  ) => void;
+  handleSelect: (value: string, dropdownName: string) => void;
 }
 
 const Dropdown = ({
@@ -39,7 +34,6 @@ const Dropdown = ({
 }: Props) => {
   const [selected, setSelected] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
-  const [searchParams, setSearchParam] = useSearchParams();
 
   const styledComb = { ...(sx ?? {}), ...dropDownStyles[dropdownType] };
   const menuStyle = menuDropDownStyle[dropdownType];
@@ -47,7 +41,7 @@ const Dropdown = ({
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelected(event.target.value);
-    handleSelect(event, searchParams, setSearchParam);
+    handleSelect(event.target.value, label);
   };
 
   const handleOpen = () => {
@@ -89,9 +83,13 @@ const Dropdown = ({
         sx: menuStyle,
       }}
     >
-      <MenuItem sx={menuItemStyle} value={""}>
-        <em>None</em>
-      </MenuItem>
+      {dropdownType === "filter" ? (
+        <MenuItem sx={menuItemStyle} value={""}>
+          <em>None</em>
+        </MenuItem>
+      ) : (
+        ""
+      )}
       {items.map((item) => (
         <MenuItem key={item.id} value={item.item} sx={menuItemStyle}>
           {item.item}

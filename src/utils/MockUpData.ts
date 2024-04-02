@@ -115,55 +115,6 @@ export const articlesData = [
     publishedAt: "2024-02-21T08:17:22Z",
     content: null,
   },
-  {
-    source: {
-      id: "6",
-      name: "Fox News",
-    },
-    author: "Landon Mion",
-    title:
-      "UK High Court hears arguments in Assange's US extradition case without him present due to health reasons - Fox News",
-    description:
-      "Julian Assange's hearing in London for his possible final appeal challenging his extradition to the U.S. kicked off on Tuesday, although he was absent from the courtroom.",
-    url: "https://www.foxnews.com/world/uk-high-court-arguments-assanges-us-extradition-case-without-him-present-health-reasons",
-    urlToImage:
-      "https://static.foxnews.com/foxnews.com/content/uploads/2024/02/assangetruck.png",
-    publishedAt: "2024-02-21T07:15:00Z",
-    content:
-      "Join Fox News for access to this content\r\nPlus get unlimited access to thousands of articles, videos and more with your free account!\r\nPlease enter a valid email address.\r\nBy entering your email, you… [+12836 chars]",
-  },
-  {
-    source: {
-      id: "7",
-      name: "New York Post",
-    },
-    author: "Richard Pollina",
-    title:
-      "Young girl dies after sand hole she was digging with little boy collapses on Florida beach - New York Post ",
-    description:
-      "We were conducting life-saving techniques to try to bring her pulse back, and it never did recover, and she was pronounced dead at the hospital.",
-    url: "https://nypost.com/2024/02/21/us-news/girl-dies-on-florida-beach-after-sand-hole-she-was-digging-with-little-boy-collapses/",
-    urlToImage:
-      "https://nypost.com/wp-content/uploads/sites/2/2024/02/Hole-HP-gif-1.gif?w=1024",
-    publishedAt: "2024-02-21T06:33:00Z",
-    content:
-      "Distressing footage captured desperate beachgoers using their hands to rescue a young girl who was trapped in a sand hole on a Florida beach before she died on Tuesday. \r\nThe girl, believed to be aro… [+3144 chars]",
-  },
-  {
-    source: {
-      id: "8",
-      name: "Suntimes.com",
-    },
-    author: "Georgia Nicols",
-    title: "Horoscope for Wednesday, Feb. 21, 2024 - Chicago Sun-Times",
-    description: null,
-    url: "https://chicago.suntimes.com/horoscopes/2024/02/20/horoscopes-today-wednesday-feb-21-2024",
-    urlToImage:
-      "https://cst.brightspotcdn.com/dims4/default/7e6923b/2147483647/strip/true/crop/870x497+0+67/resize/1461x834!/quality/90/?url=https%3A%2F%2Fcdn.vox-cdn.com%2Fuploads%2Fchorus_asset%2Ffile%2F22282522%2FGeorgia_Nicols.jpg",
-    publishedAt: "2024-02-21T06:01:00Z",
-    content:
-      "Moon Alert\r\nAfter 8 a.m. Chicago time, there are no restrictions to shopping or important decisions. The moon is in Leo.\r\nAries (March 21-April 19)\r\nYou might experience challenges with romantic part… [+3787 chars]",
-  },
 ];
 
 export const pieChartData: PieChartData[] = [

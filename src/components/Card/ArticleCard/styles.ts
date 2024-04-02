@@ -9,10 +9,9 @@ export const articleCardStyle: SxProps = {
 export const titleStyle: SxProps = {
   fontSize: "18px",
   fontWeight: "700",
-  pr: "inherit",
   overflow: "hidden",
   display: "-webkit-box",
-  WebkitLineClamp: { xs: 3, md: 2 },
+  WebkitLineClamp: { xs: 3, sm: 1, md: 2 },
   WebkitBoxOrient: "vertical",
 };
 

@@ -7,3 +7,11 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.rs-input-group.rs-input-group-inside {
+  border: none;
+}
+
+.rs-picker-label.rs-input-group-addon {
+  color: #5a5a89;
+}

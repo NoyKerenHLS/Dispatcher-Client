@@ -1,41 +1,76 @@
-import { Box, SelectChangeEvent, Stack, StackProps } from "@mui/material";
+import { Box, Stack, StackProps } from "@mui/material";
 import Autocomplete from "../autocomplete/Autocomplete";
 import Dropdown from "../dropdown/Dropdown";
 import { searchBarStlyle } from "./styles";
-import { dropDownDataType } from "../dropdown/types";
 import { useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useLocalStorage } from "usehooks-ts";
+import { createParam, dropDownItems, getNewSearches } from "./utils";
+interface Props extends StackProps {
+  dropDown?: boolean;
+  width?: string;
+}
 
-interface Props extends StackProps {}
-
-const SearchBar = ({ sx }: Props) => {
-  const styledComb = { ...(sx ?? {}), ...searchBarStlyle };
+const SearchBar = ({ sx, dropDown = true, width = "423px" }: Props) => {
+  const styledComb = { ...(sx ?? {}), ...searchBarStlyle, width };
   const [searchParams, setSearchParam] = useSearchParams();
+  const [recentSearches, setRecentSearches] = useLocalStorage<string[]>(
+    "stored-searches",
+    []
+  );
+  const [dropdownLabel, setDropdownLabel] = useState("Top Headlines");
 
-  const dropDownItems = [
-    { id: "top", item: "Top Headlines" },
-    { id: "everything", item: "Everything" },
-  ];
+  const scope = searchParams.get("scope");
 
   useEffect(() => {
-    if (!searchParams.get("scope")) {
-      setSearchParam({ scope: "topheadlines" });
+    if (!scope) {
+      setSearchParam({ scope: "top-headlines", Country: "il" });
+    } else {
+      const newDropdownLabel =
+        scope === "top-headlines" ? "Top Headlines" : "Everything";
+      setDropdownLabel(newDropdownLabel);
     }
   }, []);
 
-  const handleSelect = (event: SelectChangeEvent) => {
-    const value = event.target.value;
-    const scopeParam = value.replace(/[ \t\r\n]/g, "").toLowerCase();
+  const handleSelect = (value: string) => {
+    const param = createParam(value);
 
-    setSearchParam({ scope: scopeParam });
+    param === "top-headlines"
+      ? setSearchParam({ scope: param, Country: "il" })
+      : setSearchParam({ scope: param });
   };
 
   const handleSearch = (value: string) => {
     searchParams.set("q", value);
     setSearchParam(searchParams);
+    const storedSearches = getNewSearches(recentSearches, value);
+    setRecentSearches(storedSearches);
   };
 
-  const recentSearches = ["soccer"];
+  const handleClear = () => {
+    setRecentSearches([]);
+  };
+
+  const handleDeleteItem = (index: number) => {
+    const newRecentSearches = recentSearches;
+    newRecentSearches.splice(index, 1);
+
+    setRecentSearches(newRecentSearches);
+  };
+
+  if (dropDown) {
+    return (
+      <Box display="flex" flexDirection="row" sx={styledComb}>
+        <Autocomplete
+          options={recentSearches}
+          handleSearch={handleSearch}
+          handleClear={handleClear}
+          handleDeleteItem={handleDeleteItem}
+          itemListSx={{ width: width }}
+        ></Autocomplete>
+      </Box>
+    );
+  }
 
   return (
     <Stack
@@ -45,19 +80,24 @@ const SearchBar = ({ sx }: Props) => {
         <Box
           height="40px"
           component="hr"
-          sx={{ border: "0.75px solid #D9DBE9" }}
+          sx={{
+            border: "0.75px solid #D9DBE9",
+          }}
         />
       }
     >
       <Autocomplete
         options={recentSearches}
         handleSearch={handleSearch}
-        itemListSx={{ width: "423px" }}
+        handleClear={handleClear}
+        handleDeleteItem={handleDeleteItem}
+        itemListSx={{ width: width }}
       ></Autocomplete>
       <Dropdown
+        sx={{ display: { xs: "none", md: "flex" } }}
         handleSelect={handleSelect}
         dropdownType="autocomplete"
-        label="Top Headlines"
+        label={dropdownLabel}
         items={dropDownItems}
       ></Dropdown>
     </Stack>

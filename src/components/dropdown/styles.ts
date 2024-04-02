@@ -4,10 +4,10 @@ import { Colors } from "../../globalStyle/Colors";
 
 const filterDropDown: SxProps = {
   height: "47px",
+  width: "175px",
   borderRadius: "10px",
   borderColor: Colors.white,
   bgcolor: Colors.white,
-  px: { md: "22.5px" },
   color: Colors.slateBlue, //color enum
   fontSize: "14px",
   "& .MuiOutlinedInput-notchedOutline": {
@@ -45,9 +45,26 @@ const autocompleteDropDown: SxProps = {
     },
 };
 
+export const mobileTabletDropDown: SxProps = {
+  height: "30px",
+  borderColor: Colors.white,
+  bgcolor: Colors.white,
+  color: Colors.slateBlue,
+  fontSize: "14px",
+  "& .MuiOutlinedInput-notchedOutline": {
+    borderColor: "white",
+  },
+  "& .MuiOutlinedInput-notchedOutline:not(:hover)": {
+    border: "none",
+  },
+  "& .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
+    { pr: "20px" },
+};
+
 export const dropDownStyles: Record<AppDropDowns, SxProps> = {
   filter: filterDropDown,
   autocomplete: autocompleteDropDown,
+  mobileTablet: mobileTabletDropDown,
 };
 
 const filterMenuStyle: SxProps = {
@@ -60,9 +77,15 @@ const autoCompleteMenuStyle: SxProps = {
   marginTop: "12px",
 };
 
+const mobileTabletMenuStyle: SxProps = {
+  mt: "5px",
+  maxHeight: "220px",
+};
+
 export const menuDropDownStyle: Record<AppDropDowns, SxProps> = {
   filter: filterMenuStyle,
   autocomplete: autoCompleteMenuStyle,
+  mobileTablet: mobileTabletMenuStyle,
 };
 
 export const menuPaperStyle: SxProps = {

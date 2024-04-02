@@ -1,55 +1,78 @@
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { FC } from "react";
 import { APP_BAR_HEIGHT } from "../navBar/styles";
-import FilterLayout from "../filtersLayout/FilterLayout";
-import FilterLayoutMobileTablet from "../filtersLayout/FilterLayoutMobileTablet";
+import FilterContainer from "../filtersContainer/FiltersContainer";
 import {
-  everythingDropDowns,
-  headlinesDropDowns,
-  transformSources,
+  createFilters,
+  dropdowns,
+  getArticlesFromPage,
+  landingLabel,
 } from "./utils";
 import { useSearchParams } from "react-router-dom";
-import { getSources } from "../../ApiData";
-import TopHeadlinesPage from "./TopHeadlinesPage";
-import EverythingPage from "./EverythingPage";
+import { getArticles, getSources } from "../../ApiData";
 import EmptyPage from "./EmptyPage";
-import { useQuery } from "@tanstack/react-query";
-import { Item } from "../dropdown/types";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { Scope } from "./types";
+import ArticlesContainer from "../containers/bodyContainer/articlesContainer/ArticlesContaier";
+import WidgetContainer from "../containers/bodyContainer/widgetsContainer/WidgetsContainer";
+import { landingLabelStyle, resultLabelStyle } from "./styles";
+import { PieChartData } from "../chart/pieChart/types";
+import {
+  createLineDataArr,
+  createPieDataArr,
+} from "../containers/bodyContainer/widgetsContainer/utils";
+import { LineChartData } from "../chart/lineChart/types";
 
 interface IProps {}
 
 const MainPage: FC<IProps> = () => {
-  const [searchParams, setSearchParam] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
-  const data = useQuery({ queryKey: ["sources"], queryFn: getSources });
-
-  let sources: Item[] = [];
-
-  if (data.data?.sources) {
-    sources = transformSources(data.data?.sources);
+  const params = [];
+  for (let entry of searchParams.entries()) {
+    if (entry[0] !== "scope") params.push(entry);
   }
 
-  const pageScope: Scope = searchParams.get("scope") as Scope;
-  const q = searchParams.get("q");
+  const filters = createFilters(params);
+  const pageSize = 10;
+  const pageScope: Scope =
+    (searchParams.get("scope") as Scope) || "top-headlines";
 
-  const dropDownsData =
-    pageScope === "topheadlines" ? headlinesDropDowns : everythingDropDowns;
+  const isLandingPage =
+    pageScope === "top-headlines" && searchParams.get("Country") === "il";
 
-  dropDownsData.map((dropDownData) => {
-    if (dropDownData.label === "Sources") {
-      dropDownData.items = sources;
-    }
+  const sourceData = useQuery({ queryKey: ["sources"], queryFn: getSources });
+
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
+    queryKey: ["articles", pageScope, filters, pageSize],
+    queryFn: getArticles,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      const nextPage = lastPage.articles.length
+        ? allPages.length + 1
+        : undefined;
+
+      return nextPage;
+    },
   });
+
+  const articles = getArticlesFromPage(data?.pages ?? []);
+  const loading = data ? false : true;
+  const isEmptyPage = data?.pages[0].totalResults === 0;
+  //|| (pageScope === "everything" && !searchParams.get("q")); - api
+
+  const pieChartData: PieChartData[] = createPieDataArr(articles);
+  const lineChartData: LineChartData[] = createLineDataArr(articles);
 
   return (
     <Stack
       gap="20px"
-      alignItems="center"
+      alignItems="strech"
       sx={{
         mt: APP_BAR_HEIGHT,
         pt: { xs: "0px", md: "20px" },
         px: { md: "240px" },
+        overflowX: "hidden",
       }}
     >
       <Stack
@@ -63,21 +86,55 @@ const MainPage: FC<IProps> = () => {
           />
         }
       >
-        <Box>
-          <FilterLayout
-            dropDownsData={dropDownsData}
-            sx={{ display: { xs: "none", md: "flex" } }}
-          />
-          <FilterLayoutMobileTablet
-            dropDownData={dropDownsData[0]} // TODO this is mockup
-          />
-        </Box>
-        {pageScope === "topheadlines" ? (
-          <TopHeadlinesPage />
-        ) : q ? (
-          <EverythingPage />
-        ) : (
+        <FilterContainer
+          dropDownsData={dropdowns[pageScope]}
+          sources={sourceData.data?.sources}
+        />
+
+        {isEmptyPage ? (
           <EmptyPage />
+        ) : (
+          <Stack
+            direction={"row"}
+            sx={{
+              gap: "15px",
+              pr: { xs: "10px", md: "unset" },
+              pl: { xs: "20px", md: "unset" },
+            }}
+          >
+            <Stack gap="20px">
+              {isLandingPage ? (
+                <Typography sx={landingLabelStyle}>{landingLabel}</Typography>
+              ) : (
+                <Typography
+                  sx={resultLabelStyle}
+                >{`${data?.pages[0].totalResults} Total results`}</Typography>
+              )}
+              <Stack
+                direction={"row"}
+                sx={{
+                  gap: "15px",
+                  pr: { xs: "10px", md: "unset" },
+                  pl: { xs: "20px", md: "unset" },
+                }}
+              >
+                <ArticlesContainer
+                  loading={loading}
+                  articles={articles}
+                  hasNextPage={hasNextPage}
+                  fetchNextPage={fetchNextPage}
+                  mr={{ xs: "10px", md: "30px" }}
+                />
+                <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                  <WidgetContainer
+                    loading={loading}
+                    pieChartData={pieChartData}
+                    lineChartData={lineChartData}
+                  />
+                </Box>
+              </Stack>
+            </Stack>
+          </Stack>
         )}
       </Stack>
     </Stack>

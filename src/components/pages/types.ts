@@ -1,4 +1,4 @@
-export type Scope = "topheadlines" | "everything";
+export type Scope = "top-headlines" | "everything";
 
 export type TopHeadlinesFilters = {
   category: string;
@@ -11,6 +11,7 @@ export type everythingFilters = {
   sortBy: string;
   sourceCode: string;
   languageCode: string;
-  date: string; // Date?
+  from: string;
+  to: string;
   q: string;
 };

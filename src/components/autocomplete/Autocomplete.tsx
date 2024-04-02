@@ -23,6 +23,8 @@ interface Props {
   sx?: SxProps;
   itemListSx?: SxProps;
   handleSearch: (value: string) => void;
+  handleClear: () => void;
+  handleDeleteItem: (index: number) => void;
 }
 
 const Autocomplete = ({
@@ -31,6 +33,8 @@ const Autocomplete = ({
   sx,
   itemListSx,
   handleSearch,
+  handleClear,
+  handleDeleteItem,
 }: Props) => {
   const headLine = "Recent Searches";
   const styledComb = { ...(sx ?? {}), ...searchBarAutocompleteStyle };
@@ -54,19 +58,19 @@ const Autocomplete = ({
       PaperComponent={(props) => (
         <Paper {...props} sx={{ ...itemListSx, marginTop: "6px" }} />
       )}
-      renderOption={(props, option, index) => (
-        <Box key={index + option}>
+      renderOption={(props, option) => (
+        <Box key={option}>
           {option === headLine ? (
             <Box sx={headLineStyle}>
               <p>{option}</p>
-              <p onClick={() => console.log("clear clicked")}>{"Clear"}</p>
+              <p onClick={handleClear}>{"Clear"}</p>
             </Box>
           ) : (
             <li style={listItemStyle} {...props}>
               {option}
               <IconButton
                 onClick={(event) => {
-                  event.stopPropagation(), console.log("X clicked");
+                  event.stopPropagation(), handleDeleteItem(parseInt(option));
                 }}
               >
                 <XIcon />

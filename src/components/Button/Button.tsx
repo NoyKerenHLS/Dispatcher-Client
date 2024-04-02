@@ -1,7 +1,6 @@
 import { Button as MuiButton, ButtonProps } from "@mui/material/";
 import { buttonStyles } from "./styles";
 import { AppButtons } from "./types";
-import Icon from "../Icons/button/RightArrowIcon";
 import React from "react";
 
 interface Props extends ButtonProps {
@@ -26,7 +25,7 @@ const Button = ({
       {...props}
       variant={variant}
       sx={styledComb}
-      endIcon={icon ? icon : <Icon />}
+      endIcon={icon ? icon : ""}
     >
       {label}
     </MuiButton>
